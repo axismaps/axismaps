@@ -1,8 +1,15 @@
 import Link from 'next/link'
 import HeroSection from './components/hero-section'
+import ProjectCard from './components/project-card'
 import { FaTools, FaLaptopCode, FaSlidersH, FaDatabase, FaChartLine } from 'react-icons/fa'
+import { getProjects } from './projects/utils'
+
+/* eslint-disable @next/next/no-img-element */
 
 export default function Page() {
+  // Get the 6 most recent featured projects
+  const projects = getProjects()
+  const recentProjects = projects.filter(p => p.metadata.featured).slice(0, 6)
   return (
     <>
       <HeroSection />
@@ -38,6 +45,31 @@ export default function Page() {
           </p>
           <Link href="/about" className="btn-secondary mt-4">
             Learn More
+          </Link>
+        </div>
+      </section>
+
+      {/* Section Break */}
+      <hr className="my-16 border-gray-200" />
+
+      {/* Recent Projects Section */}
+      <section id="featured-projects" className="max-w-4xl mx-auto">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl font-bold">Recent Projects</h2>
+          <Link href="/projects" className="btn-secondary">
+            View All Projects
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {recentProjects.map((project) => (
+            <ProjectCard key={project.slug} project={project} showTags={false} />
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link href="/projects" className="btn-primary">
+            Explore All Projects
           </Link>
         </div>
       </section>
@@ -113,9 +145,6 @@ export default function Page() {
             <div></div>
           </div>
       </section>
-
-      {/* Section Break */}
-      <hr className="my-16 border-gray-200" />
     </>
   )
 }
