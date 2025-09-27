@@ -15,6 +15,10 @@
   --sh-jsxliterals: #6266d1;
   --sh-property: #e25a1c;
   --sh-entity: #e25a1c;
+
+  /* Axis Maps Brand Colors */
+  --axismaps-blue: #4a6ecf;
+  --axismaps-blue-hover: #3a5ebf;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -147,4 +151,43 @@ table {
 
 .title {
   text-wrap: balance;
+}
+
+/* Axis Maps Button Styles */
+.btn-primary {
+  background-color: var(--axismaps-blue);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--axismaps-blue-hover);
+}
+
+.btn-secondary {
+  background-color: var(--axismaps-blue);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background-color: var(--axismaps-blue-hover);
+}
+
+/* Link colors */
+.link-primary {
+  color: var(--axismaps-blue);
+  transition: color 0.2s;
+}
+
+.link-primary:hover {
+  color: var(--axismaps-blue-hover);
 }

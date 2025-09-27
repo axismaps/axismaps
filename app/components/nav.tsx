@@ -21,7 +21,7 @@ const navItems = {
 
 export function Navbar() {
   return (
-    <header className="mb-16">
+    <header className="mb-8">
       <nav className="flex flex-row items-center justify-between">
         {/* Logo and Company Name */}
         <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
