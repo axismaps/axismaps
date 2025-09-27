@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Update `.gitignore` to exclude all `webflow` directories and assets; revise `ProjectsClient` comments and refine workspace tasks.">
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add contact form functionality with API integration; implement server-side validation, email sending, and rate limiting.">
+      <change afterPath="$PROJECT_DIR$/.env.local.example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/contact/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/contact/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/projects/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/projects/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/global.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +28,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "davidheyman"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/axismaps/axismaps.git",
+    "accountId": "bfda902a-fba2-45ec-a25b-d54b17a86e30"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -30,26 +48,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
-    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.Next.js: server-side.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/davidheyman/Development/axismaps/node_modules/typescript/lib&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "js.debugger.nextJs.config.created.client": "true",
+    "js.debugger.nextJs.config.created.server": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.Next.js: server-side.executor": "Run",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "ts.external.directory.path": "/Users/davidheyman/Development/axismaps/node_modules/typescript/lib"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -261,21 +281,85 @@
       <option name="project" value="LOCAL" />
       <updated>1758975783281</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Update `.gitignore` to exclude `/scripts/`; adjust project page padding for improved layout consistency.">
+      <option name="closed" value="true" />
+      <created>1758975850741</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1758975850741</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Disable ESLint rule for `img` elements in project pages; remove unused `useDynamicImport` option from MDX evaluation.">
+      <option name="closed" value="true" />
+      <created>1758976045546</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1758976045546</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Add type definitions for `Client` and `Category`; update `getClients` and `getCategories` to return typed records.">
+      <option name="closed" value="true" />
+      <created>1758976162319</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1758976162319</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Remove `CustomMDX` component and `next-mdx-remote`; migrate to `@mdx-js/mdx` for improved MDX content evaluation.">
+      <option name="closed" value="true" />
+      <created>1758976367722</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1758976367722</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Remove `@vercel/speed-insights` and related imports; update `pnpm-lock.yaml` and `package.json` dependencies accordingly.">
+      <option name="closed" value="true" />
+      <created>1759004780193</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1759004780193</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Add `ProjectCard` component; integrate recent projects section on the homepage displaying featured projects.">
+      <option name="closed" value="true" />
+      <created>1759005286694</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1759005286694</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Add client logos section to homepage; include client logos data and assets.">
+      <option name="closed" value="true" />
+      <created>1759005616015</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1759005616015</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Remove blog functionality, including pages, posts, utilities, and related RSS feed integration.">
+      <option name="closed" value="true" />
+      <created>1759005904937</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1759005904937</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Add About page with company values and vision; include hero banner and placeholder image.">
+      <option name="closed" value="true" />
+      <created>1759006268193</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1759006268193</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add CLAUDE.md with project porting guidelines and architecture overview" />
-    <MESSAGE value="Add IntelliJ IDEA configuration files to project" />
-    <MESSAGE value="Update `tsconfig.json` to use `react-jsx`, enforce stricter null checks, and improve formatting" />
-    <MESSAGE value="Remove 'deploy' navigation item and update layout styling for consistency." />
-    <MESSAGE value="Update IntelliJ IDEA workspace configuration to include recent tasks and changes" />
-    <MESSAGE value="Revamp navigation and metadata for Axis Maps branding. Update layout and add logo." />
-    <MESSAGE value="Add contour SVG assets for improved visualization rendering in public directory" />
-    <MESSAGE value="Update `.gitignore` to exclude `axismaps.webflow` files and assets" />
     <MESSAGE value="Extract HeroSection into a reusable component, simplifying `app/page.tsx` structure and improving maintainability." />
     <MESSAGE value="Add `react-icons` dependency and integrate icons into &quot;How We Can Help&quot; section of `app/page.tsx`." />
     <MESSAGE value="Update `.gitignore` to exclude all `webflow` directories and assets, simplifying version control." />
@@ -291,6 +375,27 @@
     <MESSAGE value="Fix Vimeo embed URL parsing for project videos to handle differently formatted video URLs." />
     <MESSAGE value="Add related projects section to project page; improve metadata handling and MDX evaluation style." />
     <MESSAGE value="Update `.gitignore` to exclude all `webflow` directories and assets; revise `ProjectsClient` comments and refine workspace tasks." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update `.gitignore` to exclude all `webflow` directories and assets; revise `ProjectsClient` comments and refine workspace tasks." />
+    <MESSAGE value="Update `.gitignore` to exclude `/scripts/`; adjust project page padding for improved layout consistency." />
+    <MESSAGE value="Disable ESLint rule for `img` elements in project pages; remove unused `useDynamicImport` option from MDX evaluation." />
+    <MESSAGE value="Add type definitions for `Client` and `Category`; update `getClients` and `getCategories` to return typed records." />
+    <MESSAGE value="Remove `CustomMDX` component and `next-mdx-remote`; migrate to `@mdx-js/mdx` for improved MDX content evaluation." />
+    <MESSAGE value="Remove `@vercel/speed-insights` and related imports; update `pnpm-lock.yaml` and `package.json` dependencies accordingly." />
+    <MESSAGE value="Add `ProjectCard` component; integrate recent projects section on the homepage displaying featured projects." />
+    <MESSAGE value="Add client logos section to homepage; include client logos data and assets." />
+    <MESSAGE value="Remove blog functionality, including pages, posts, utilities, and related RSS feed integration." />
+    <MESSAGE value="Add About page with company values and vision; include hero banner and placeholder image." />
+    <MESSAGE value="Add contact form functionality with API integration; implement server-side validation, email sending, and rate limiting." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add contact form functionality with API integration; implement server-side validation, email sending, and rate limiting." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/projects/page.tsx</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
