@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add `react-icons` dependency and integrate icons into &quot;How We Can Help&quot; section of `app/page.tsx`." />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add category filtering to `ProjectsClient` component; refine project display logic.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/global.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/projects/[slug]/page.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -162,7 +166,63 @@
       <option name="project" value="LOCAL" />
       <updated>1758969600662</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Update `.gitignore` to exclude all `webflow` directories and assets, simplifying version control.">
+      <option name="closed" value="true" />
+      <created>1758969747271</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1758969747271</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add project page and MDX posts for individual projects in the &quot;app/projects&quot; directory.">
+      <option name="closed" value="true" />
+      <created>1758971930467</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1758971930467</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Update `CLAUDE.md` with `pnpm` commands, project import script, and revised content architecture details.">
+      <option name="closed" value="true" />
+      <created>1758972017372</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1758972017372</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Add `.eslintrc.json` configuration and update dependencies for ESLint and core web vitals.">
+      <option name="closed" value="true" />
+      <created>1758972289950</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1758972289950</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Refactor project page to remove unused featured and subtitle metadata; update sorting logic to prioritize launchDate over featured status.">
+      <option name="closed" value="true" />
+      <created>1758972520247</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1758972520247</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Extract `ProjectsClient` component for featured/all projects display; update project metadata and simplify `ProjectsPage`.">
+      <option name="closed" value="true" />
+      <created>1758972804115</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1758972804115</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Add category filtering to `ProjectsClient` component; refine project display logic.">
+      <option name="closed" value="true" />
+      <created>1758974172028</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1758974172028</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,6 +239,14 @@
     <MESSAGE value="Update `.gitignore` to exclude `axismaps.webflow` files and assets" />
     <MESSAGE value="Extract HeroSection into a reusable component, simplifying `app/page.tsx` structure and improving maintainability." />
     <MESSAGE value="Add `react-icons` dependency and integrate icons into &quot;How We Can Help&quot; section of `app/page.tsx`." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add `react-icons` dependency and integrate icons into &quot;How We Can Help&quot; section of `app/page.tsx`." />
+    <MESSAGE value="Update `.gitignore` to exclude all `webflow` directories and assets, simplifying version control." />
+    <MESSAGE value="Add project page and MDX posts for individual projects in the &quot;app/projects&quot; directory." />
+    <MESSAGE value="Update `CLAUDE.md` with `pnpm` commands, project import script, and revised content architecture details." />
+    <MESSAGE value="Add `.eslintrc.json` configuration and update dependencies for ESLint and core web vitals." />
+    <MESSAGE value="Refactor project page to remove unused featured and subtitle metadata; update sorting logic to prioritize launchDate over featured status." />
+    <MESSAGE value="OnlyRefactor project page to remove unused featured and subtitle metadata; update sorting logic to prioritize launchDate over featured status." />
+    <MESSAGE value="Extract `ProjectsClient` component for featured/all projects display; update project metadata and simplify `ProjectsPage`." />
+    <MESSAGE value="Add category filtering to `ProjectsClient` component; refine project display logic." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add category filtering to `ProjectsClient` component; refine project display logic." />
   </component>
 </project>
