@@ -22,7 +22,7 @@ export default function ProjectsPage() {
   })
 
   return (
-    <section className="pb-24 pt-40">
+    <section className="pb-24 pt-8">
       <div className="container max-w-7xl">
         <ProjectsClient
           featuredProjects={featuredProjects}
