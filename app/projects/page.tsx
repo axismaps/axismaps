@@ -32,11 +32,6 @@ export default function ProjectsPage() {
                       alt={project.metadata.title}
                       className="h-full w-full object-cover transition-transform group-hover:scale-105"
                     />
-                    {project.metadata.featured && (
-                      <span className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                        Featured
-                      </span>
-                    )}
                   </div>
                 )}
 
@@ -44,10 +39,6 @@ export default function ProjectsPage() {
                   <h2 className="font-semibold text-lg mb-2 group-hover:text-blue-600 transition-colors">
                     {project.metadata.title}
                   </h2>
-
-                  {project.metadata.subtitle && (
-                    <p className="text-sm text-gray-600 mb-2">{project.metadata.subtitle}</p>
-                  )}
 
                   {project.metadata.teaser && (
                     <p className="text-sm text-gray-700 mb-3 line-clamp-3">
@@ -67,10 +58,6 @@ export default function ProjectsPage() {
                       </span>
                     )}
                   </div>
-
-                  <p className="text-xs text-gray-500 mt-3">
-                    {formatDate(project.metadata.publishedAt)}
-                  </p>
                 </div>
               </article>
             </Link>

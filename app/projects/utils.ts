@@ -70,14 +70,11 @@ function getMDXData(dir: string) {
 export function getProjects() {
   const projects = getMDXData(path.join(process.cwd(), 'app', 'projects', 'posts'))
 
-  // Sort by date, with featured projects first
+  // Sort by launch date (or published date as fallback)
   return projects.sort((a, b) => {
-    // Featured projects come first
-    if (a.metadata.featured && !b.metadata.featured) return -1
-    if (!a.metadata.featured && b.metadata.featured) return 1
-
-    // Then sort by date
-    return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime()
+    const dateA = a.metadata.launchDate || a.metadata.publishedAt
+    const dateB = b.metadata.launchDate || b.metadata.publishedAt
+    return new Date(dateB).getTime() - new Date(dateA).getTime()
   })
 }
 
