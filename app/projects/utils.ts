@@ -33,10 +33,11 @@ function parseFrontmatter(fileContent: string) {
     value = value.replace(/^['"](.*)['"]$/, '$1') // Remove quotes
 
     // Handle boolean values
+    const trimmedKey = key.trim() as keyof ProjectMetadata
     if (value === 'true' || value === 'false') {
-      metadata[key.trim() as keyof ProjectMetadata] = value === 'true' as any
+      (metadata as any)[trimmedKey] = value === 'true'
     } else {
-      metadata[key.trim() as keyof ProjectMetadata] = value as any
+      (metadata as any)[trimmedKey] = value
     }
   })
 
