@@ -1,17 +1,17 @@
-import { notFound } from 'next/navigation'
-import { getProjects, formatDate } from '../utils'
+import {notFound} from 'next/navigation'
+import {getProjects, formatDate} from '../utils'
 import Link from 'next/link'
 import Image from 'next/image'
-import { evaluate } from '@mdx-js/mdx'
+import {evaluate} from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
 
 export async function generateStaticParams() {
   const projects = getProjects()
-  return projects.map((project) => ({ slug: project.slug }))
+  return projects.map((project) => ({slug: project.slug}))
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export async function generateMetadata({params}: { params: Promise<{ slug: string }> }) {
+  const {slug} = await params
   const projects = getProjects()
   const project = projects.find((p) => p.slug === slug)
 
@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export default async function ProjectPage({params}: { params: Promise<{ slug: string }> }) {
+  const {slug} = await params
   const projects = getProjects()
   const project = projects.find((p) => p.slug === slug)
 
@@ -34,8 +34,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     notFound()
   }
 
+  // Get related projects
+  const categoryProjects = project.metadata.categorySlug
+    ? projects.filter(p =>
+      p.metadata.categorySlug === project.metadata.categorySlug &&
+      p.slug !== project.slug
+    ).slice(0, 3)
+    : []
+
   // Evaluate MDX content to get React component
-  const { default: MDXContent } = await evaluate(project.content, {
+  const {default: MDXContent} = await evaluate(project.content, {
     ...runtime,
     development: false,
     baseUrl: import.meta.url,
@@ -134,9 +142,45 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           ) : null}
 
           <div className="prose prose-lg max-w-none">
-            <MDXContent />
+            <MDXContent/>
           </div>
         </article>
+
+        {/* Related Projects Section */}
+        {categoryProjects.length > 0 && (
+          <div className="mt-16 pt-16 border-t border-gray-200">
+            <h2 className="text-2xl font-bold mb-8">Related Projects</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {categoryProjects.map((relatedProject) => (
+                <Link
+                  key={relatedProject.slug}
+                  href={`/projects/${relatedProject.slug}`}
+                  className="group block rounded-lg border border-gray-200 hover:border-gray-400 transition-colors overflow-hidden"
+                >
+                  {relatedProject.metadata.coverImage && (
+                    <div className="relative h-32 w-full overflow-hidden bg-gray-100">
+                      <img
+                        src={relatedProject.metadata.coverImage}
+                        alt={relatedProject.metadata.title}
+                        className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                      />
+                    </div>
+                  )}
+                  <div className="p-4">
+                    <h4 className="font-semibold text-sm group-hover:text-blue-600 transition-colors line-clamp-1">
+                      {relatedProject.metadata.title}
+                    </h4>
+                    {relatedProject.metadata.teaser && (
+                      <p className="text-xs text-gray-600 mt-1 line-clamp-2">
+                        {relatedProject.metadata.teaser}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )
