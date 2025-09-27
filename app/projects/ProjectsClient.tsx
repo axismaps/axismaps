@@ -28,17 +28,62 @@ type Project = {
   content: string
 }
 
+type Category = {
+  name: string
+  slug: string
+}
+
 type ProjectsClientProps = {
   featuredProjects: Project[]
   allProjects: Project[]
+  categories?: Category[]
 }
 
-export default function ProjectsClient({ featuredProjects, allProjects }: ProjectsClientProps) {
+export default function ProjectsClient({ featuredProjects, allProjects, categories = [] }: ProjectsClientProps) {
   const [showAll, setShowAll] = useState(false)
-  const projects = showAll ? allProjects : featuredProjects
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+
+  // Filter projects based on show all and category
+  let projects = showAll ? allProjects : featuredProjects
+  if (selectedCategory) {
+    projects = projects.filter(p => p.metadata.categorySlug === selectedCategory)
+  }
 
   return (
     <>
+      {/* Title with inline category filters */}
+      <div className="flex items-end justify-between mb-12">
+        <h1 className="title text-5xl font-bold">Projects</h1>
+
+        {categories.length > 0 && (
+          <div className="flex gap-1.5 pb-2">
+            <button
+              onClick={() => setSelectedCategory(null)}
+              className={`px-2.5 py-1 rounded text-sm transition-colors ${
+                selectedCategory === null
+                  ? 'bg-blue-500 text-white border-blue-500'
+                  : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-50'
+              }`}
+            >
+              All
+            </button>
+            {categories.map(category => (
+              <button
+                key={category.slug}
+                onClick={() => setSelectedCategory(category.slug)}
+                className={`px-2.5 py-1 rounded text-sm transition-colors ${
+                  selectedCategory === category.slug
+                    ? 'bg-blue-500 text-white border-blue-500'
+                    : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
           <Link
@@ -86,7 +131,7 @@ export default function ProjectsClient({ featuredProjects, allProjects }: Projec
         ))}
       </div>
 
-      {!showAll && featuredProjects.length < allProjects.length && (
+      {!showAll && featuredProjects.length < allProjects.length && !selectedCategory && (
         <div className="mt-12 text-center">
           <button
             onClick={() => setShowAll(true)}
