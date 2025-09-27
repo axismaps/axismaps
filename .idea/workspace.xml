@@ -4,11 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="" />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Remove 'deploy' navigation item and update layout styling for consistency.">
+      <change beforePath="$PROJECT_DIR$/app/components/nav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/nav.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="repository" />
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,9 +85,49 @@
       <option name="presentableId" value="Default" />
       <updated>1731324931584</updated>
     </task>
+    <task id="LOCAL-00001" summary="Add CLAUDE.md with project porting guidelines and architecture overview">
+      <option name="closed" value="true" />
+      <created>1758966547797</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758966547797</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add IntelliJ IDEA configuration files to project">
+      <option name="closed" value="true" />
+      <created>1758966553978</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758966553978</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update `tsconfig.json` to use `react-jsx`, enforce stricter null checks, and improve formatting">
+      <option name="closed" value="true" />
+      <created>1758966559755</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758966559755</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Remove 'deploy' navigation item and update layout styling for consistency.">
+      <option name="closed" value="true" />
+      <created>1758966568370</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1758966568370</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add CLAUDE.md with project porting guidelines and architecture overview" />
+    <MESSAGE value="Add IntelliJ IDEA configuration files to project" />
+    <MESSAGE value="Update `tsconfig.json` to use `react-jsx`, enforce stricter null checks, and improve formatting" />
+    <MESSAGE value="Remove 'deploy' navigation item and update layout styling for consistency." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove 'deploy' navigation item and update layout styling for consistency." />
   </component>
 </project>
