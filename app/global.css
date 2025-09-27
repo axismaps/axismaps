@@ -21,20 +21,9 @@
   --axismaps-blue-hover: #3a5ebf;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sh-class: #4c97f8;
-    --sh-identifier: white;
-    --sh-keyword: #f47067;
-    --sh-string: #0fa295;
-  }
-  html {
-    color-scheme: dark;
-  }
-}
-
 html {
   min-width: 360px;
+  color-scheme: light;
 }
 
 .prose .anchor {
@@ -52,11 +41,18 @@ html {
 }
 
 .prose a {
-  @apply underline transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+  @apply underline transition-all underline-offset-2 decoration-[0.1em];
+  color: var(--axismaps-blue);
+  text-decoration-color: var(--axismaps-blue);
+}
+
+.prose a:hover {
+  color: var(--axismaps-blue-hover);
+  text-decoration-color: var(--axismaps-blue-hover);
 }
 
 .prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
+  @apply text-neutral-300;
   content: '#';
 }
 
@@ -65,7 +61,7 @@ html {
 }
 
 .prose pre {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
+  @apply bg-neutral-50 rounded-lg overflow-x-auto border border-neutral-200 py-2 px-3 text-sm;
 }
 
 .prose code {
@@ -88,23 +84,24 @@ html {
 }
 
 .prose p {
-  @apply my-4 text-neutral-800 dark:text-neutral-200;
+  @apply my-4;
+  color: rgb(17, 24, 39); /* text-gray-900 */
 }
 
 .prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-4xl font-medium tracking-tight mt-6 mb-2 text-gray-900;
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-gray-900;
 }
 
 .prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-gray-900;
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2;
+  @apply text-lg font-medium tracking-tight mt-6 mb-2 text-gray-900;
 }
 
 .prose strong {
@@ -113,10 +110,16 @@ html {
 
 .prose ul {
   @apply list-disc pl-6;
+  color: rgb(17, 24, 39); /* text-gray-900 */
 }
 
 .prose ol {
   @apply list-decimal pl-6;
+  color: rgb(17, 24, 39); /* text-gray-900 */
+}
+
+.prose li {
+  color: rgb(17, 24, 39); /* text-gray-900 */
 }
 
 .prose > :first-child {

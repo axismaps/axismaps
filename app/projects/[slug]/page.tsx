@@ -43,11 +43,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   })
 
   return (
-    <section className="pb-24 pt-40">
+    <section className="pb-24 pt-8">
       <div className="container max-w-4xl">
         <Link
           href="/projects"
-          className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-8"
+          className="inline-flex items-center text-sm text-gray-800 hover:text-gray-900 mb-8"
         >
           ← Back to Projects
         </Link>
@@ -57,23 +57,23 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <h1 className="title text-4xl font-bold mb-4">{project.metadata.title}</h1>
 
             {project.metadata.subtitle && (
-              <p className="text-xl text-gray-600 mb-4">{project.metadata.subtitle}</p>
+              <p className="text-xl text-gray-800 mb-4">{project.metadata.subtitle}</p>
             )}
 
-            <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+            <div className="flex flex-wrap gap-4 text-sm text-gray-800">
               <time dateTime={project.metadata.publishedAt}>
                 {formatDate(project.metadata.publishedAt)}
               </time>
 
               {project.metadata.client && (
                 <span>
-                  <span className="text-gray-400">•</span> Client: {project.metadata.client}
+                  <span className="text-gray-600">•</span> Client: {project.metadata.client}
                 </span>
               )}
 
               {project.metadata.category && (
                 <span>
-                  <span className="text-gray-400">•</span> {project.metadata.category}
+                  <span className="text-gray-600">•</span> {project.metadata.category}
                 </span>
               )}
             </div>
@@ -114,17 +114,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
           </header>
 
-          {project.metadata.coverImage && (
-            <div className="relative w-full h-96 mb-8 rounded-lg overflow-hidden">
-              <img
-                src={project.metadata.coverImage}
-                alt={project.metadata.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
-
-          {project.metadata.videoUrl && project.metadata.videoUrl.includes('vimeo') && (
+          {project.metadata.videoUrl && project.metadata.videoUrl.includes('vimeo') ? (
             <div className="aspect-video mb-8">
               <iframe
                 src={`https://player.vimeo.com/video/${project.metadata.videoUrl.split('/').pop()}`}
@@ -133,7 +123,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 allowFullScreen
               ></iframe>
             </div>
-          )}
+          ) : project.metadata.coverImage ? (
+            <div className="relative w-full h-96 mb-8 rounded-lg overflow-hidden">
+              <img
+                src={project.metadata.coverImage}
+                alt={project.metadata.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : null}
 
           <div className="prose prose-lg max-w-none">
             <MDXContent />
