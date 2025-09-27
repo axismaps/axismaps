@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import HeroSection from './components/hero-section'
+import { FaTools, FaLaptopCode, FaSlidersH, FaDatabase, FaChartLine } from 'react-icons/fa'
 
 export default function Page() {
   return (
@@ -7,7 +8,7 @@ export default function Page() {
       <HeroSection />
 
       {/* Who We Are Section */}
-      <section className="mb-16 max-w-4xl mx-auto">
+      <section className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold mb-6">Who we are</h2>
         <div className="space-y-4">
           <p>
@@ -39,6 +40,78 @@ export default function Page() {
             Learn More
           </Link>
         </div>
+      </section>
+
+      {/* Section Break */}
+      <hr className="my-16 border-gray-200" />
+
+      {/* How We Can Help Section */}
+      <section id="services" className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-6">How we can help</h2>
+          <p className="mb-12 text-lg">
+            At Axis Maps, we work hard to provide thoughtful and intuitive interactive designs with every project we undertake.
+            We want your project to look great and work as well as you do. As a small company, we are focused on efficiency,
+            speed, quality control, and reproducible processes.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 mb-12">
+            {/* Service Items - Left Column */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 mt-0.5">
+                <FaTools className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
+              </div>
+              <p className="text-sm">
+                We design and deploy second versions of <strong>popular tools</strong>, modernizing the underlying
+                technology and UI while retaining the features that existing users know.
+              </p>
+            </div>
+
+            {/* Right Column */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 mt-0.5">
+                <FaLaptopCode className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
+              </div>
+              <p className="text-sm">
+                We build maps and applications that work on a wide <strong>range of devices</strong>,
+                from desktops to tablets and smartphones.
+              </p>
+            </div>
+
+            {/* Left Column */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 mt-0.5">
+                <FaSlidersH className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
+              </div>
+              <p className="text-sm">
+                We design simple and <strong>elegant user-interfaces</strong> for interactive maps.
+              </p>
+            </div>
+
+            {/* Right Column */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 mt-0.5">
+                <FaDatabase className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
+              </div>
+              <p className="text-sm">
+                We design and build systems that <strong>automate the process</strong> of data updates
+                and data additions.
+              </p>
+            </div>
+
+            {/* Left Column */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 mt-0.5">
+                <FaChartLine className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
+              </div>
+              <p className="text-sm">
+                We produce <strong>compelling cartographic visuals</strong> that communicate a wide
+                variety of geographic information to end-users.
+              </p>
+            </div>
+
+            {/* Empty cell to maintain grid alignment */}
+            <div></div>
+          </div>
       </section>
 
       {/* Section Break */}
