@@ -40,3 +40,4 @@ next-env.d.ts
 /axismaps.webflow/*
 /webflow-cms/*
 /scripts/*
+/.env.local
