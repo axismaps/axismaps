@@ -117,7 +117,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           {project.metadata.videoUrl && project.metadata.videoUrl.includes('vimeo') ? (
             <div className="aspect-video mb-8">
               <iframe
-                src={`https://player.vimeo.com/video/${project.metadata.videoUrl.split('/').pop()}`}
+                src={`https://player.vimeo.com/video/${project.metadata.videoUrl.match(/vimeo\.com\/(\d+)/)?.[1] || project.metadata.videoUrl.split('/').pop()}`}
                 className="w-full h-full rounded-lg"
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
