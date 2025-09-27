@@ -8,9 +8,12 @@ This project is porting the Axis Maps website from Webflow (located in `/axismap
 ## Commands
 
 ### Development
-- `npm run dev` - Start the Next.js development server
-- `npm run build` - Build the production application
-- `npm start` - Run the production server after build
+- `pnpm run dev` - Start the Next.js development server
+- `pnpm run build` - Build the production application
+- `pnpm start` - Run the production server after build
+
+### Data Import
+- `node scripts/import-projects.js` - Import projects from Webflow CSV to MDX format
 
 ## Porting Instructions
 
@@ -29,13 +32,13 @@ The Webflow export is located in `/axismaps.webflow/` and contains:
 5. **Migrate images** from `/axismaps.webflow/images/` to `/public/`
 6. **Preserve SEO** metadata and Open Graph tags from original pages
 
-### Key Pages to Port
-- **Home** (index.html) → app/page.tsx
-- **About** (about.html) → app/about/page.tsx
-- **Projects** (projects.html) → app/projects/page.tsx
-- **Blog** (blog.html) → app/blog/page.tsx (already exists, needs content update)
-- **Guide** (guide.html) → app/guide/page.tsx
-- **Contact** (contact.html) → app/contact/page.tsx
+### Key Pages Status
+- **Home** (index.html) → app/page.tsx ✅ Partially complete
+- **About** (about.html) → app/about/page.tsx ⏳ To be ported
+- **Projects** (projects.html) → app/projects/page.tsx ✅ Complete with 54 projects
+- **Blog** (blog.html) → app/blog/page.tsx ✅ Exists with sample posts
+- **Guide** (guide.html) → app/guide/page.tsx ⏳ To be ported
+- **Contact** (contact.html) → app/contact/page.tsx ⏳ To be ported
 
 ## Architecture Overview
 
@@ -45,8 +48,12 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
 - **Next.js** (canary version) with App Router
 - **TypeScript** with relaxed strict mode (`strict: false` but `strictNullChecks: true`)
 - **Tailwind CSS v4** (alpha) for styling via PostCSS
-- **MDX** for blog posts with frontmatter parsing
+- **MDX** for blog and project content with frontmatter parsing
+  - `@next/mdx` for MDX configuration
+  - `@mdx-js/mdx` for runtime MDX evaluation
+  - `next-mdx-remote` for blog post rendering
 - **Vercel Analytics & Speed Insights** for monitoring
+- **pnpm** as package manager
 
 ### Project Structure
 
@@ -54,16 +61,40 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
   - `/blog` - Blog functionality
     - `/posts` - MDX blog post files
     - `utils.ts` - MDX parsing and date formatting utilities
+  - `/projects` - Projects portfolio section
+    - `/posts` - MDX project files (54 imported from Webflow)
+    - `/[slug]` - Dynamic project detail pages
+    - `utils.ts` - Project parsing and filtering utilities
   - `/components` - Shared React components
+    - `mdx.tsx` - Custom MDX components
   - `/og` - Open Graph image generation route
   - `/rss` - RSS feed generation route
+- `/data` - JSON data files
+  - `clients.json` - Client metadata
+  - `categories.json` - Category metadata
+- `/public/images/projects` - Project cover images
+- `/scripts` - Utility scripts
+  - `import-projects.js` - CSV to MDX converter
+- `/webflow-cms` - Source CSV data from Webflow export
 
-### Blog System
+### Content Systems
 
+#### Blog System
 Blog posts are MDX files in `/app/blog/posts/` with YAML frontmatter:
 - Required fields: `title`, `publishedAt`, `summary`
 - Optional: `image`
 - Posts are parsed using custom utilities in `app/blog/utils.ts`
+- Rendered using `next-mdx-remote`
+
+#### Projects System
+Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
+- Core fields: `title`, `slug`, `publishedAt`, `featured`
+- Content fields: `subtitle`, `teaser`, `coverImage`
+- Relationship fields: `client`, `clientSlug`, `category`, `categorySlug`
+- External links: `videoUrl`, `mapUrl`, `githubUrl`, `launchDate`
+- Projects imported from CSV using `scripts/import-projects.js`
+- Rendered using `@mdx-js/mdx` evaluate function
+- Related metadata stored in `/data/*.json` files
 
 ### Styling
 
