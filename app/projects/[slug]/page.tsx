@@ -5,6 +5,8 @@ import Image from 'next/image'
 import {evaluate} from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
 
+/* eslint-disable @next/next/no-img-element */
+
 export async function generateStaticParams() {
   const projects = getProjects()
   return projects.map((project) => ({slug: project.slug}))
@@ -44,11 +46,10 @@ export default async function ProjectPage({params}: { params: Promise<{ slug: st
 
   // Evaluate MDX content to get React component
   const {default: MDXContent} = await evaluate(project.content, {
-    ...runtime,
+    ...runtime as any,
     development: false,
-    baseUrl: import.meta.url,
-    useDynamicImport: true
-  })
+    baseUrl: import.meta.url
+  } as any)
 
   return (
     <section className="pb-24 pt-8">
