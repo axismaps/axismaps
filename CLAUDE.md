@@ -3,28 +3,34 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## PROJECT GOAL
+
 This project is porting the Axis Maps website from Webflow (located in `/axismaps.webflow/`) to a modern Next.js application.
 
 ## Commands
 
 ### Development
+
 - `pnpm run dev` - Start the Next.js development server
 - `pnpm run build` - Build the production application
 - `pnpm start` - Run the production server after build
 
 ### Data Import
+
 - `node scripts/import-projects.js` - Import projects from Webflow CSV to MDX format
 
 ## Porting Instructions
 
 ### Source Content
+
 The Webflow export is located in `/axismaps.webflow/` and contains:
+
 - **Main Pages**: index.html (home), about.html, projects.html, blog.html, guide.html, contact.html
-- **Detail Templates**: Various detail_*.html files (templates for dynamic content)
+- **Detail Templates**: Various detail\_\*.html files (templates for dynamic content)
 - **Assets**: /images/, /css/, /js/ directories with static assets
 - **Additional**: 404.html, style-guide.html, more-projects.html
 
 ### Porting Strategy
+
 1. **Analyze Webflow HTML** to extract content structure and styling
 2. **Create Next.js pages** in `/app` directory matching the Webflow site structure
 3. **Convert Webflow styles** to Tailwind CSS classes
@@ -33,6 +39,7 @@ The Webflow export is located in `/axismaps.webflow/` and contains:
 6. **Preserve SEO** metadata and Open Graph tags from original pages
 
 ### Key Pages Status
+
 - **Home** (index.html) → app/page.tsx ✅ Partially complete
 - **About** (about.html) → app/about/page.tsx ⏳ To be ported
 - **Projects** (projects.html) → app/projects/page.tsx ✅ Complete with 54 projects
@@ -45,6 +52,7 @@ The Webflow export is located in `/axismaps.webflow/` and contains:
 This is a Next.js 14+ portfolio and blog starter template using the App Router architecture.
 
 ### Key Technologies
+
 - **Next.js** (canary version) with App Router
 - **TypeScript** with relaxed strict mode (`strict: false` but `strictNullChecks: true`)
 - **Tailwind CSS v4** (alpha) for styling via PostCSS
@@ -80,14 +88,18 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
 ### Content Systems
 
 #### Blog System
+
 Blog posts are MDX files in `/app/blog/posts/` with YAML frontmatter:
+
 - Required fields: `title`, `publishedAt`, `summary`
 - Optional: `image`
 - Posts are parsed using custom utilities in `app/blog/utils.ts`
 - Rendered using `next-mdx-remote`
 
 #### Projects System
+
 Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
+
 - Core fields: `title`, `slug`, `publishedAt`, `featured`
 - Content fields: `subtitle`, `teaser`, `coverImage`
 - Relationship fields: `client`, `clientSlug`, `category`, `categorySlug`

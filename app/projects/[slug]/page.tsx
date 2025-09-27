@@ -1,55 +1,66 @@
-import {notFound} from 'next/navigation'
-import {getProjects, formatDate} from '../utils'
-import Link from 'next/link'
-import Image from 'next/image'
-import {evaluate} from '@mdx-js/mdx'
-import * as runtime from 'react/jsx-runtime'
+import { notFound } from "next/navigation";
+import { getProjects, formatDate } from "../utils";
+import Link from "next/link";
+import Image from "next/image";
+import { evaluate } from "@mdx-js/mdx";
+import * as runtime from "react/jsx-runtime";
 
 /* eslint-disable @next/next/no-img-element */
 
 export async function generateStaticParams() {
-  const projects = getProjects()
-  return projects.map((project) => ({slug: project.slug}))
+  const projects = getProjects();
+  return projects.map((project) => ({ slug: project.slug }));
 }
 
-export async function generateMetadata({params}: { params: Promise<{ slug: string }> }) {
-  const {slug} = await params
-  const projects = getProjects()
-  const project = projects.find((p) => p.slug === slug)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const projects = getProjects();
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
-    return {}
+    return {};
   }
 
   return {
     title: project.metadata.title,
     description: project.metadata.teaser || project.metadata.subtitle,
-  }
+  };
 }
 
-export default async function ProjectPage({params}: { params: Promise<{ slug: string }> }) {
-  const {slug} = await params
-  const projects = getProjects()
-  const project = projects.find((p) => p.slug === slug)
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const projects = getProjects();
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
-    notFound()
+    notFound();
   }
 
   // Get related projects
   const categoryProjects = project.metadata.categorySlug
-    ? projects.filter(p =>
-      p.metadata.categorySlug === project.metadata.categorySlug &&
-      p.slug !== project.slug
-    ).slice(0, 3)
-    : []
+    ? projects
+        .filter(
+          (p) =>
+            p.metadata.categorySlug === project.metadata.categorySlug &&
+            p.slug !== project.slug,
+        )
+        .slice(0, 3)
+    : [];
 
   // Evaluate MDX content to get React component
-  const {default: MDXContent} = await evaluate(project.content, {
-    ...runtime as any,
+  const { default: MDXContent } = await evaluate(project.content, {
+    ...(runtime as any),
     development: false,
-    baseUrl: import.meta.url
-  } as any)
+    baseUrl: import.meta.url,
+  } as any);
 
   return (
     <section className="pb-24 pt-8">
@@ -63,10 +74,14 @@ export default async function ProjectPage({params}: { params: Promise<{ slug: st
 
         <article>
           <header className="mb-8">
-            <h1 className="title text-4xl font-bold mb-4">{project.metadata.title}</h1>
+            <h1 className="title text-4xl font-bold mb-4">
+              {project.metadata.title}
+            </h1>
 
             {project.metadata.subtitle && (
-              <p className="text-xl text-gray-800 mb-4">{project.metadata.subtitle}</p>
+              <p className="text-xl text-gray-800 mb-4">
+                {project.metadata.subtitle}
+              </p>
             )}
 
             <div className="flex flex-wrap gap-4 text-sm text-gray-800">
@@ -76,13 +91,15 @@ export default async function ProjectPage({params}: { params: Promise<{ slug: st
 
               {project.metadata.client && (
                 <span>
-                  <span className="text-gray-600">•</span> Client: {project.metadata.client}
+                  <span className="text-gray-600">•</span> Client:{" "}
+                  {project.metadata.client}
                 </span>
               )}
 
               {project.metadata.category && (
                 <span>
-                  <span className="text-gray-600">•</span> {project.metadata.category}
+                  <span className="text-gray-600">•</span>{" "}
+                  {project.metadata.category}
                 </span>
               )}
             </div>
@@ -123,10 +140,11 @@ export default async function ProjectPage({params}: { params: Promise<{ slug: st
             </div>
           </header>
 
-          {project.metadata.videoUrl && project.metadata.videoUrl.includes('vimeo') ? (
+          {project.metadata.videoUrl &&
+          project.metadata.videoUrl.includes("vimeo") ? (
             <div className="aspect-video mb-8">
               <iframe
-                src={`https://player.vimeo.com/video/${project.metadata.videoUrl.match(/vimeo\.com\/(\d+)/)?.[1] || project.metadata.videoUrl.split('/').pop()}`}
+                src={`https://player.vimeo.com/video/${project.metadata.videoUrl.match(/vimeo\.com\/(\d+)/)?.[1] || project.metadata.videoUrl.split("/").pop()}`}
                 className="w-full h-full rounded-lg"
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
@@ -143,7 +161,7 @@ export default async function ProjectPage({params}: { params: Promise<{ slug: st
           ) : null}
 
           <div className="prose prose-lg max-w-none">
-            <MDXContent/>
+            <MDXContent />
           </div>
         </article>
 
@@ -184,5 +202,5 @@ export default async function ProjectPage({params}: { params: Promise<{ slug: st
         )}
       </div>
     </section>
-  )
+  );
 }

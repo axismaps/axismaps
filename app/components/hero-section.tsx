@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
-  const [scrollY, setScrollY] = useState(0)
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
+      setScrollY(window.scrollY);
+    };
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <section className="relative -mx-4 md:-mx-6 h-[500px] overflow-hidden">
@@ -34,7 +34,7 @@ export default function HeroSection() {
               className="object-cover opacity-40"
               priority
               style={{
-                objectPosition: '60% 50%',
+                objectPosition: "60% 50%",
               }}
             />
           </div>
@@ -51,7 +51,7 @@ export default function HeroSection() {
               className="object-cover opacity-35"
               priority
               style={{
-                objectPosition: '60% 50%',
+                objectPosition: "60% 50%",
               }}
             />
           </div>
@@ -68,7 +68,7 @@ export default function HeroSection() {
               className="object-cover opacity-30"
               priority
               style={{
-                objectPosition: '60% 50%',
+                objectPosition: "60% 50%",
               }}
             />
           </div>
@@ -85,7 +85,7 @@ export default function HeroSection() {
               className="object-cover opacity-25"
               priority
               style={{
-                objectPosition: '60% 50%',
+                objectPosition: "60% 50%",
               }}
             />
           </div>
@@ -113,5 +113,5 @@ export default function HeroSection() {
         />
       </div>
     </section>
-  )
+  );
 }

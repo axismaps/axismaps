@@ -1,27 +1,30 @@
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from "next/link";
+import Image from "next/image";
 
 const navItems = {
-  '/projects': {
-    name: 'Projects',
+  "/projects": {
+    name: "Projects",
   },
-  '/about': {
-    name: 'About',
+  "/about": {
+    name: "About",
   },
-  '/guide': {
-    name: 'Guide',
+  "/guide": {
+    name: "Guide",
   },
-  '/contact': {
-    name: 'Contact',
+  "/contact": {
+    name: "Contact",
   },
-}
+};
 
 export function Navbar() {
   return (
     <header className="mb-8">
       <nav className="flex flex-row items-center justify-between">
         {/* Logo and Company Name */}
-        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+        <Link
+          href="/"
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+        >
           <Image
             src="/axis-logo.png"
             alt="Axis Maps Logo"
@@ -29,7 +32,9 @@ export function Navbar() {
             height={40}
             className="w-10 h-10"
           />
-          <span className="text-xl font-semibold tracking-tight">Axis Maps</span>
+          <span className="text-xl font-semibold tracking-tight">
+            Axis Maps
+          </span>
         </Link>
 
         {/* Navigation Links */}
@@ -43,10 +48,10 @@ export function Navbar() {
               >
                 {name}
               </Link>
-            )
+            );
           })}
         </div>
       </nav>
     </header>
-  )
+  );
 }

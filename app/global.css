@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 ::selection {
   background-color: #47a3f3;
@@ -53,7 +53,7 @@ html {
 
 .prose .anchor:after {
   @apply text-neutral-300;
-  content: '#';
+  content: "#";
 }
 
 .prose *:hover > .anchor {
@@ -138,8 +138,8 @@ pre {
 }
 
 /* Remove Safari input shadow on mobile */
-input[type='text'],
-input[type='email'],
+input[type="text"],
+input[type="email"],
 textarea {
   -webkit-appearance: none;
   -moz-appearance: none;

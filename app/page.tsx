@@ -1,16 +1,24 @@
-import Link from 'next/link'
-import HeroSection from './components/hero-section'
-import ProjectCard from './components/project-card'
-import { FaTools, FaLaptopCode, FaSlidersH, FaDatabase, FaChartLine } from 'react-icons/fa'
-import { getProjects } from './projects/utils'
-import clientLogos from './data/client-logos.json'
+import Link from "next/link";
+import HeroSection from "./components/hero-section";
+import ProjectCard from "./components/project-card";
+import {
+  FaTools,
+  FaLaptopCode,
+  FaSlidersH,
+  FaDatabase,
+  FaChartLine,
+} from "react-icons/fa";
+import { getProjects } from "./projects/utils";
+import clientLogos from "./data/client-logos.json";
 
 /* eslint-disable @next/next/no-img-element */
 
 export default function Page() {
   // Get the 6 most recent featured projects
-  const projects = getProjects()
-  const recentProjects = projects.filter(p => p.metadata.featured).slice(0, 6)
+  const projects = getProjects();
+  const recentProjects = projects
+    .filter((p) => p.metadata.featured)
+    .slice(0, 6);
   return (
     <>
       <HeroSection />
@@ -20,29 +28,34 @@ export default function Page() {
         <h2 className="text-3xl font-bold mb-6">Who we are</h2>
         <div className="space-y-4">
           <p>
-            <strong>Axis Maps is a creative team of Web designers and developers</strong> that
-            specializes in building{' '}
+            <strong>
+              Axis Maps is a creative team of Web designers and developers
+            </strong>{" "}
+            that specializes in building{" "}
             <Link href="#featured-projects" className="link-primary">
               interactive maps and geospatial problem-solving tools
-            </Link>.
+            </Link>
+            .
           </p>
           <p>
-            We have 15 years of experience partnering with{' '}
+            We have 15 years of experience partnering with{" "}
             <Link href="#clients" className="link-primary">
               clients
-            </Link>{' '}
+            </Link>{" "}
             both large and small, across the globe.
           </p>
           <p>
-            With a full range of{' '}
+            With a full range of{" "}
             <Link href="#services" className="link-primary">
               custom geographic services
             </Link>
-            , we can help put together an entire project or target specific needs.{' '}
+            , we can help put together an entire project or target specific
+            needs.{" "}
             <Link href="/contact" className="link-primary">
               Contact us
-            </Link>{' '}
-            about your spatial data, visual identity, technology set up, message, and audience.
+            </Link>{" "}
+            about your spatial data, visual identity, technology set up,
+            message, and audience.
           </p>
           <Link href="/about" className="btn-secondary mt-4">
             Learn More
@@ -55,10 +68,15 @@ export default function Page() {
 
       {/* Client Logos Section */}
       <section id="clients" className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8">We're pleased to have worked with</h2>
+        <h2 className="text-3xl font-bold mb-8">
+          We're pleased to have worked with
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center">
           {clientLogos.map((client) => (
-            <div key={client.name} className="flex items-center justify-center bg-gray-50 rounded-lg p-6 h-24">
+            <div
+              key={client.name}
+              className="flex items-center justify-center bg-gray-50 rounded-lg p-6 h-24"
+            >
               <img
                 src={client.logo}
                 alt={client.shortName}
@@ -84,7 +102,11 @@ export default function Page() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {recentProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} showTags={false} />
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              showTags={false}
+            />
           ))}
         </div>
 
@@ -100,72 +122,94 @@ export default function Page() {
 
       {/* How We Can Help Section */}
       <section id="services" className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6">How we can help</h2>
-          <p className="mb-12 text-lg">
-            At Axis Maps, we work hard to provide thoughtful and intuitive interactive designs with every project we undertake.
-            We want your project to look great and work as well as you do. As a small company, we are focused on efficiency,
-            speed, quality control, and reproducible processes.
-          </p>
+        <h2 className="text-3xl font-bold mb-6">How we can help</h2>
+        <p className="mb-12 text-lg">
+          At Axis Maps, we work hard to provide thoughtful and intuitive
+          interactive designs with every project we undertake. We want your
+          project to look great and work as well as you do. As a small company,
+          we are focused on efficiency, speed, quality control, and reproducible
+          processes.
+        </p>
 
-          <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 mb-12">
-            {/* Service Items - Left Column */}
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 mt-0.5">
-                <FaTools className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
-              </div>
-              <p className="text-sm">
-                We design and deploy second versions of <strong>popular tools</strong>, modernizing the underlying
-                technology and UI while retaining the features that existing users know.
-              </p>
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 mb-12">
+          {/* Service Items - Left Column */}
+          <div className="flex gap-4">
+            <div className="flex-shrink-0 mt-0.5">
+              <FaTools
+                className="w-8 h-8"
+                style={{ color: "var(--axismaps-blue)" }}
+              />
             </div>
-
-            {/* Right Column */}
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 mt-0.5">
-                <FaLaptopCode className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
-              </div>
-              <p className="text-sm">
-                We build maps and applications that work on a wide <strong>range of devices</strong>,
-                from desktops to tablets and smartphones.
-              </p>
-            </div>
-
-            {/* Left Column */}
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 mt-0.5">
-                <FaSlidersH className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
-              </div>
-              <p className="text-sm">
-                We design simple and <strong>elegant user-interfaces</strong> for interactive maps.
-              </p>
-            </div>
-
-            {/* Right Column */}
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 mt-0.5">
-                <FaDatabase className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
-              </div>
-              <p className="text-sm">
-                We design and build systems that <strong>automate the process</strong> of data updates
-                and data additions.
-              </p>
-            </div>
-
-            {/* Left Column */}
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 mt-0.5">
-                <FaChartLine className="w-8 h-8" style={{ color: 'var(--axismaps-blue)' }} />
-              </div>
-              <p className="text-sm">
-                We produce <strong>compelling cartographic visuals</strong> that communicate a wide
-                variety of geographic information to end-users.
-              </p>
-            </div>
-
-            {/* Empty cell to maintain grid alignment */}
-            <div></div>
+            <p className="text-sm">
+              We design and deploy second versions of{" "}
+              <strong>popular tools</strong>, modernizing the underlying
+              technology and UI while retaining the features that existing users
+              know.
+            </p>
           </div>
+
+          {/* Right Column */}
+          <div className="flex gap-4">
+            <div className="flex-shrink-0 mt-0.5">
+              <FaLaptopCode
+                className="w-8 h-8"
+                style={{ color: "var(--axismaps-blue)" }}
+              />
+            </div>
+            <p className="text-sm">
+              We build maps and applications that work on a wide{" "}
+              <strong>range of devices</strong>, from desktops to tablets and
+              smartphones.
+            </p>
+          </div>
+
+          {/* Left Column */}
+          <div className="flex gap-4">
+            <div className="flex-shrink-0 mt-0.5">
+              <FaSlidersH
+                className="w-8 h-8"
+                style={{ color: "var(--axismaps-blue)" }}
+              />
+            </div>
+            <p className="text-sm">
+              We design simple and <strong>elegant user-interfaces</strong> for
+              interactive maps.
+            </p>
+          </div>
+
+          {/* Right Column */}
+          <div className="flex gap-4">
+            <div className="flex-shrink-0 mt-0.5">
+              <FaDatabase
+                className="w-8 h-8"
+                style={{ color: "var(--axismaps-blue)" }}
+              />
+            </div>
+            <p className="text-sm">
+              We design and build systems that{" "}
+              <strong>automate the process</strong> of data updates and data
+              additions.
+            </p>
+          </div>
+
+          {/* Left Column */}
+          <div className="flex gap-4">
+            <div className="flex-shrink-0 mt-0.5">
+              <FaChartLine
+                className="w-8 h-8"
+                style={{ color: "var(--axismaps-blue)" }}
+              />
+            </div>
+            <p className="text-sm">
+              We produce <strong>compelling cartographic visuals</strong> that
+              communicate a wide variety of geographic information to end-users.
+            </p>
+          </div>
+
+          {/* Empty cell to maintain grid alignment */}
+          <div></div>
+        </div>
       </section>
     </>
-  )
+  );
 }

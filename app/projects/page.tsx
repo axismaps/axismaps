@@ -1,25 +1,27 @@
-import { getProjects, getCategories, getClients, formatDate } from './utils'
-import Link from 'next/link'
-import Image from 'next/image'
-import ProjectsClient from './ProjectsClient'
+import { getProjects, getCategories, getClients, formatDate } from "./utils";
+import Link from "next/link";
+import Image from "next/image";
+import ProjectsClient from "./ProjectsClient";
 
 export const metadata = {
-  title: 'Projects',
-  description: 'Our portfolio of interactive mapping projects',
-}
+  title: "Projects",
+  description: "Our portfolio of interactive mapping projects",
+};
 
 export default function ProjectsPage() {
-  const allProjects = getProjects()
-  const categories = getCategories()
-  const clients = getClients()
+  const allProjects = getProjects();
+  const categories = getCategories();
+  const clients = getClients();
 
-  const featuredProjects = allProjects.filter(p => p.metadata.featured)
+  const featuredProjects = allProjects.filter((p) => p.metadata.featured);
 
   // Get unique categories that have more than one project
-  const projectCategories = Object.values(categories).filter(category => {
-    const projectCount = allProjects.filter(p => p.metadata.categorySlug === category.slug).length
-    return projectCount > 1
-  })
+  const projectCategories = Object.values(categories).filter((category) => {
+    const projectCount = allProjects.filter(
+      (p) => p.metadata.categorySlug === category.slug,
+    ).length;
+    return projectCount > 1;
+  });
 
   return (
     <section className="pb-24 pt-8">
@@ -31,5 +33,5 @@ export default function ProjectsPage() {
         />
       </div>
     </section>
-  )
+  );
 }

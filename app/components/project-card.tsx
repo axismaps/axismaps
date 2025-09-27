@@ -1,20 +1,23 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 interface ProjectCardProps {
   project: {
-    slug: string
+    slug: string;
     metadata: {
-      title: string
-      coverImage?: string
-      teaser?: string
-      client?: string
-      category?: string
-    }
-  }
-  showTags?: boolean
+      title: string;
+      coverImage?: string;
+      teaser?: string;
+      client?: string;
+      category?: string;
+    };
+  };
+  showTags?: boolean;
 }
 
-export default function ProjectCard({ project, showTags = true }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  showTags = true,
+}: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -54,5 +57,5 @@ export default function ProjectCard({ project, showTags = true }: ProjectCardPro
         )}
       </div>
     </Link>
-  )
+  );
 }
