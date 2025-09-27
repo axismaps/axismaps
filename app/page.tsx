@@ -69,7 +69,7 @@ export default function Page() {
       {/* Client Logos Section */}
       <section id="clients" className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold mb-8">
-          We're pleased to have worked with
+          {`We're pleased to have worked with`}
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center">
           {clientLogos.map((client) => (

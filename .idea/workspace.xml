@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add contact form functionality with API integration; implement server-side validation, email sending, and rate limiting.">
-      <change afterPath="$PROJECT_DIR$/.env.local.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/api/contact/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/contact/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/global.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Refactor codebase to standardize quotes; apply consistent formatting across components and utilities.">
+      <change beforePath="$PROJECT_DIR$/app/components/posts.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +48,6 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
@@ -353,15 +346,37 @@
       <option name="project" value="LOCAL" />
       <updated>1759006268193</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Add contact form functionality with API integration; implement server-side validation, email sending, and rate limiting.">
+      <option name="closed" value="true" />
+      <created>1759008165193</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1759008165193</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Configure ESLint in project settings; enable auto-fix on save.">
+      <option name="closed" value="true" />
+      <created>1759008176705</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1759008176705</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Refactor codebase to standardize quotes; apply consistent formatting across components and utilities.">
+      <option name="closed" value="true" />
+      <created>1759008235624</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1759008235624</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Extract HeroSection into a reusable component, simplifying `app/page.tsx` structure and improving maintainability." />
-    <MESSAGE value="Add `react-icons` dependency and integrate icons into &quot;How We Can Help&quot; section of `app/page.tsx`." />
     <MESSAGE value="Update `.gitignore` to exclude all `webflow` directories and assets, simplifying version control." />
     <MESSAGE value="Add project page and MDX posts for individual projects in the &quot;app/projects&quot; directory." />
     <MESSAGE value="Update `CLAUDE.md` with `pnpm` commands, project import script, and revised content architecture details." />
@@ -385,7 +400,9 @@
     <MESSAGE value="Remove blog functionality, including pages, posts, utilities, and related RSS feed integration." />
     <MESSAGE value="Add About page with company values and vision; include hero banner and placeholder image." />
     <MESSAGE value="Add contact form functionality with API integration; implement server-side validation, email sending, and rate limiting." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add contact form functionality with API integration; implement server-side validation, email sending, and rate limiting." />
+    <MESSAGE value="Configure ESLint in project settings; enable auto-fix on save." />
+    <MESSAGE value="Refactor codebase to standardize quotes; apply consistent formatting across components and utilities." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor codebase to standardize quotes; apply consistent formatting across components and utilities." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
