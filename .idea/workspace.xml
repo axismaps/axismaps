@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Extract HeroSection into a reusable component, simplifying `app/page.tsx` structure and improving maintainability.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add `react-icons` dependency and integrate icons into &quot;How We Can Help&quot; section of `app/page.tsx`." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -157,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758968212121</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Add `react-icons` dependency and integrate icons into &quot;How We Can Help&quot; section of `app/page.tsx`.">
+      <option name="closed" value="true" />
+      <created>1758969600662</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1758969600662</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +178,7 @@
     <MESSAGE value="Add contour SVG assets for improved visualization rendering in public directory" />
     <MESSAGE value="Update `.gitignore` to exclude `axismaps.webflow` files and assets" />
     <MESSAGE value="Extract HeroSection into a reusable component, simplifying `app/page.tsx` structure and improving maintainability." />
-    <option name="LAST_COMMIT_MESSAGE" value="Extract HeroSection into a reusable component, simplifying `app/page.tsx` structure and improving maintainability." />
+    <MESSAGE value="Add `react-icons` dependency and integrate icons into &quot;How We Can Help&quot; section of `app/page.tsx`." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add `react-icons` dependency and integrate icons into &quot;How We Can Help&quot; section of `app/page.tsx`." />
   </component>
 </project>
