@@ -1,0 +1,62 @@
+[
+  {
+    "name": "ESRI",
+    "shortName": "ESRI",
+    "logo": "/client-logos/esri.png"
+  },
+  {
+    "name": "Harvard History Design Studio",
+    "shortName": "Harvard",
+    "logo": "/client-logos/harvard-history-design-studio.png"
+  },
+  {
+    "name": "History Channel",
+    "shortName": "History",
+    "logo": "/client-logos/history-channel.png"
+  },
+  {
+    "name": "Leventhal Map Center, Boston Public Library",
+    "shortName": "Boston Public Library",
+    "logo": "/client-logos/leventhal-map-center-boston-public-library.png"
+  },
+  {
+    "name": "Merck",
+    "shortName": "Merck",
+    "logo": "/client-logos/merck.png"
+  },
+  {
+    "name": "Pearson Education",
+    "shortName": "Pearson",
+    "logo": "/client-logos/pearson-education.png"
+  },
+  {
+    "name": "Public Health Alliance of Southern California",
+    "shortName": "Public Health Alliance of Southern California",
+    "logo": "/client-logos/public-health-alliance-of-southern-california.png"
+  },
+  {
+    "name": "Rice University Humanities Research Center",
+    "shortName": "Rice University",
+    "logo": "/client-logos/rice-university-humanities-research-center.png"
+  },
+  {
+    "name": "Smithsonian Institution National Museum of Natural History",
+    "shortName": "Smithsonian",
+    "logo": "/client-logos/smithsonian-institution-national-museum-of-natural-history.png"
+  },
+  {
+    "name": "The New York Times",
+    "shortName": "The New York Times",
+    "logo": "/client-logos/the-new-york-times.png"
+  },
+  {
+    "name": "UCLA Center for Health Policy Research",
+    "shortName": "UCLA",
+    "logo": "/client-logos/ucla-center-for-health-policy-research.png"
+  },
+  {
+    "name": "World Bank Group, Global Facility for Disaster Reduction and Recovery",
+    "shortName": "World Bank",
+    "logo": "/client-logos/world-bank-group-global-facility-for-disaster-reduction-and-recovery.png"
+  }
+]

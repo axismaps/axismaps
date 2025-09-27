@@ -3,6 +3,7 @@ import HeroSection from './components/hero-section'
 import ProjectCard from './components/project-card'
 import { FaTools, FaLaptopCode, FaSlidersH, FaDatabase, FaChartLine } from 'react-icons/fa'
 import { getProjects } from './projects/utils'
+import clientLogos from './data/client-logos.json'
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -46,6 +47,26 @@ export default function Page() {
           <Link href="/about" className="btn-secondary mt-4">
             Learn More
           </Link>
+        </div>
+      </section>
+
+      {/* Section Break */}
+      <hr className="my-16 border-gray-200" />
+
+      {/* Client Logos Section */}
+      <section id="clients" className="max-w-4xl mx-auto">
+        <h2 className="text-3xl font-bold mb-8">We're pleased to have worked with</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center">
+          {clientLogos.map((client) => (
+            <div key={client.name} className="flex items-center justify-center bg-gray-50 rounded-lg p-6 h-24">
+              <img
+                src={client.logo}
+                alt={client.shortName}
+                title={client.name}
+                className="max-h-12 w-auto opacity-60 hover:opacity-100 transition-opacity grayscale"
+              />
+            </div>
+          ))}
         </div>
       </section>
 
