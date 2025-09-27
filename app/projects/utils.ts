@@ -98,8 +98,19 @@ export function getFeaturedProjects() {
   return projects.filter((project) => project.metadata.featured)
 }
 
+// Type definitions for client and category data
+export type Category = {
+  name: string
+  slug: string
+}
+
+export type Client = {
+  name: string
+  slug: string
+}
+
 // Load client and category data
-export function getClients() {
+export function getClients(): Record<string, Client> {
   const clientsPath = path.join(process.cwd(), 'data', 'clients.json')
   if (fs.existsSync(clientsPath)) {
     return JSON.parse(fs.readFileSync(clientsPath, 'utf-8'))
@@ -107,7 +118,7 @@ export function getClients() {
   return {}
 }
 
-export function getCategories() {
+export function getCategories(): Record<string, Category> {
   const categoriesPath = path.join(process.cwd(), 'data', 'categories.json')
   if (fs.existsSync(categoriesPath)) {
     return JSON.parse(fs.readFileSync(categoriesPath, 'utf-8'))
