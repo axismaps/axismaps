@@ -1,0 +1,254 @@
+{
+  "adam-matthew": {
+    "name": "Adam Matthew",
+    "slug": "adam-matthew",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f8f5a92282e1b97a1895f1c_adam-matthew.png",
+    "shortName": "Adam Matthew"
+  },
+  "axis-maps": {
+    "name": "Axis Maps",
+    "slug": "axis-maps",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f8229bc1f3f0152865eb8cd_axis-logo.png",
+    "shortName": "Axis Maps"
+  },
+  "biography": {
+    "name": "Biography",
+    "slug": "biography",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f9af0e15da0be45a197591e_biography.png",
+    "shortName": "Biography"
+  },
+  "brandeis": {
+    "name": "Brandeis",
+    "slug": "brandeis",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f933617229cf05b97bea717_brandeis.png",
+    "shortName": "Brandeis"
+  },
+  "buildingcommunityworkshop": {
+    "name": "buildingcommunityWORKSHOP",
+    "slug": "buildingcommunityworkshop",
+    "logo": "",
+    "shortName": "BC Workshop"
+  },
+  "conservation-law-foundation": {
+    "name": "Conservation Law Foundation",
+    "slug": "conservation-law-foundation",
+    "logo": "",
+    "shortName": "Conservation Law Foundation"
+  },
+  "deaths-door-spirits": {
+    "name": "Death's Door Spirits",
+    "slug": "deaths-door-spirits",
+    "logo": "",
+    "shortName": "Death's Door Spirits"
+  },
+  "denison-university": {
+    "name": "Denison University",
+    "slug": "denison-university",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f99f1ddbdb1f7813a64edf3_denison.png",
+    "shortName": "Denison University"
+  },
+  "duke-university": {
+    "name": "Duke University",
+    "slug": "duke-university",
+    "logo": "",
+    "shortName": "Duke University"
+  },
+  "earth-journalism-network": {
+    "name": "Earth Journalism Network",
+    "slug": "earth-journalism-network",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f971a6a558385939859d698_internews.png",
+    "shortName": "Earth Journalism Network"
+  },
+  "esri": {
+    "name": "ESRI",
+    "slug": "esri",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f8098fa6709d33287f48964_esri.png",
+    "shortName": "ESRI"
+  },
+  "george-washington-university": {
+    "name": "George Washington University",
+    "slug": "george-washington-university",
+    "logo": "",
+    "shortName": "George Washington University"
+  },
+  "government-of-canada": {
+    "name": "Government of Canada",
+    "slug": "government-of-canada",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f8099f2f787fe044409d2bd_government-of-canada.png",
+    "shortName": "Canada"
+  },
+  "hammerhead": {
+    "name": "Hammerhead",
+    "slug": "hammerhead",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f98824141ace431356f2d2c_hammerhead.png",
+    "shortName": "Hammerhead"
+  },
+  "harvard-history-design-studio": {
+    "name": "Harvard History Design Studio",
+    "slug": "harvard-history-design-studio",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f8099b9ae1184204c365fd7_harvard.png",
+    "shortName": "Harvard"
+  },
+  "history-channel": {
+    "name": "History Channel",
+    "slug": "history-channel",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f8098d17e8d624e76e8a777_history.png",
+    "shortName": "History"
+  },
+  "ipro": {
+    "name": "IPRO",
+    "slug": "ipro",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f932b21b6d854981e4bfa8d_ipro.jpg",
+    "shortName": "IPRO"
+  },
+  "leventhal-map-center-boston-public-library": {
+    "name": "Leventhal Map Center, Boston Public Library",
+    "slug": "leventhal-map-center-boston-public-library",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f80994ddaf865c471bbc73e_boston-public-library.png",
+    "shortName": "Boston Public Library"
+  },
+  "mapc": {
+    "name": "MAPC",
+    "slug": "mapc",
+    "logo": "",
+    "shortName": "MAPC"
+  },
+  "merck": {
+    "name": "Merck",
+    "slug": "merck",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f8098ab6218782e61a923a9_merck.png",
+    "shortName": "Merck"
+  },
+  "musqueam": {
+    "name": "Musqueam",
+    "slug": "musqueam",
+    "logo": "",
+    "shortName": "Musqueam"
+  },
+  "napa-valley-vintners": {
+    "name": "Napa Valley Vintners",
+    "slug": "napa-valley-vintners",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f976e88b68c0d9153e00401_napa.png",
+    "shortName": "Napa Valley Vintners"
+  },
+  "old-berwick-historical-society": {
+    "name": "Old Berwick Historical Society",
+    "slug": "old-berwick-historical-society",
+    "logo": "",
+    "shortName": "Old Berwick Historical Society"
+  },
+  "pearson-education": {
+    "name": "Pearson Education",
+    "slug": "pearson-education",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f809927420cbb55060de421_pearson.png",
+    "shortName": "Pearson"
+  },
+  "phillips-academy-andover": {
+    "name": "Phillips Academy Andover",
+    "slug": "phillips-academy-andover",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f988e8a5c01b40af180de70_phillips-academy.png",
+    "shortName": "Phillips Academy Andover"
+  },
+  "political-parity": {
+    "name": "Political Parity",
+    "slug": "political-parity",
+    "logo": "",
+    "shortName": "Political Parity"
+  },
+  "popular-mechanics": {
+    "name": "Popular Mechanics",
+    "slug": "popular-mechanics",
+    "logo": "",
+    "shortName": "Popular Mechanics"
+  },
+  "public-health-alliance-of-southern-california": {
+    "name": "Public Health Alliance of Southern California",
+    "slug": "public-health-alliance-of-southern-california",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f848d051802d6a49ec9d84b_PHASC_logo_main_R_150x.png",
+    "shortName": "Public Health Alliance of Southern California"
+  },
+  "pure-earth-blacksmith-institute": {
+    "name": "Pure Earth / Blacksmith Institute",
+    "slug": "pure-earth-blacksmith-institute",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f98521b7c4bbc168b55501b_pure-earth.png",
+    "shortName": "Pure Earth / Blacksmith Institute"
+  },
+  "revilna": {
+    "name": "reVilna",
+    "slug": "revilna",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f9342c54c51417fe9e6e1ee_revilna.jpg",
+    "shortName": "reVilna"
+  },
+  "rice-university": {
+    "name": "Rice University Humanities Research Center",
+    "slug": "rice-university",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f809a49a8ed019718261175_rice.png",
+    "shortName": "Rice University"
+  },
+  "smithsonian-institution-national-museum-of-natural-history": {
+    "name": "Smithsonian Institution National Museum of Natural History",
+    "slug": "smithsonian-institution-national-museum-of-natural-history",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f809835c4ebd0143bf4c1ba_smithsonian.png",
+    "shortName": "Smithsonian"
+  },
+  "tahrir-institue-for-middle-eastern-policy": {
+    "name": "Tahrir Institue for Middle Eastern Policy",
+    "slug": "tahrir-institue-for-middle-eastern-policy",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f91ca14a03e89a36ebda7f9_tahrir.png",
+    "shortName": "Tahrir Institue for Middle Eastern Policy"
+  },
+  "tang-institute-at-andover": {
+    "name": "Tang Institute at Andover",
+    "slug": "tang-institute-at-andover",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f9af7e81533a74b5be7fdab_tang-institute.png",
+    "shortName": "Tang Institute at Andover"
+  },
+  "the-new-york-times": {
+    "name": "The New York Times",
+    "slug": "the-new-york-times",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f972c198d563538bb699a28_new-york-times.png",
+    "shortName": "The New York Times"
+  },
+  "tip-strategies": {
+    "name": "TIP Strategies",
+    "slug": "tip-strategies",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5fa2ed5625d55244a8c7aabe_tip-strategies.png",
+    "shortName": "TIP Strategies"
+  },
+  "transitcenter": {
+    "name": "TransitCenter",
+    "slug": "transitcenter",
+    "logo": "",
+    "shortName": "TransitCenter"
+  },
+  "ucla-center-for-health-policy-research": {
+    "name": "UCLA Center for Health Policy Research",
+    "slug": "ucla-center-for-health-policy-research",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f976d5fb68c0d3700e00078_ucla.png",
+    "shortName": "UCLA Center for Health Policy Research"
+  },
+  "university-of-wisconsin-arboretum": {
+    "name": "University of Wisconsin Arboretum",
+    "slug": "university-of-wisconsin-arboretum",
+    "logo": "",
+    "shortName": "University of Wisconsin Arboretum"
+  },
+  "vandewalle-and-associates": {
+    "name": "Vandewalle and Associates",
+    "slug": "vandewalle-and-associates",
+    "logo": "",
+    "shortName": "Vandewalle and Associates"
+  },
+  "washington-institute-for-near-east-policy": {
+    "name": "Washington Institute for Near East Policy",
+    "slug": "washington-institute-for-near-east-policy",
+    "logo": "",
+    "shortName": "Washington Institute for Near East Policy"
+  },
+  "world-bank-group-global-facility-for-disaster-reduction-and-recovery": {
+    "name": "World Bank Group, Global Facility for Disaster Reduction and Recovery",
+    "slug": "world-bank-group-global-facility-for-disaster-reduction-and-recovery",
+    "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f80985ddaf8652392bbc357_world-bank-group.png",
+    "shortName": "World Bank"
+  }
+}
