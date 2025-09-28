@@ -1,0 +1,22 @@
+# Exclude git directory
+.git
+
+# Exclude webpack cache
+.next/cache
+
+# Exclude development files
+node_modules/.cache
+.idea
+.vscode
+*.log
+
+# Exclude source Webflow files
+/axismaps.webflow
+/webflow-cms
+
+# Exclude build scripts that aren't needed at runtime
+/scripts
+/bin
+
+# Exclude large unused images if any
+public/madison.jpg
