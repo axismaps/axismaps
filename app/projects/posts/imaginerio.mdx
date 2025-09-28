@@ -1,0 +1,26 @@
+---
+title: "imagineRio"
+slug: "imaginerio"
+publishedAt: "2022-06-01"
+featured: true
+client: "Rice University"
+clientSlug: "rice-university"
+coverImage: "/images/projects/imaginerio-cover.png"
+videoUrl: "https://vimeo.com/641274539"
+mapUrl: "https://www.imaginerio.org"
+launchDate: "2022-06-01"
+subtitle: "A searchable digital atlas of Rio de Janeiro's evolution"
+teaser: "An interactive platform illustrating the urban and social evolution of Rio de Janeiro from 1500 to the present day through maps, views, and architectural plans"
+category: "History"
+categorySlug: "history"
+---
+
+imagineRio is a searchable digital atlas that illustrates the urban and social evolution of Rio de Janeiro from 1500 to the present day. Developed in collaboration with Rice University's Humanities Research Center and the Instituto Moreira Salles, the platform provides temporally and spatially accurate maps that enable researchers to explore over 500 years of the city's transformation. Supported by a Digital Art History grant from the Getty Foundation, the project georeferenced historical views, maps, and architectural plans, allowing users to visualize Rio as it existed and as it was imagined throughout its history.
+
+The latest version of imagineRio represents a complete technical reimagining of the platform. Moving away from a monolithic server architecture, the project now employs a network of microservices designed for independence and resilience. The infrastructure is platform-independent and can run on any service through Docker containers, ensuring sustainability as institutional support and hosting requirements change. This modular approach simplifies long-term maintenance while enabling continuous updates and improvements to individual components without affecting the entire system.
+
+The most significant user-facing improvement is the adoption of vector tiles powered by Mapbox GL JS. Instead of rendering maps server-side, data is compressed into efficient protobuf format and sent directly to the browser for on-demand rendering. All data across every layer and year is contained in a single tile, making map loads imperceptibly fast and enabling seamless animation of the city's evolution through time. The WebGL-based rendering engine allows for complex animations including map rotation and tilting, with fly-through animations that guide users to selected viewpoints while maintaining spatial orientation.
+
+The interface seamlessly integrates the extensive photography collections from the Instituto Moreira Salles alongside the map, allowing researchers to interrogate both spatial and visual data simultaneously. A "living basemap" responds dynamically to user queries—when interrogating specific feature types, the map automatically highlights relevant features while fading others, all without changing the underlying symbology. The platform uses static site generation with Next.js to deliver both layout and content in a single bundle, enabling instant search and filtering operations without server round-trips.
+
+Geographic and image data ingestion runs weekly in a complete rebuild process that ensures data integrity and incorporates the latest scholarly research. The platform's architecture prioritizes long-term preservation and accessibility, ensuring that imagineRio will remain available as a scholarly resource for future generations of researchers studying Rio de Janeiro's remarkable urban evolution.
