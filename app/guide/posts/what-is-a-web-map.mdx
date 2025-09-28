@@ -46,14 +46,14 @@ Tiled maps use a standard **tiling scheme** which is worth understanding. Tiles 
 
 Each zoom level contains twice as many rows and columns as the previous level. With zoom level zero being a single tile for the whole world, this means the number of tiles for any zoom level _z_ is:
 
-2z x 2z, or 4z
+`2^z x 2^z`, or `4^z`
 
 Notice the relationship of tile numbers in zoom level 3 (below) to those in zoom level 2 (above). Consider the top left corner of each tile in zoom level 2. When we increase the zoom level by one, the x and y for a tile with that same corner position on the map are multiplied by two. For example Norway is in tile \[2,2,1\] at zoom level 2, and \[3,4,2\] at zoom level 3.
 
 ![](/images/guide/zoom3.jpeg)
 
 Although the numbering pattern is different in a couple of systems, tile positions and extents are nearly universal and are well understood by code libraries such as Leaflet. Many are built to understand URL patterns for tile locations (tiles are stored online one way or another), such as
-http://path-to-tiles/{z}/{x}/{y}.png.
+`http://path-to-tiles/{z}/{x}/{y}.png`.
 
 ## Map projections on the web
 

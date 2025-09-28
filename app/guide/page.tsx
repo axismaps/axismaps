@@ -35,14 +35,14 @@ export default function GuidePage() {
             <strong>Welcome!</strong> In this short guide, we share some
             insights and tips for designing maps. Our goal is to cover
             important concepts in cartography and flag the important decision
-            points in the map-making process. There isn't always a single best
-            answer in cartography, and in those cases we've tried to outline
+            points in the map-making process. {`There isn't always a single best
+            answer in cartography, and in those cases we've tried to outline`}
             some of the pros and cons to different solutions.
           </p>
           <p>
             This is by no means a replacement for a full textbook on
             cartography; rather it is a quick reference guide for those moments
-            when you're stumped, unsure of what to do next, or unfamiliar with
+            when {`you're stumped, unsure of what to do next, or unfamiliar with`}
             the terminology. While the recommendations on these pages are short
             and not loaded with academic references, please appreciate that
             they represent a thoughtful synthesis of decades of map-making

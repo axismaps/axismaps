@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add guide content for various thematic map types; implement pages on cartograms, choropleth maps, and data classification.">
-      <change beforePath="$PROJECT_DIR$/app/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/global.css" afterDir="false" />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add dynamic guide page with metadata, navigation, and structured MDX content rendering; update global styles with centered image support.">
+      <change beforePath="$PROJECT_DIR$/data/categories.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/clients.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/guide-categories.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -385,14 +387,21 @@
       <option name="project" value="LOCAL" />
       <updated>1759048434894</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Add dynamic guide page with metadata, navigation, and structured MDX content rendering; update global styles with centered image support.">
+      <option name="closed" value="true" />
+      <created>1759049579939</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1759049579939</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update `CLAUDE.md` with `pnpm` commands, project import script, and revised content architecture details." />
     <MESSAGE value="Add `.eslintrc.json` configuration and update dependencies for ESLint and core web vitals." />
     <MESSAGE value="Refactor project page to remove unused featured and subtitle metadata; update sorting logic to prioritize launchDate over featured status." />
     <MESSAGE value="OnlyRefactor project page to remove unused featured and subtitle metadata; update sorting logic to prioritize launchDate over featured status." />
@@ -417,7 +426,8 @@
     <MESSAGE value="Refactor codebase to standardize quotes; apply consistent formatting across components and utilities." />
     <MESSAGE value="Remove `BlogPosts` component and related utilities; cleanup unused code and dependencies." />
     <MESSAGE value="Add guide content for various thematic map types; implement pages on cartograms, choropleth maps, and data classification." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add guide content for various thematic map types; implement pages on cartograms, choropleth maps, and data classification." />
+    <MESSAGE value="Add dynamic guide page with metadata, navigation, and structured MDX content rendering; update global styles with centered image support." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add dynamic guide page with metadata, navigation, and structured MDX content rendering; update global styles with centered image support." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
