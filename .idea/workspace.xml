@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add dynamic guide page with metadata, navigation, and structured MDX content rendering; update global styles with centered image support.">
-      <change beforePath="$PROJECT_DIR$/data/categories.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/clients.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/guide-categories.json" beforeDir="false" />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Migrate `data` files to `app/data` directory; update references and adjust guide content formatting.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/guide/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/guide/[slug]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/guide/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/guide/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/guide/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/guide/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -395,14 +398,21 @@
       <option name="project" value="LOCAL" />
       <updated>1759049579939</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Migrate `data` files to `app/data` directory; update references and adjust guide content formatting.">
+      <option name="closed" value="true" />
+      <created>1759050566084</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1759050566084</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add `.eslintrc.json` configuration and update dependencies for ESLint and core web vitals." />
     <MESSAGE value="Refactor project page to remove unused featured and subtitle metadata; update sorting logic to prioritize launchDate over featured status." />
     <MESSAGE value="OnlyRefactor project page to remove unused featured and subtitle metadata; update sorting logic to prioritize launchDate over featured status." />
     <MESSAGE value="Extract `ProjectsClient` component for featured/all projects display; update project metadata and simplify `ProjectsPage`." />
@@ -427,7 +437,8 @@
     <MESSAGE value="Remove `BlogPosts` component and related utilities; cleanup unused code and dependencies." />
     <MESSAGE value="Add guide content for various thematic map types; implement pages on cartograms, choropleth maps, and data classification." />
     <MESSAGE value="Add dynamic guide page with metadata, navigation, and structured MDX content rendering; update global styles with centered image support." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add dynamic guide page with metadata, navigation, and structured MDX content rendering; update global styles with centered image support." />
+    <MESSAGE value="Migrate `data` files to `app/data` directory; update references and adjust guide content formatting." />
+    <option name="LAST_COMMIT_MESSAGE" value="Migrate `data` files to `app/data` directory; update references and adjust guide content formatting." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

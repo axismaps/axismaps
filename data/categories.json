@@ -1,0 +1,30 @@
+{
+  "demographics": {
+    "name": "Demographics",
+    "slug": "demographics"
+  },
+  "education": {
+    "name": "Education",
+    "slug": "education"
+  },
+  "environment": {
+    "name": "Environment",
+    "slug": "environment"
+  },
+  "history": {
+    "name": "History",
+    "slug": "history"
+  },
+  "politics": {
+    "name": "Politics",
+    "slug": "politics"
+  },
+  "public-health": {
+    "name": "Public Health",
+    "slug": "public-health"
+  },
+  "tourism": {
+    "name": "Tourism",
+    "slug": "tourism"
+  }
+}

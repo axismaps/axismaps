@@ -1,6 +1,7 @@
 import { getGuidesGroupedByCategory } from "./utils";
 import Link from "next/link";
 import Image from "next/image";
+import GuideSearchClient from "./GuideSearchClient";
 
 export const metadata = {
   title: "Cartography Guide",
@@ -29,10 +30,18 @@ export default function GuidePage() {
           </h2>
         </div>
 
+        <div className="flex items-end justify-between mb-12">
+          <h1 className="title text-5xl font-bold">Welcome</h1>
+        {/* Search Section */}
+        <div className="w-1/2">
+          <GuideSearchClient />
+        </div>
+        </div>
+
         {/* Introduction */}
         <div className="prose prose-lg mb-12 max-w-none">
           <p>
-            <strong>Welcome!</strong> In this short guide, we share some
+            In this short guide, we share some
             insights and tips for designing maps. Our goal is to cover
             important concepts in cartography and flag the important decision
             points in the map-making process. {`There isn't always a single best

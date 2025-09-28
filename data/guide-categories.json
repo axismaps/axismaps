@@ -1,0 +1,27 @@
+{
+  "general-map-making": {
+    "name": "General Map Making Topics",
+    "slug": "general-map-making",
+    "order": 0
+  },
+  "geographic-data": {
+    "name": "Geographic Data",
+    "slug": "geographic-data",
+    "order": 1
+  },
+  "univariate-thematic": {
+    "name": "Univariate Thematic Map Types",
+    "slug": "univariate-thematic",
+    "order": 2
+  },
+  "multivariate-thematic": {
+    "name": "Multivariate Thematic Map Types",
+    "slug": "multivariate-thematic",
+    "order": 3
+  },
+  "web-and-interactive": {
+    "name": "Web and Interactive Maps",
+    "slug": "web-and-interactive",
+    "order": 4
+  }
+}

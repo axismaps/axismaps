@@ -140,3 +140,40 @@ export function formatDate(date: string) {
     year: "numeric",
   });
 }
+
+// Search-related helper functions
+export function highlightSearchTerm(text: string, searchTerm: string): string {
+  if (!searchTerm) return text;
+
+  const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escapedTerm})`, 'gi');
+  return text.replace(regex, '<mark class="bg-yellow-200">$1</mark>');
+}
+
+export function extractSearchSnippet(
+  content: string,
+  searchTerm: string,
+  maxLength: number = 150
+): string {
+  const lowerContent = content.toLowerCase();
+  const lowerTerm = searchTerm.toLowerCase();
+  const termIndex = lowerContent.indexOf(lowerTerm);
+
+  if (termIndex === -1) {
+    return content.slice(0, maxLength) + (content.length > maxLength ? '...' : '');
+  }
+
+  const start = Math.max(0, termIndex - 50);
+  const end = Math.min(content.length, termIndex + maxLength);
+
+  let snippet = content.slice(start, end);
+  if (start > 0) snippet = '...' + snippet;
+  if (end < content.length) snippet = snippet + '...';
+
+  return snippet;
+}
+
+export function getAllGuideCategoriesForSearch() {
+  const categories = getGuideCategories();
+  return Object.values(categories).sort((a, b) => a.order - b.order);
+}

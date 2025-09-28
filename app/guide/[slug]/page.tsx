@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
+import GuideSearchClient from "../GuideSearchClient";
 
 export async function generateStaticParams() {
   const guides = getGuides();
@@ -93,6 +94,11 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
 
         {/* Article Header */}
         <header className="mb-8">
+          <div className="flex justify-end mb-4">
+          <div className="w-1/2">
+            <GuideSearchClient />
+          </div>
+          </div>
           <h1 className="mb-4 text-4xl font-bold tracking-tight text-gray-900">
             {guide.metadata.title}
           </h1>
