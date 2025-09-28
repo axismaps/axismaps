@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface ProjectCardProps {
   project: {
@@ -25,10 +26,12 @@ export default function ProjectCard({
     >
       {project.metadata.coverImage && (
         <div className="relative h-48 w-full overflow-hidden bg-gray-100">
-          <img
+          <Image
             src={project.metadata.coverImage}
             alt={project.metadata.title}
-            className="h-full w-full object-cover transition-transform group-hover:scale-105"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform group-hover:scale-105"
           />
         </div>
       )}
