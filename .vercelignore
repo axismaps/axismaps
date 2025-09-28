@@ -14,9 +14,8 @@ node_modules/.cache
 /axismaps.webflow
 /webflow-cms
 
-# Exclude build scripts that aren't needed at runtime
+# Exclude build scripts that aren't needed at runtime (but keep bin for build process)
 /scripts
-/bin
 
 # Exclude large unused images if any
 public/madison.jpg
