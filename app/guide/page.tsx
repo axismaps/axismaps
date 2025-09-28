@@ -2,6 +2,8 @@ import { getGuidesGroupedByCategory } from "./utils";
 import Link from "next/link";
 import Image from "next/image";
 import GuideSearchClient from "./GuideSearchClient";
+import PageSection from "../components/page-section";
+import ProseWrapper from "../components/prose-wrapper";
 
 export const metadata = {
   title: "Cartography Guide",
@@ -13,8 +15,7 @@ export default function GuidePage() {
   const groupedGuides = getGuidesGroupedByCategory();
 
   return (
-    <section className="pb-24 pt-8">
-      <div className="container max-w-7xl">
+    <PageSection>
         {/* Hero Section */}
         <div
           className="mb-12 rounded-lg p-16 text-center bg-cover bg-center bg-no-repeat relative"
@@ -39,7 +40,7 @@ export default function GuidePage() {
         </div>
 
         {/* Introduction */}
-        <div className="prose prose-lg mb-12 max-w-none">
+        <ProseWrapper variant="large" className="mb-12">
           <p>
             In this short guide, we share some
             insights and tips for designing maps. Our goal is to cover
@@ -65,7 +66,7 @@ export default function GuidePage() {
             , originally adapted from documentation written for indiemapper. However, the content here is about general cartography
             principles, not software-specific tips.
           </p>
-        </div>
+        </ProseWrapper>
 
         {/* Guide Articles by Category */}
         <div className="space-y-8">
@@ -134,7 +135,6 @@ export default function GuidePage() {
             .
           </p>
         </div>
-      </div>
-    </section>
+    </PageSection>
   );
 }

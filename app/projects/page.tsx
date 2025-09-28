@@ -2,6 +2,7 @@ import { getProjects, getCategories, getClients, formatDate } from "./utils";
 import Link from "next/link";
 import Image from "next/image";
 import ProjectsClient from "./ProjectsClient";
+import PageSection from "../components/page-section";
 
 export const metadata = {
   title: "Projects",
@@ -24,14 +25,12 @@ export default function ProjectsPage() {
   });
 
   return (
-    <section className="pb-24 pt-8">
-      <div className="container max-w-7xl">
-        <ProjectsClient
-          featuredProjects={featuredProjects}
-          allProjects={allProjects}
-          categories={projectCategories}
-        />
-      </div>
-    </section>
+    <PageSection>
+      <ProjectsClient
+        featuredProjects={featuredProjects}
+        allProjects={allProjects}
+        categories={projectCategories}
+      />
+    </PageSection>
   );
 }

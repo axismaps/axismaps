@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
+import ProseWrapper from "../../components/prose-wrapper";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -160,9 +161,9 @@ export default async function ProjectPage({
             </div>
           ) : null}
 
-          <div className="prose prose-lg max-w-none">
+          <ProseWrapper variant="large">
             <MDXContent />
-          </div>
+          </ProseWrapper>
         </article>
 
         {/* Related Projects Section */}

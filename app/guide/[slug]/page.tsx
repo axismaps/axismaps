@@ -5,6 +5,8 @@ import Image from "next/image";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import GuideSearchClient from "../GuideSearchClient";
+import PageSection from "../../components/page-section";
+import ProseWrapper from "../../components/prose-wrapper";
 
 export async function generateStaticParams() {
   const guides = getGuides();
@@ -74,8 +76,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
   } as any);
 
   return (
-    <section className="pb-24 pt-8">
-      <div className="container max-w-7xl">
+    <PageSection>
         {/* Header Banner */}
         <Link
           href="/guide"
@@ -115,9 +116,9 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         </header>
 
         {/* Article Content */}
-        <article className="guide-content prose prose-lg max-w-none prose-headings:font-bold prose-h2:mt-12 prose-h2:mb-4 prose-h3:mt-8 prose-h3:mb-3 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900 prose-ul:my-4 prose-li:my-1 prose-img:rounded-lg prose-img:shadow-md">
+        <ProseWrapper variant="guide">
           <MDXContent />
-        </article>
+        </ProseWrapper>
 
         {/* Navigation */}
         <nav className="mt-12 flex justify-between gap-4 pt-8">
@@ -207,7 +208,6 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             .
           </p>
         </div>
-      </div>
-    </section>
+    </PageSection>
   );
 }

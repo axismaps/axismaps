@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import ProseWrapper from "../components/prose-wrapper";
 
 export const metadata = {
   title: "About",
@@ -20,7 +21,7 @@ export default function AboutPage() {
       <div className="container max-w-4xl">
         <h1 className="text-5xl font-bold mb-8">Values and vision</h1>
 
-        <div className="prose prose-lg max-w-none">
+        <ProseWrapper variant="large">
           <p>
             <strong>Axis Maps</strong> was formed in 2006 and quickly became
             engaged with the rapidly changing field of interactive mapping.
@@ -47,7 +48,7 @@ export default function AboutPage() {
             efficiency and delivery, but also for great cartographic and
             interactive design.
           </p>
-        </div>
+        </ProseWrapper>
 
         <Link href="/contact" className="btn-primary mt-8">
           Contact Us
