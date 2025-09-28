@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Refactor: Modularize reusable components and utilities; integrate `PageSection` and `ProseWrapper` for consistent layout and typography across pages.">
-      <change afterPath="$PROJECT_DIR$/public/images/resources/colorbrewer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/resources/typographic.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Update footer with copyright text and remove outdated links." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -437,15 +432,29 @@
       <option name="project" value="LOCAL" />
       <updated>1759079041563</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Add `ResourceCard` component and integrate resource section on homepage for showcasing tools and guides.">
+      <option name="closed" value="true" />
+      <created>1759080073445</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1759080073445</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Update footer with copyright text and remove outdated links.">
+      <option name="closed" value="true" />
+      <created>1759080262781</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1759080262781</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Refactor styles for improved consistency; simplify dark mode support and update project page display logic." />
-    <MESSAGE value="Remove redundant &quot;Project Details&quot; headings across project MDX files for cleaner content presentation." />
     <MESSAGE value="Fix Vimeo embed URL parsing for project videos to handle differently formatted video URLs." />
     <MESSAGE value="Add related projects section to project page; improve metadata handling and MDX evaluation style." />
     <MESSAGE value="Update `.gitignore` to exclude all `webflow` directories and assets; revise `ProjectsClient` comments and refine workspace tasks." />
@@ -469,7 +478,9 @@
     <MESSAGE value="Update build script in `package.json` to use `pnpm` for running `build:search`." />
     <MESSAGE value="Use `next/image` in `ProjectCard` for optimized image rendering." />
     <MESSAGE value="Refactor: Modularize reusable components and utilities; integrate `PageSection` and `ProseWrapper` for consistent layout and typography across pages." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor: Modularize reusable components and utilities; integrate `PageSection` and `ProseWrapper` for consistent layout and typography across pages." />
+    <MESSAGE value="Add `ResourceCard` component and integrate resource section on homepage for showcasing tools and guides." />
+    <MESSAGE value="Update footer with copyright text and remove outdated links." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update footer with copyright text and remove outdated links." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
