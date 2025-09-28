@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx build:search && next build",
+    "build": "pnpm run build:search && next build",
     "build:search": "node bin/build-guide-search-index.js",
     "start": "next start",
     "lint": "next lint"
