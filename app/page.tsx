@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HeroSection from "./components/hero-section";
 import ProjectCard from "./components/project-card";
+import ResourceCard from "./components/resource-card";
 import {
   FaTools,
   FaLaptopCode,
@@ -208,6 +209,50 @@ export default function Page() {
 
           {/* Empty cell to maintain grid alignment */}
           <div></div>
+        </div>
+      </section>
+
+      {/* Section Break */}
+      <hr className="my-16 border-gray-200" />
+
+      {/* Resources Section */}
+      <section id="resources" className="max-w-4xl mx-auto">
+        <h2 className="text-3xl font-bold mb-6">Resources by us, for you</h2>
+        <p className="text-lg text-gray-600 mb-8">
+          Explore our collection of tools and guides designed to help you create better maps and visualizations.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <ResourceCard
+            title="Cartography Guide"
+            description="A short, friendly guide to basic principles of map design. Learn important concepts in cartography and flag important decision points in map-making."
+            imageSrc="/images/guide.jpg"
+            href="/guide"
+          />
+
+          <ResourceCard
+            title="Contours"
+            description="Create beautiful contour maps from your data. A modern tool for generating topographic-style visualizations for any numeric dataset."
+            imageSrc="/images/resources/contours.jpg"
+            href="https://contours.axismaps.com"
+            isExternal={true}
+          />
+
+          <ResourceCard
+            title="ColorBrewer"
+            description="Color advice for cartography. Choose effective color schemes for your maps based on the nature of your data and your design goals."
+            imageSrc="/images/resources/colorbrewer.png"
+            href="https://colorbrewer2.org"
+            isExternal={true}
+          />
+
+          <ResourceCard
+            title="Typographic Map Store"
+            description="Beautiful typographic maps of cities around the world. Each map is composed entirely of text labels, creating a unique visualization of place names."
+            imageSrc="/images/resources/typographic.jpg"
+            href="https://store.axismaps.com"
+            isExternal={true}
+          />
         </div>
       </section>
     </>
