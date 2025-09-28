@@ -94,9 +94,9 @@ export default function Page() {
 
       {/* Recent Projects Section */}
       <section id="featured-projects" className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <h2 className="text-3xl font-bold">Recent Projects</h2>
-          <Link href="/projects" className="btn-secondary">
+          <Link href="/projects" className="btn-secondary self-start sm:self-auto">
             View All Projects
           </Link>
         </div>
