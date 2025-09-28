@@ -64,7 +64,7 @@ export default function ProjectsClient({
         <h1 className="title text-5xl font-bold">Projects</h1>
 
         {categories.length > 0 && (
-          <div className="flex gap-1.5 pb-2">
+          <div className="hidden sm:flex gap-1.5 pb-2">
             <button
               onClick={() => setSelectedCategory(null)}
               className={`px-2.5 py-1 rounded text-sm transition-colors ${
