@@ -1,0 +1,25 @@
+---
+title: "Recreational Bicycling Access Tool"
+slug: "people-for-bikes-recreational"
+publishedAt: "2024-01-15"
+featured: true
+client: "PeopleForBikes"
+clientSlug: "peopleforbikes"
+coverImage: "/images/projects/people-for-bikes-recreational-cover.png"
+mapUrl: "https://recreation.peopleforbikes.org"
+launchDate: "2024-01-15"
+subtitle: "Measuring equitable access to recreational bicycling facilities nationwide"
+teaser: "A first-of-its-kind platform that quantifies access to recreational bicycling facilities across the United States to support data-driven infrastructure investments"
+category: "Recreation"
+categorySlug: "recreation"
+---
+
+The Recreational Bicycling Access Tool is a first-of-its-kind platform that measures and quantifies access to recreational bicycling facilities across the United States. Developed over three years with generous support from REI Co-op, this data-driven resource helps land managers, government officials, bike advocates, and researchers make informed investments in infrastructure to ensure equitable access to high-quality recreational bicycling opportunities. The tool complements PeopleForBikes' existing Bicycle Network Analysis platform, which measures the quality of on-road bicycle networks in more than 2,500 global communities.
+
+Unlike consumer-facing applications such as Trailforks or MTB Project that help riders find trails, this tool is specifically designed for stakeholders planning and advocating for recreational infrastructure. The platform maps four distinct classes of recreational facilities: paved trails, unpaved roads, unpaved trails, and bike parks. All facilities are classified through a sophisticated tagging system that interprets OpenStreetMap data, excluding trails shorter than 200 meters unless they connect to other infrastructure, and filtering out any facilities marked as private or prohibiting bicycle access. The tool provides the most comprehensive inventory of recreational facilities ever assembled in the United States, enabling assessment across eight geographic scales defined by the U.S. Census: tracts, counties, states, metropolitan/micropolitan statistical areas, congressional districts, unified school districts, and state legislative districts.
+
+The technical architecture leverages a robust data processing pipeline that integrates OpenStreetMap and Census Bureau APIs. Quarterly updates pull facility and amenity data from OpenStreetMap using Osmosis for filtering and osm2pgsql for database ingestion into PostGIS. The system calculates isochrones—geographic areas reachable within specified travel times—using osm2pgrouting with distinct weighting schemes for bicycling and driving routes. These computationally intensive isochrone calculations, updated every two to three years, identify facilities accessible within a 10-minute bike ride (1.67 miles) or 20-minute drive from each census tract's population center. Demographic data from the American Community Survey 5-year dataset enriches the analysis, enabling population-weighted aggregation of tract-level scores to larger geographies.
+
+Access is quantified through five metrics that provide a multifaceted view of recreational bicycling opportunities. The "Facilities" metric counts unique recreational facility classes accessible to the average resident (0-4 scale), while "Miles of Trails" and "Miles per Person" calculate total trail access both in absolute terms and normalized per 1,000 residents. The "Amenities" metric evaluates the presence of 39 different amenity types within a quarter-mile of bike facilities—from bike shops and repair stations to restaurants, lodging, and transit stops—all extracted from OpenStreetMap. The "Bike Parks" metric specifically tracks access to these specialized facilities. All metrics are first calculated at the tract level, then aggregated using population-weighted averages for larger geographic units.
+
+The front-end implementation uses MapboxGL JS for rendering interactive maps with vector tiles generated through Tippecanoe, enabling smooth performance despite the massive dataset. The platform's sophisticated filtering capabilities allow users to examine access through demographic lenses including race, income, affordability, and age, revealing disparities in recreational bicycling infrastructure. This technical foundation supports powerful comparative analysis—rural Lincoln County, Nevada, shows high trail mileage but lacks amenities, while Bentonville, Arkansas, demonstrates comprehensive investment in both infrastructure and supporting facilities. By transforming complex spatial and demographic data into actionable insights, the Recreational Bicycling Access Tool empowers communities nationwide to build more equitable networks of recreational bicycling facilities.
