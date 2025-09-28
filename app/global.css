@@ -83,6 +83,13 @@ html {
   @apply m-0;
 }
 
+/* Center images in guide content */
+.guide-content img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .prose p {
   @apply my-4;
   color: rgb(17, 24, 39); /* text-gray-900 */

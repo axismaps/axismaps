@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Refactor codebase to standardize quotes; apply consistent formatting across components and utilities.">
-      <change beforePath="$PROJECT_DIR$/app/components/posts.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add guide content for various thematic map types; implement pages on cartograms, choropleth maps, and data classification.">
+      <change beforePath="$PROJECT_DIR$/app/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/global.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -370,15 +369,29 @@
       <option name="project" value="LOCAL" />
       <updated>1759008235624</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Remove `BlogPosts` component and related utilities; cleanup unused code and dependencies.">
+      <option name="closed" value="true" />
+      <created>1759008499010</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1759008499010</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Add guide content for various thematic map types; implement pages on cartograms, choropleth maps, and data classification.">
+      <option name="closed" value="true" />
+      <created>1759048434894</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1759048434894</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update `.gitignore` to exclude all `webflow` directories and assets, simplifying version control." />
-    <MESSAGE value="Add project page and MDX posts for individual projects in the &quot;app/projects&quot; directory." />
     <MESSAGE value="Update `CLAUDE.md` with `pnpm` commands, project import script, and revised content architecture details." />
     <MESSAGE value="Add `.eslintrc.json` configuration and update dependencies for ESLint and core web vitals." />
     <MESSAGE value="Refactor project page to remove unused featured and subtitle metadata; update sorting logic to prioritize launchDate over featured status." />
@@ -402,7 +415,9 @@
     <MESSAGE value="Add contact form functionality with API integration; implement server-side validation, email sending, and rate limiting." />
     <MESSAGE value="Configure ESLint in project settings; enable auto-fix on save." />
     <MESSAGE value="Refactor codebase to standardize quotes; apply consistent formatting across components and utilities." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor codebase to standardize quotes; apply consistent formatting across components and utilities." />
+    <MESSAGE value="Remove `BlogPosts` component and related utilities; cleanup unused code and dependencies." />
+    <MESSAGE value="Add guide content for various thematic map types; implement pages on cartograms, choropleth maps, and data classification." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add guide content for various thematic map types; implement pages on cartograms, choropleth maps, and data classification." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
