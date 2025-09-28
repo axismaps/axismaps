@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Update `.idea/workspace.xml` metadata to adjust task details and changelist comments.">
-      <change afterPath="$PROJECT_DIR$/public/images/projects/atlas-rotavirus-prevalence-cover.jpg" afterDir="false" />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add LARC Dashboard project page with metadata, detailed description, and technical implementation details. Include new cover image and emphasize visualization features for addressing reproductive health disparities.">
+      <change afterPath="$PROJECT_DIR$/public/images/projects/people-for-bikes-recreational-cover.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +44,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JavaScript Debug.pro.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -51,6 +52,7 @@
     "git-widget-placeholder": "main",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
+    "last_opened_file_path": "/Users/davidheyman/Development/axismaps/public/images/projects",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -64,6 +66,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/images/projects" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/images/projects" />
       <recent name="$PROJECT_DIR$/new" />
@@ -71,8 +76,11 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.Next.js: server-side">
+  <component name="RunManager" selected="JavaScript Debug.pro">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="pro" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:3004/pro">
       <method v="2" />
     </configuration>
     <configuration name="Next.js: server-side" type="js.build_tools.npm">
@@ -85,6 +93,11 @@
       <envs />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.pro" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -100,62 +113,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731324931584</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Add CLAUDE.md with project porting guidelines and architecture overview">
-      <option name="closed" value="true" />
-      <created>1758966547797</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1758966547797</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Add IntelliJ IDEA configuration files to project">
-      <option name="closed" value="true" />
-      <created>1758966553978</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1758966553978</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Update `tsconfig.json` to use `react-jsx`, enforce stricter null checks, and improve formatting">
-      <option name="closed" value="true" />
-      <created>1758966559755</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1758966559755</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Remove 'deploy' navigation item and update layout styling for consistency.">
-      <option name="closed" value="true" />
-      <created>1758966568370</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1758966568370</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Update IntelliJ IDEA workspace configuration to include recent tasks and changes">
-      <option name="closed" value="true" />
-      <created>1758967065148</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1758967065148</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Revamp navigation and metadata for Axis Maps branding. Update layout and add logo.">
-      <option name="closed" value="true" />
-      <created>1758967075720</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1758967075720</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Add contour SVG assets for improved visualization rendering in public directory">
-      <option name="closed" value="true" />
-      <created>1758967874035</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1758967874035</updated>
     </task>
     <task id="LOCAL-00008" summary="Update `.gitignore` to exclude `axismaps.webflow` files and assets">
       <option name="closed" value="true" />
@@ -461,24 +418,101 @@
       <option name="project" value="LOCAL" />
       <updated>1759080653478</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Add Atlas of Rotavirus Prevalence project page with metadata, visualizations overview, and technical details.">
+      <option name="closed" value="true" />
+      <created>1759086532366</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1759086532366</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Add CalSHARE Data Hub project page with metadata, detailed description, and video embedding enhancements.">
+      <option name="closed" value="true" />
+      <created>1759087023653</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1759087023653</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Add Health Equity Illuminator project page with metadata, detailed description, and technical implementation details. Update category for related public health projects.">
+      <option name="closed" value="true" />
+      <created>1759087717550</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1759087717550</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Add MapMaster 3 project page with metadata, detailed description, and technical implementation details.">
+      <option name="closed" value="true" />
+      <created>1759088099343</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1759088099343</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Update MapMaster 3 project cover image.">
+      <option name="closed" value="true" />
+      <created>1759088147413</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1759088147414</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Update MapMaster 3 project cover image path.">
+      <option name="closed" value="true" />
+      <created>1759089175731</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1759089175731</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Update MapMaster 3 cover image path to correct file location.">
+      <option name="closed" value="true" />
+      <created>1759089198198</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1759089198198</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Update imagineRio project page with new metadata, refined description, and improved technical details. Replace cover image and optimize project structure for clarity.">
+      <option name="closed" value="true" />
+      <created>1759089545561</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1759089545561</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Add imagineRio Narratives project page with metadata, detailed description, and technical implementation details. Include new cover image and emphasize platform features for spatial storytelling.">
+      <option name="closed" value="true" />
+      <created>1759090249118</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1759090249118</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Remove `featured` attribute from multiple project pages for consistency with updated metadata structure.">
+      <option name="closed" value="true" />
+      <created>1759090483467</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1759090483467</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Add LARC Dashboard project page with metadata, detailed description, and technical implementation details. Include new cover image and emphasize visualization features for addressing reproductive health disparities.">
+      <option name="closed" value="true" />
+      <created>1759090785955</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1759090785955</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add related projects section to project page; improve metadata handling and MDX evaluation style." />
-    <MESSAGE value="Update `.gitignore` to exclude all `webflow` directories and assets; revise `ProjectsClient` comments and refine workspace tasks." />
-    <MESSAGE value="Update `.gitignore` to exclude `/scripts/`; adjust project page padding for improved layout consistency." />
-    <MESSAGE value="Disable ESLint rule for `img` elements in project pages; remove unused `useDynamicImport` option from MDX evaluation." />
-    <MESSAGE value="Add type definitions for `Client` and `Category`; update `getClients` and `getCategories` to return typed records." />
-    <MESSAGE value="Remove `CustomMDX` component and `next-mdx-remote`; migrate to `@mdx-js/mdx` for improved MDX content evaluation." />
-    <MESSAGE value="Remove `@vercel/speed-insights` and related imports; update `pnpm-lock.yaml` and `package.json` dependencies accordingly." />
-    <MESSAGE value="Add `ProjectCard` component; integrate recent projects section on the homepage displaying featured projects." />
-    <MESSAGE value="Add client logos section to homepage; include client logos data and assets." />
-    <MESSAGE value="Remove blog functionality, including pages, posts, utilities, and related RSS feed integration." />
-    <MESSAGE value="Add About page with company values and vision; include hero banner and placeholder image." />
     <MESSAGE value="Add contact form functionality with API integration; implement server-side validation, email sending, and rate limiting." />
     <MESSAGE value="Configure ESLint in project settings; enable auto-fix on save." />
     <MESSAGE value="Refactor codebase to standardize quotes; apply consistent formatting across components and utilities." />
@@ -493,7 +527,18 @@
     <MESSAGE value="Add `ResourceCard` component and integrate resource section on homepage for showcasing tools and guides." />
     <MESSAGE value="Update footer with copyright text and remove outdated links." />
     <MESSAGE value="Update `.idea/workspace.xml` metadata to adjust task details and changelist comments." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update `.idea/workspace.xml` metadata to adjust task details and changelist comments." />
+    <MESSAGE value="Add Atlas of Rotavirus Prevalence project page with metadata, visualizations overview, and technical details." />
+    <MESSAGE value="Add CalSHARE Data Hub project page with metadata, detailed description, and video embedding enhancements." />
+    <MESSAGE value="Add Health Equity Illuminator project page with metadata, detailed description, and technical implementation details. Update category for related public health projects." />
+    <MESSAGE value="Add MapMaster 3 project page with metadata, detailed description, and technical implementation details." />
+    <MESSAGE value="Update MapMaster 3 project cover image." />
+    <MESSAGE value="Update MapMaster 3 project cover image path." />
+    <MESSAGE value="Update MapMaster 3 cover image path to correct file location." />
+    <MESSAGE value="Update imagineRio project page with new metadata, refined description, and improved technical details. Replace cover image and optimize project structure for clarity." />
+    <MESSAGE value="Add imagineRio Narratives project page with metadata, detailed description, and technical implementation details. Include new cover image and emphasize platform features for spatial storytelling." />
+    <MESSAGE value="Remove `featured` attribute from multiple project pages for consistency with updated metadata structure." />
+    <MESSAGE value="Add LARC Dashboard project page with metadata, detailed description, and technical implementation details. Include new cover image and emphasize visualization features for addressing reproductive health disparities." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add LARC Dashboard project page with metadata, detailed description, and technical implementation details. Include new cover image and emphasize visualization features for addressing reproductive health disparities." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
