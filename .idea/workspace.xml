@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Update footer with copyright text and remove outdated links." />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Update `.idea/workspace.xml` metadata to adjust task details and changelist comments.">
+      <change afterPath="$PROJECT_DIR$/public/images/projects/atlas-rotavirus-prevalence-cover.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,6 +65,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/images/projects" />
+      <recent name="$PROJECT_DIR$/new" />
       <recent name="$PROJECT_DIR$/public/images/resources" />
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -448,14 +453,21 @@
       <option name="project" value="LOCAL" />
       <updated>1759080262781</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Update `.idea/workspace.xml` metadata to adjust task details and changelist comments.">
+      <option name="closed" value="true" />
+      <created>1759080653478</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1759080653478</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix Vimeo embed URL parsing for project videos to handle differently formatted video URLs." />
     <MESSAGE value="Add related projects section to project page; improve metadata handling and MDX evaluation style." />
     <MESSAGE value="Update `.gitignore` to exclude all `webflow` directories and assets; revise `ProjectsClient` comments and refine workspace tasks." />
     <MESSAGE value="Update `.gitignore` to exclude `/scripts/`; adjust project page padding for improved layout consistency." />
@@ -480,7 +492,8 @@
     <MESSAGE value="Refactor: Modularize reusable components and utilities; integrate `PageSection` and `ProseWrapper` for consistent layout and typography across pages." />
     <MESSAGE value="Add `ResourceCard` component and integrate resource section on homepage for showcasing tools and guides." />
     <MESSAGE value="Update footer with copyright text and remove outdated links." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update footer with copyright text and remove outdated links." />
+    <MESSAGE value="Update `.idea/workspace.xml` metadata to adjust task details and changelist comments." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update `.idea/workspace.xml` metadata to adjust task details and changelist comments." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
