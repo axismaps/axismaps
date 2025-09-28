@@ -1,0 +1,26 @@
+---
+title: "imagineRio Narratives"
+slug: "imaginerio-narratives"
+publishedAt: "2021-08-01"
+featured: true
+client: "Rice University"
+clientSlug: "rice-university"
+coverImage: "/images/projects/imaginerio-narratives-cover.png"
+videoUrl: "https://vimeo.com/1122669220"
+mapUrl: "https://narratives.imaginerio.org"
+launchDate: "2021-08-01"
+subtitle: "Map-based storytelling platform for Rio de Janeiro's history"
+teaser: "A bilingual storytelling application enabling users to craft spatial narratives about Rio de Janeiro without requiring GIS expertise"
+category: "History"
+categorySlug: "history"
+---
+
+imagineRio Narratives is a map-based storytelling application custom designed for imagineRio, enabling users to craft spatial narratives about Rio de Janeiro without requiring GIS expertise. Developed through collaboration between Rice University, Axis Maps, and the Instituto Moreira Salles, this bilingual platform democratizes access to historical geographic data by providing an intuitive interface for creating interactive, map-centric stories that leverage imagineRio's temporally accurate basemap and curated primary sources.
+
+The application emerged from limitations encountered with ESRI StoryMaps, which required expensive subscriptions and GIS expertise that were barriers for many potential users, particularly in Brazil. Funded by Rice University's Spatial Humanities Initiative through the Andrew W. Mellon Foundation, the development occurred in two stages: initial prototyping from February to August 2020, followed by community testing with scholars and educators in Rio from September 2020 to August 2021. This co-design approach, conducted entirely during the COVID-19 pandemic, engaged fifteen carefully selected historians, architects, urban planners, and literary scholars who provided critical feedback that shaped the final platform.
+
+At its core, Narratives employs a card-based interface inspired by PowerPoint and Scrivener, allowing authors to organize text, images, and citations alongside dynamic map views. Users manipulate the map through simple controls—selecting years, zooming, and rotating to areas of interest—while the vector tile rendering engine powered by MapLibre provides smooth animations and transitions. The platform supports three card sizes, embedded media including YouTube videos, image uploads with archival citations, and the ability to add custom annotations and labels directly to the map. This design philosophy keeps the map as the central focus while cards scroll alongside, preventing the common pitfall of overwhelming the spatial narrative with excessive text.
+
+Built on KeystoneJS with a custom NextJS frontend, the application integrates seamlessly with imagineRio's microservices architecture. The system uses MongoDB for data storage, GraphQL APIs for database communication, and shares the diachronic atlas map renderer and imaginerioSearch functionality with the main platform. The WYSIWYG text editor, powered by TinyMCE, provides familiar formatting tools while maintaining simplicity. Authors can access imagineRio's full temporal range and all published layers including georeferenced historical maps and plans, enabling them to create narratives that showcase change over time without needing to understand the complexities of spatial data acquisition or management.
+
+The platform addresses crucial needs in digital humanities publishing by providing an accessible venue for spatial storytelling. Unlike traditional GIS-based solutions, Narratives requires no specialized software or technical training, making it particularly valuable for educators and researchers in Brazil where such resources are limited. The application includes comprehensive legal frameworks with Terms of Use and Privacy Policies in both English and Portuguese, an online forum for community support, and plans for a curated Map Gallery where published narratives can be discovered by theme and topic. This democratization of spatial narrative tools opens new possibilities for interpreting Rio's past, understanding its present, and envisioning its future through the lens of community-created stories.
