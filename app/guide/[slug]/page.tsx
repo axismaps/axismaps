@@ -96,7 +96,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         {/* Article Header */}
         <header className="mb-8">
           <div className="flex justify-end mb-4">
-          <div className="w-1/2">
+          <div className="w-full sm:w-1/2">
             <GuideSearchClient />
           </div>
           </div>

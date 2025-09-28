@@ -31,12 +31,12 @@ export default function GuidePage() {
           </h2>
         </div>
 
-        <div className="flex items-end justify-between mb-12">
+        <div className="flex flex-col-reverse sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
           <h1 className="title text-5xl font-bold">Welcome</h1>
-        {/* Search Section */}
-        <div className="w-1/2">
-          <GuideSearchClient />
-        </div>
+          {/* Search Section */}
+          <div className="w-full sm:w-1/2">
+            <GuideSearchClient />
+          </div>
         </div>
 
         {/* Introduction */}
