@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Improve responsiveness for guide pages  &#10;&#10;- Adjust search bar width to be full-width on mobile (`w-full sm:w-1/2`)  &#10;- Update layout to use `flex-col-reverse` with responsive `sm:flex-row` for better alignment on smaller screens">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add GitHub Actions workflow and comprehensive test coverage&#10;&#10;- Introduced `test.yml` workflow to run tests, coverage, build, and linter on main branch pushes and pull requests.&#10;- Added tests for `Contact API` handling email sending, rate limiting, validation, and error scenarios.&#10;- Implemented tests for content utilities, including filtering, related, and featured content retrieval.&#10;- Included tests for date formatting with edge cases and relative time options.&#10;- Added MDX utilities tests covering frontmatter parsing, directory scanning, file reading, and error handling.">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/test.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,14 +115,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731324931584</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Extract `ProjectsClient` component for featured/all projects display; update project metadata and simplify `ProjectsPage`.">
-      <option name="closed" value="true" />
-      <created>1758972804115</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1758972804115</updated>
     </task>
     <task id="LOCAL-00017" summary="Add category filtering to `ProjectsClient` component; refine project display logic.">
       <option name="closed" value="true" />
@@ -508,14 +500,21 @@
       <option name="project" value="LOCAL" />
       <updated>1759092452813</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Add GitHub Actions workflow and comprehensive test coverage&#10;&#10;- Introduced `test.yml` workflow to run tests, coverage, build, and linter on main branch pushes and pull requests.&#10;- Added tests for `Contact API` handling email sending, rate limiting, validation, and error scenarios.&#10;- Implemented tests for content utilities, including filtering, related, and featured content retrieval.&#10;- Included tests for date formatting with edge cases and relative time options.&#10;- Added MDX utilities tests covering frontmatter parsing, directory scanning, file reading, and error handling.">
+      <option name="closed" value="true" />
+      <created>1759130907611</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1759130907611</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update build script in `package.json` to use `pnpm` for running `build:search`." />
     <MESSAGE value="Use `next/image` in `ProjectCard` for optimized image rendering." />
     <MESSAGE value="Refactor: Modularize reusable components and utilities; integrate `PageSection` and `ProseWrapper` for consistent layout and typography across pages." />
     <MESSAGE value="Add `ResourceCard` component and integrate resource section on homepage for showcasing tools and guides." />
@@ -540,14 +539,14 @@
     <MESSAGE value="Improve responsiveness in Recent Projects section layout&#10;&#10;- Updated container to use `flex-col` with responsive `sm:flex-row` for better mobile layout&#10;- Adjusted button alignment using `self-start` and `sm:self-auto`" />
     <MESSAGE value="Make project category filter hidden on mobile for improved responsiveness" />
     <MESSAGE value="Improve responsiveness for guide pages  &#10;&#10;- Adjust search bar width to be full-width on mobile (`w-full sm:w-1/2`)  &#10;- Update layout to use `flex-col-reverse` with responsive `sm:flex-row` for better alignment on smaller screens" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve responsiveness for guide pages  &#10;&#10;- Adjust search bar width to be full-width on mobile (`w-full sm:w-1/2`)  &#10;- Update layout to use `flex-col-reverse` with responsive `sm:flex-row` for better alignment on smaller screens" />
+    <MESSAGE value="Add GitHub Actions workflow and comprehensive test coverage&#10;&#10;- Introduced `test.yml` workflow to run tests, coverage, build, and linter on main branch pushes and pull requests.&#10;- Added tests for `Contact API` handling email sending, rate limiting, validation, and error scenarios.&#10;- Implemented tests for content utilities, including filtering, related, and featured content retrieval.&#10;- Included tests for date formatting with edge cases and relative time options.&#10;- Added MDX utilities tests covering frontmatter parsing, directory scanning, file reading, and error handling." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add GitHub Actions workflow and comprehensive test coverage&#10;&#10;- Introduced `test.yml` workflow to run tests, coverage, build, and linter on main branch pushes and pull requests.&#10;- Added tests for `Contact API` handling email sending, rate limiting, validation, and error scenarios.&#10;- Implemented tests for content utilities, including filtering, related, and featured content retrieval.&#10;- Included tests for date formatting with edge cases and relative time options.&#10;- Added MDX utilities tests covering frontmatter parsing, directory scanning, file reading, and error handling." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/projects/page.tsx</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
