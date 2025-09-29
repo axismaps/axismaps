@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Add GitHub Actions workflow and comprehensive test coverage&#10;&#10;- Introduced `test.yml` workflow to run tests, coverage, build, and linter on main branch pushes and pull requests.&#10;- Added tests for `Contact API` handling email sending, rate limiting, validation, and error scenarios.&#10;- Implemented tests for content utilities, including filtering, related, and featured content retrieval.&#10;- Included tests for date formatting with edge cases and relative time options.&#10;- Added MDX utilities tests covering frontmatter parsing, directory scanning, file reading, and error handling.">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/test.yml" afterDir="false" />
-    </list>
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Remove `package-lock.json` to transition away from lockfile dependency management" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +17,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="copilot/fix-ac87e176-53df-4f85-8234-008ee484b69b" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -27,6 +30,17 @@
     &quot;assignee&quot;: &quot;davidheyman&quot;
   }
 }</component>
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
+    {
+      "id": {
+        "id": "PR_kwDOP38JkM6rBCMy",
+        "number": 2
+      },
+      "lastSeen": 1759133451508
+    }
+  ]
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/axismaps/axismaps.git&quot;,
@@ -98,6 +112,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.pro" />
+        <item itemvalue="JavaScript Debug.pro" />
       </list>
     </recent_temporary>
   </component>
@@ -115,14 +130,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731324931584</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Add category filtering to `ProjectsClient` component; refine project display logic.">
-      <option name="closed" value="true" />
-      <created>1758974172028</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1758974172028</updated>
     </task>
     <task id="LOCAL-00018" summary="Refactor styles for improved consistency; simplify dark mode support and update project page display logic.">
       <option name="closed" value="true" />
@@ -508,15 +515,32 @@
       <option name="project" value="LOCAL" />
       <updated>1759130907611</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Remove `package-lock.json` to transition away from lockfile dependency management">
+      <option name="closed" value="true" />
+      <created>1759133439355</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1759133439355</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Use `next/image` in `ProjectCard` for optimized image rendering." />
-    <MESSAGE value="Refactor: Modularize reusable components and utilities; integrate `PageSection` and `ProseWrapper` for consistent layout and typography across pages." />
     <MESSAGE value="Add `ResourceCard` component and integrate resource section on homepage for showcasing tools and guides." />
     <MESSAGE value="Update footer with copyright text and remove outdated links." />
     <MESSAGE value="Update `.idea/workspace.xml` metadata to adjust task details and changelist comments." />
@@ -540,7 +564,9 @@
     <MESSAGE value="Make project category filter hidden on mobile for improved responsiveness" />
     <MESSAGE value="Improve responsiveness for guide pages  &#10;&#10;- Adjust search bar width to be full-width on mobile (`w-full sm:w-1/2`)  &#10;- Update layout to use `flex-col-reverse` with responsive `sm:flex-row` for better alignment on smaller screens" />
     <MESSAGE value="Add GitHub Actions workflow and comprehensive test coverage&#10;&#10;- Introduced `test.yml` workflow to run tests, coverage, build, and linter on main branch pushes and pull requests.&#10;- Added tests for `Contact API` handling email sending, rate limiting, validation, and error scenarios.&#10;- Implemented tests for content utilities, including filtering, related, and featured content retrieval.&#10;- Included tests for date formatting with edge cases and relative time options.&#10;- Added MDX utilities tests covering frontmatter parsing, directory scanning, file reading, and error handling." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add GitHub Actions workflow and comprehensive test coverage&#10;&#10;- Introduced `test.yml` workflow to run tests, coverage, build, and linter on main branch pushes and pull requests.&#10;- Added tests for `Contact API` handling email sending, rate limiting, validation, and error scenarios.&#10;- Implemented tests for content utilities, including filtering, related, and featured content retrieval.&#10;- Included tests for date formatting with edge cases and relative time options.&#10;- Added MDX utilities tests covering frontmatter parsing, directory scanning, file reading, and error handling." />
+    <MESSAGE value="Update GitHub Actions `test.yml` to use latest pnpm version for workflow steps" />
+    <MESSAGE value="Remove `package-lock.json` to transition away from lockfile dependency management" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove `package-lock.json` to transition away from lockfile dependency management" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
