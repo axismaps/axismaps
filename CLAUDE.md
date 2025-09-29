@@ -14,6 +14,14 @@ This project is porting the Axis Maps website from Webflow (located in `/axismap
 - `pnpm run build` - Build the production application
 - `pnpm start` - Run the production server after build
 
+### Testing
+
+- `pnpm test` - Run tests in watch mode
+- `pnpm test:run` - Run tests once (for CI)
+- `pnpm test:coverage` - Run tests with coverage report
+- `pnpm test:ui` - Run tests with interactive UI
+- `pnpm test:watch` - Run tests in watch mode (alias for `pnpm test`)
+
 ### Data Import
 
 - `node scripts/import-projects.js` - Import projects from Webflow CSV to MDX format
@@ -115,3 +123,84 @@ Uses Tailwind CSS v4 alpha with PostCSS configuration. Global styles in `app/glo
 ### Deployment
 
 Configured for Vercel deployment with built-in analytics and speed insights components.
+
+## Testing Infrastructure
+
+### Overview
+
+The project uses **Vitest** as the testing framework with React Testing Library for component testing. Tests are configured to run automatically on push and pull requests via GitHub Actions.
+
+### Test Structure
+
+Tests are co-located with the code they test:
+- `app/lib/*.test.ts` - Unit tests for utility functions
+- `app/projects/*.test.ts(x)` - Tests for project-related code
+- `app/api/*/route.test.ts` - API route tests
+- `app/components/*.test.tsx` - Component tests
+
+### Writing Tests
+
+1. **Unit Tests**: Test pure functions and utilities
+   ```typescript
+   import { describe, it, expect } from 'vitest';
+   import { myFunction } from './myModule';
+
+   describe('myFunction', () => {
+     it('should do something', () => {
+       expect(myFunction(input)).toBe(expected);
+     });
+   });
+   ```
+
+2. **Component Tests**: Test React components
+   ```typescript
+   import { render, screen } from '@testing-library/react';
+   import userEvent from '@testing-library/user-event';
+   import MyComponent from './MyComponent';
+
+   it('should handle user interaction', async () => {
+     const user = userEvent.setup();
+     render(<MyComponent />);
+     await user.click(screen.getByRole('button'));
+     expect(screen.getByText('Result')).toBeInTheDocument();
+   });
+   ```
+
+3. **API Tests**: Test Next.js API routes
+   ```typescript
+   import { POST } from './route';
+
+   it('should handle POST request', async () => {
+     const request = createMockRequest(data);
+     const response = await POST(request);
+     expect(response.status).toBe(200);
+   });
+   ```
+
+### Coverage
+
+Test coverage reports are generated in the `coverage/` directory. Aim for:
+- **80%+ coverage** for utility functions
+- **70%+ coverage** for components
+- **90%+ coverage** for critical business logic
+
+### CI/CD
+
+Tests run automatically on:
+- Every push to `main` branch
+- All pull requests
+
+The CI pipeline (`.github/workflows/test.yml`) runs:
+1. Unit and integration tests
+2. Coverage reporting
+3. Linting
+4. Build verification
+
+### Best Practices
+
+1. **Test behavior, not implementation**
+2. **Use descriptive test names**
+3. **Keep tests isolated and independent**
+4. **Mock external dependencies**
+5. **Test edge cases and error conditions**
+6. **Run tests before committing**: `pnpm test:run`
