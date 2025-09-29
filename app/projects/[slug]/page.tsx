@@ -111,7 +111,7 @@ export default async function ProjectPage({
                   href={project.metadata.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-blue-600 hover:underline"
+                  className="btn-secondary"
                 >
                   View Map →
                 </a>
@@ -125,17 +125,6 @@ export default async function ProjectPage({
                   className="inline-flex items-center text-blue-600 hover:underline"
                 >
                   View on GitHub →
-                </a>
-              )}
-
-              {project.metadata.videoUrl && (
-                <a
-                  href={project.metadata.videoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-blue-600 hover:underline"
-                >
-                  Watch Video →
                 </a>
               )}
             </div>
