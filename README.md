@@ -30,7 +30,7 @@ Axis Maps brings cartography to interactive mapping. We design custom maps that 
 ### Prerequisites
 
 - Node.js 18+ 
-- npm or pnpm package manager
+- pnpm package manager
 
 ### Getting Started
 
@@ -44,8 +44,6 @@ cd axismaps
 2. **Install dependencies**
 
 ```bash
-npm install
-# or
 pnpm install
 ```
 
@@ -63,8 +61,6 @@ Required environment variables:
 4. **Run the development server**
 
 ```bash
-npm run dev
-# or  
 pnpm run dev
 ```
 
@@ -74,10 +70,10 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see the website.
 
 ### Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production (includes search index generation)
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+- `pnpm run dev` - Start development server
+- `pnpm run build` - Build for production (includes search index generation)
+- `pnpm run start` - Start production server
+- `pnpm run lint` - Run ESLint
 - `node scripts/import-projects.js` - Import projects from Webflow CSV data
 
 ## Project Structure
