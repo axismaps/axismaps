@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Remove `package-lock.json` to transition away from lockfile dependency management" />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Update `.gitignore` to exclude `.pnpm-store` directory">
+      <change beforePath="$PROJECT_DIR$/.vercelignore" beforeDir="false" afterPath="$PROJECT_DIR$/.vercelignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -130,38 +133,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731324931584</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Refactor styles for improved consistency; simplify dark mode support and update project page display logic.">
-      <option name="closed" value="true" />
-      <created>1758975067166</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1758975067166</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Remove redundant &quot;Project Details&quot; headings across project MDX files for cleaner content presentation.">
-      <option name="closed" value="true" />
-      <created>1758975316684</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1758975316684</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Fix Vimeo embed URL parsing for project videos to handle differently formatted video URLs.">
-      <option name="closed" value="true" />
-      <created>1758975494205</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1758975494205</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Add related projects section to project page; improve metadata handling and MDX evaluation style.">
-      <option name="closed" value="true" />
-      <created>1758975774168</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1758975774168</updated>
     </task>
     <task id="LOCAL-00022" summary="Update `.gitignore` to exclude all `webflow` directories and assets; revise `ProjectsClient` comments and refine workspace tasks.">
       <option name="closed" value="true" />
@@ -523,7 +494,39 @@
       <option name="project" value="LOCAL" />
       <updated>1759133439355</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="&quot;Rewrite README with detailed project overview, setup instructions, and tech stack for Axis Maps Next.js application&quot;&#10;&#10;Fixes #1">
+      <option name="closed" value="true" />
+      <created>1759133599654</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1759133599654</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Remove `@types/testing-library__jest-dom` and update test setup&#10;&#10;- Eliminated redundant type dependency as `@testing-library/jest-dom` includes its own type definitions.&#10;- Updated `test/setup.ts` to use `React.createElement` for better compatibility. &#10;- Adjusted `tsconfig.json` to refine include/exclude settings for tests and configurations.">
+      <option name="closed" value="true" />
+      <created>1759135478627</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1759135478627</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Add `vercel.json` for deployment configuration and enhance `.vercelignore`&#10;&#10;- Introduced `vercel.json` to define function settings and image optimization parameters.&#10;- Updated `.vercelignore` to exclude pnpm store, test files, TypeScript source maps, documentation, CI/CD configs, and other dev dependencies.">
+      <option name="closed" value="true" />
+      <created>1759136100718</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1759136100718</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Update `.gitignore` to exclude `.pnpm-store` directory">
+      <option name="closed" value="true" />
+      <created>1759136131044</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1759136131044</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -541,10 +544,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add `ResourceCard` component and integrate resource section on homepage for showcasing tools and guides." />
-    <MESSAGE value="Update footer with copyright text and remove outdated links." />
-    <MESSAGE value="Update `.idea/workspace.xml` metadata to adjust task details and changelist comments." />
-    <MESSAGE value="Add Atlas of Rotavirus Prevalence project page with metadata, visualizations overview, and technical details." />
     <MESSAGE value="Add CalSHARE Data Hub project page with metadata, detailed description, and video embedding enhancements." />
     <MESSAGE value="Add Health Equity Illuminator project page with metadata, detailed description, and technical implementation details. Update category for related public health projects." />
     <MESSAGE value="Add MapMaster 3 project page with metadata, detailed description, and technical implementation details." />
@@ -566,7 +565,11 @@
     <MESSAGE value="Add GitHub Actions workflow and comprehensive test coverage&#10;&#10;- Introduced `test.yml` workflow to run tests, coverage, build, and linter on main branch pushes and pull requests.&#10;- Added tests for `Contact API` handling email sending, rate limiting, validation, and error scenarios.&#10;- Implemented tests for content utilities, including filtering, related, and featured content retrieval.&#10;- Included tests for date formatting with edge cases and relative time options.&#10;- Added MDX utilities tests covering frontmatter parsing, directory scanning, file reading, and error handling." />
     <MESSAGE value="Update GitHub Actions `test.yml` to use latest pnpm version for workflow steps" />
     <MESSAGE value="Remove `package-lock.json` to transition away from lockfile dependency management" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove `package-lock.json` to transition away from lockfile dependency management" />
+    <MESSAGE value="&quot;Rewrite README with detailed project overview, setup instructions, and tech stack for Axis Maps Next.js application&quot;&#10;&#10;Fixes #1" />
+    <MESSAGE value="Remove `@types/testing-library__jest-dom` and update test setup&#10;&#10;- Eliminated redundant type dependency as `@testing-library/jest-dom` includes its own type definitions.&#10;- Updated `test/setup.ts` to use `React.createElement` for better compatibility. &#10;- Adjusted `tsconfig.json` to refine include/exclude settings for tests and configurations." />
+    <MESSAGE value="Add `vercel.json` for deployment configuration and enhance `.vercelignore`&#10;&#10;- Introduced `vercel.json` to define function settings and image optimization parameters.&#10;- Updated `.vercelignore` to exclude pnpm store, test files, TypeScript source maps, documentation, CI/CD configs, and other dev dependencies." />
+    <MESSAGE value="Update `.gitignore` to exclude `.pnpm-store` directory" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update `.gitignore` to exclude `.pnpm-store` directory" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

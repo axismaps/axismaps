@@ -6,6 +6,8 @@
 
 # Exclude pnpm store
 .pnpm-store
+**/.pnpm-store
+**/pnpm-store
 
 # Exclude development files
 node_modules/.cache
