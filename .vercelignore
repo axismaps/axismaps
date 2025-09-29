@@ -28,11 +28,11 @@ coverage
 /axismaps.webflow
 /webflow-cms
 
-# Exclude build scripts that aren't needed at runtime (but keep bin for build process)
+# Exclude build scripts (but keep bin for build process)
 /scripts
+!bin/
 
-# Exclude large unused images if any
-public/madison.jpg
+# Keep all public images for CDN serving
 
 # Exclude TypeScript source maps
 **/*.js.map
