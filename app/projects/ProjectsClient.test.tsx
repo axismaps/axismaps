@@ -241,6 +241,32 @@ describe('ProjectsClient', () => {
       expect(screen.queryByText('Regular Project 2')).not.toBeInTheDocument(); // Data Viz category
     });
 
+    it('should show all projects in category even without clicking "Show All" first', async () => {
+      const user = userEvent.setup();
+      render(
+        <ProjectsClient
+          featuredProjects={mockFeaturedProjects}
+          allProjects={mockAllProjects}
+          categories={mockCategories}
+        />
+      );
+
+      // Initially only featured projects are shown
+      expect(screen.getByText('Featured Project 1')).toBeInTheDocument();
+      expect(screen.getByText('Featured Project 2')).toBeInTheDocument();
+      expect(screen.queryByText('Regular Project 1')).not.toBeInTheDocument();
+      expect(screen.queryByText('Regular Project 2')).not.toBeInTheDocument();
+
+      // Click on Web Development category WITHOUT clicking "Show All Projects" first
+      await user.click(screen.getByRole('button', { name: /Web Development/i }));
+
+      // Should show ALL Web Development projects (both featured and non-featured)
+      expect(screen.getByText('Featured Project 1')).toBeInTheDocument(); // Featured Web Dev project
+      expect(screen.getByText('Regular Project 1')).toBeInTheDocument(); // Non-featured Web Dev project
+      expect(screen.queryByText('Featured Project 2')).not.toBeInTheDocument(); // Mobile category
+      expect(screen.queryByText('Regular Project 2')).not.toBeInTheDocument(); // Data Viz category
+    });
+
     it('should show all projects when "All" filter is selected', async () => {
       const user = userEvent.setup();
       render(

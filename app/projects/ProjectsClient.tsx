@@ -50,7 +50,7 @@ export default function ProjectsClient({
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   // Filter projects based on show all and category
-  let projects = showAll ? allProjects : featuredProjects;
+  let projects = showAll || selectedCategory ? allProjects : featuredProjects;
   if (selectedCategory) {
     projects = projects.filter(
       (p) => p.metadata.categorySlug === selectedCategory,
