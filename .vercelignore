@@ -4,11 +4,23 @@
 # Exclude webpack cache
 .next/cache
 
+# Exclude pnpm store
+.pnpm-store
+
 # Exclude development files
 node_modules/.cache
 .idea
 .vscode
 *.log
+
+# Exclude test files
+test
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+vitest.config.ts
+coverage
 
 # Exclude source Webflow files
 /axismaps.webflow
@@ -19,3 +31,19 @@ node_modules/.cache
 
 # Exclude large unused images if any
 public/madison.jpg
+
+# Exclude TypeScript source maps
+**/*.js.map
+**/*.d.ts.map
+
+# Exclude documentation
+*.md
+!README.md
+
+# Exclude CI/CD
+.github
+
+# Exclude other dev dependencies
+.eslintrc*
+.prettierrc*
+tsconfig.tsbuildinfo
