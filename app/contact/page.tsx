@@ -211,18 +211,6 @@ export default function ContactPage() {
                 typographic map store
               </a>
             </p>
-
-            <p>
-              Follow us on X/Twitter:{" "}
-              <a
-                href="https://twitter.com/axismaps"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                @axismaps
-              </a>
-            </p>
           </div>
         </div>
       </div>
