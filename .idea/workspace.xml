@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Update `.gitignore` to exclude `.pnpm-store` directory">
-      <change beforePath="$PROJECT_DIR$/.vercelignore" beforeDir="false" afterPath="$PROJECT_DIR$/.vercelignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+    <list default="true" id="bc1c48d2-1bee-4c80-889a-9674e28a3db4" name="Changes" comment="Update outdated external links to relative URLs across guides&#10;&#10;- Replaced hardcoded external links with corresponding relative URLs for consistency and maintainability in documentation. &#10;- Removed unused `mapUrl` fields in project posts.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,17 +32,17 @@
     &quot;assignee&quot;: &quot;davidheyman&quot;
   }
 }</component>
-  <component name="GitHubPullRequestState"><![CDATA[{
-  "prStates": [
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
     {
-      "id": {
-        "id": "PR_kwDOP38JkM6rBCMy",
-        "number": 2
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOP38JkM6rBCMy&quot;,
+        &quot;number&quot;: 2
       },
-      "lastSeen": 1759133451508
+      &quot;lastSeen&quot;: 1759133451508
     }
   ]
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/axismaps/axismaps.git&quot;,
@@ -133,38 +132,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731324931584</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Update `.gitignore` to exclude all `webflow` directories and assets; revise `ProjectsClient` comments and refine workspace tasks.">
-      <option name="closed" value="true" />
-      <created>1758975783281</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1758975783281</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Update `.gitignore` to exclude `/scripts/`; adjust project page padding for improved layout consistency.">
-      <option name="closed" value="true" />
-      <created>1758975850741</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1758975850741</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Disable ESLint rule for `img` elements in project pages; remove unused `useDynamicImport` option from MDX evaluation.">
-      <option name="closed" value="true" />
-      <created>1758976045546</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1758976045546</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Add type definitions for `Client` and `Category`; update `getClients` and `getCategories` to return typed records.">
-      <option name="closed" value="true" />
-      <created>1758976162319</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1758976162319</updated>
     </task>
     <task id="LOCAL-00026" summary="Remove `CustomMDX` component and `next-mdx-remote`; migrate to `@mdx-js/mdx` for improved MDX content evaluation.">
       <option name="closed" value="true" />
@@ -526,7 +493,39 @@
       <option name="project" value="LOCAL" />
       <updated>1759136131044</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Optimize Next.js configuration for production and update `.vercelignore`&#10;&#10;- Added `outputFileTracingExcludes` to exclude unnecessary files and directories for better deployment performance.&#10;- Disabled production browser source maps and enabled gzip compression to enhance production optimization.&#10;- Updated webpack config to prevent client-side `fs` module resolution errors.&#10;- Enhanced `.vercelignore` to exclude additional pnpm-related directories.">
+      <option name="closed" value="true" />
+      <created>1759136602692</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1759136602692</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Refine `outputFileTracingExcludes` in `next.config.js` and update `.vercelignore`&#10;&#10;- Simplified and expanded `outputFileTracingExcludes` to better exclude unnecessary files, dev dependencies, and platform-specific binaries.&#10;- Adjusted `.vercelignore` to clean up unused entries and ensure all public assets are retained.">
+      <option name="closed" value="true" />
+      <created>1759137081532</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1759137081532</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Remove Twitter/X link from Contact page">
+      <option name="closed" value="true" />
+      <created>1759137671305</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1759137671305</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Update outdated external links to relative URLs across guides&#10;&#10;- Replaced hardcoded external links with corresponding relative URLs for consistency and maintainability in documentation. &#10;- Removed unused `mapUrl` fields in project posts.">
+      <option name="closed" value="true" />
+      <created>1759140115054</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1759140115054</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -544,10 +543,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add CalSHARE Data Hub project page with metadata, detailed description, and video embedding enhancements." />
-    <MESSAGE value="Add Health Equity Illuminator project page with metadata, detailed description, and technical implementation details. Update category for related public health projects." />
-    <MESSAGE value="Add MapMaster 3 project page with metadata, detailed description, and technical implementation details." />
-    <MESSAGE value="Update MapMaster 3 project cover image." />
     <MESSAGE value="Update MapMaster 3 project cover image path." />
     <MESSAGE value="Update MapMaster 3 cover image path to correct file location." />
     <MESSAGE value="Update imagineRio project page with new metadata, refined description, and improved technical details. Replace cover image and optimize project structure for clarity." />
@@ -569,7 +564,11 @@
     <MESSAGE value="Remove `@types/testing-library__jest-dom` and update test setup&#10;&#10;- Eliminated redundant type dependency as `@testing-library/jest-dom` includes its own type definitions.&#10;- Updated `test/setup.ts` to use `React.createElement` for better compatibility. &#10;- Adjusted `tsconfig.json` to refine include/exclude settings for tests and configurations." />
     <MESSAGE value="Add `vercel.json` for deployment configuration and enhance `.vercelignore`&#10;&#10;- Introduced `vercel.json` to define function settings and image optimization parameters.&#10;- Updated `.vercelignore` to exclude pnpm store, test files, TypeScript source maps, documentation, CI/CD configs, and other dev dependencies." />
     <MESSAGE value="Update `.gitignore` to exclude `.pnpm-store` directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update `.gitignore` to exclude `.pnpm-store` directory" />
+    <MESSAGE value="Optimize Next.js configuration for production and update `.vercelignore`&#10;&#10;- Added `outputFileTracingExcludes` to exclude unnecessary files and directories for better deployment performance.&#10;- Disabled production browser source maps and enabled gzip compression to enhance production optimization.&#10;- Updated webpack config to prevent client-side `fs` module resolution errors.&#10;- Enhanced `.vercelignore` to exclude additional pnpm-related directories." />
+    <MESSAGE value="Refine `outputFileTracingExcludes` in `next.config.js` and update `.vercelignore`&#10;&#10;- Simplified and expanded `outputFileTracingExcludes` to better exclude unnecessary files, dev dependencies, and platform-specific binaries.&#10;- Adjusted `.vercelignore` to clean up unused entries and ensure all public assets are retained." />
+    <MESSAGE value="Remove Twitter/X link from Contact page" />
+    <MESSAGE value="Update outdated external links to relative URLs across guides&#10;&#10;- Replaced hardcoded external links with corresponding relative URLs for consistency and maintainability in documentation. &#10;- Removed unused `mapUrl` fields in project posts." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update outdated external links to relative URLs across guides&#10;&#10;- Replaced hardcoded external links with corresponding relative URLs for consistency and maintainability in documentation. &#10;- Removed unused `mapUrl` fields in project posts." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
