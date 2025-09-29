@@ -84,7 +84,7 @@ html {
 }
 
 /* Center images in guide content */
-.guide-content img {
+.prose img {
   display: block;
   margin-left: auto;
   margin-right: auto;
