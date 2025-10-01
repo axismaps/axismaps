@@ -50,7 +50,7 @@ export default function ResourceCard({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex flex-col h-full bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-300 hover:shadow-lg transition-all duration-200"
+        className="group flex flex-col h-full bg-white rounded-lg border border-gray-200 p-6 hover:border-gray-400 hover:shadow-lg transition-all duration-200"
       >
         <CardContent />
       </a>
@@ -60,7 +60,7 @@ export default function ResourceCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col h-full bg-white rounded-lg border border-gray-200 p-6 hover:border-blue-300 hover:shadow-lg transition-all duration-200"
+      className="group flex flex-col h-full bg-white rounded-lg border border-gray-200 p-6 hover:border-gray-400 hover:shadow-lg transition-all duration-200"
     >
       <CardContent />
     </Link>
