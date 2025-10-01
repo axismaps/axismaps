@@ -187,6 +187,7 @@ table {
   display: inline-block;
   transition: background-color 0.2s;
   text-decoration: none;
+  text-align: center;
 }
 
 .btn-secondary:hover {
