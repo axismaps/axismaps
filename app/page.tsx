@@ -58,7 +58,7 @@ export default function Page() {
             about your spatial data, visual identity, technology set up,
             message, and audience.
           </p>
-          <Link href="/about" className="btn-secondary mt-4">
+          <Link href="/about" className="btn-secondary mt-8">
             Learn More
           </Link>
         </div>
