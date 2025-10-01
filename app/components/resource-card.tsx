@@ -36,8 +36,8 @@ export default function ResourceCard({
           </div>
         )}
       </div>
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-gray-600 mb-4 flex-grow">{description}</p>
+      <h3 className="text-lg font-semibold mb-2">{title}</h3>
+      <p className="text-sm text-gray-700 mb-4 flex-grow">{description}</p>
       <span className="btn-secondary">
         {`${title} →`}
       </span>
