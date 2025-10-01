@@ -1,12 +1,13 @@
 # Axis Maps
 
-A modern Next.js portfolio and blog website for Axis Maps, ported from Webflow.
+A modern Next.js portfolio and blog website for Axis Maps.
 
 ## Project Overview
 
-This project is a complete port of the Axis Maps website from Webflow to a modern Next.js application, featuring:
+A modern Next.js portfolio and blog website for Axis Maps, featuring:
 
-- **54 imported projects** with comprehensive metadata and MDX content
+- **61 projects** with comprehensive metadata and MDX content
+- **24 cartography guide articles** with full-text search
 - **Blog system** with MDX support and dynamic rendering
 - **Responsive design** using Tailwind CSS v4
 - **SEO optimized** with sitemap, robots, and JSON-LD schema
@@ -50,8 +51,9 @@ Visit `http://localhost:3000` to see the application.
 
 ```bash
 pnpm run dev        # Start development server
-pnpm run build      # Build for production
+pnpm run build      # Build for production (includes search index)
 pnpm start          # Run production server
+pnpm run lint       # Run ESLint
 ```
 
 ### Testing
@@ -63,12 +65,6 @@ pnpm test:coverage  # Generate coverage report
 pnpm test:ui        # Interactive test UI
 ```
 
-### Data Import
-
-```bash
-node scripts/import-projects.js  # Import projects from Webflow CSV
-```
-
 ## Project Structure
 
 ```
@@ -76,33 +72,21 @@ node scripts/import-projects.js  # Import projects from Webflow CSV
   /blog             # Blog functionality
     /posts          # MDX blog posts
   /projects         # Projects portfolio
-    /posts          # MDX project files (54 projects)
+    /posts          # MDX project files (61 projects)
     /[slug]         # Dynamic project pages
-  /components       # Shared React components
-  /guide            # Guide pages
+  /guide            # Cartography guide
+    /posts          # Guide articles (24 articles)
+    /[slug]         # Dynamic guide pages
   /about            # About page
-  /contact          # Contact page
+  /contact          # Contact page with form
+  /components       # Shared React components
+  /api              # API routes (contact form)
 /data               # JSON data files
   clients.json      # Client metadata
   categories.json   # Category metadata
 /public/images      # Static assets
-/scripts            # Utility scripts
-/webflow-cms        # Source data from Webflow
-/axismaps.webflow   # Original Webflow export
+/bin                # Build scripts (search index generation)
 ```
-
-## Porting Progress
-
-### Completed Pages
-- ✅ **Home** - Partially complete with hero, recent projects
-- ✅ **Projects** - Fully functional with 54 imported projects
-- ✅ **Blog** - Working with MDX support
-- ✅ **Guide** - Basic structure in place
-
-### Pending
-- ⏳ **About** - To be ported from Webflow
-- ⏳ **Contact** - To be ported from Webflow
-- ⏳ Additional project detail refinements
 
 ## Content Management
 
@@ -125,6 +109,10 @@ videoUrl: "https://..."
 mapUrl: "https://..."
 ---
 ```
+
+### Guide Articles
+
+Guide articles are in `/app/guide/posts/` and are indexed for full-text search. The search index is built automatically during the production build process.
 
 ### Blog Posts
 
