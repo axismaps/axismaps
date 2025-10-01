@@ -28,7 +28,7 @@ export default function Page() {
       <section className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold mb-6">Who we are</h2>
         <div className="space-y-4">
-          <p>
+          <p className="text-lg">
             <strong>
               Axis Maps is a creative team of Web designers and developers
             </strong>{" "}
@@ -38,14 +38,14 @@ export default function Page() {
             </Link>
             .
           </p>
-          <p>
+          <p className="text-lg">
             We have 15 years of experience partnering with{" "}
             <Link href="#clients" className="link-primary">
               clients
             </Link>{" "}
             both large and small, across the globe.
           </p>
-          <p>
+          <p className="text-lg">
             With a full range of{" "}
             <Link href="#services" className="link-primary">
               custom geographic services
