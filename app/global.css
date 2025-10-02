@@ -96,23 +96,23 @@ html {
 }
 
 .prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2 text-gray-900;
+  @apply text-4xl font-bold tracking-tight mt-6 mb-2 text-gray-900;
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-gray-900;
+  @apply text-xl font-bold tracking-tight mt-6 mb-2 text-gray-900;
 }
 
 .prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-gray-900;
+  @apply text-xl font-bold tracking-tight mt-6 mb-2 text-gray-900;
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2 text-gray-900;
+  @apply text-lg font-bold tracking-tight mt-6 mb-2 text-gray-900;
 }
 
 .prose strong {
-  @apply font-medium;
+  @apply font-bold;
 }
 
 .prose ul {
