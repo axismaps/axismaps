@@ -115,6 +115,10 @@ html {
   @apply font-medium;
 }
 
+.prose-lg strong {
+  @apply font-bold;
+}
+
 .prose ul {
   @apply list-disc pl-6;
   color: rgb(17, 24, 39); /* text-gray-900 */
