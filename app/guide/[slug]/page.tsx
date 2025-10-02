@@ -80,17 +80,14 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         {/* Header Banner */}
         <Link
           href="/guide"
-          className="mb-8 block rounded-lg p-12 text-center bg-cover bg-center bg-no-repeat transition-opacity hover:opacity-90"
+          className="mb-8 block rounded-lg p-3 text-center bg-cover bg-center bg-no-repeat transition-opacity hover:opacity-90"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/guide.jpg')`
           }}
         >
-          <h2 className="mb-2 text-3xl font-bold text-white">
+          <h2 className="text-3xl font-bold text-white">
             Cartography Guide
           </h2>
-          <p className="text-white">
-            A short, friendly guide to basic principles of map design
-          </p>
         </Link>
 
         {/* Article Header */}
