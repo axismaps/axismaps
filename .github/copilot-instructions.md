@@ -173,6 +173,13 @@ return <MDXContent />
 
 ## Build & Deployment
 
+### Package Manager
+- **ALWAYS use pnpm** for dependency management
+- **Never use npm or yarn** - this project uses pnpm exclusively
+- Install dependencies: `pnpm install`
+- Add dependencies: `pnpm add <package>` or `pnpm add -D <package>` for dev dependencies
+- This ensures the `pnpm-lock.yaml` file is properly maintained
+
 ### Scripts
 - `pnpm run dev` - Development server
 - `pnpm run build` - Production build (includes search index)

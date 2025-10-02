@@ -27,7 +27,7 @@ A modern Next.js portfolio and blog website for Axis Maps, featuring:
 ### Prerequisites
 
 - Node.js 18+
-- pnpm 8+
+- **pnpm 8+** (required - do not use npm or yarn)
 
 ### Installation
 
@@ -36,7 +36,10 @@ A modern Next.js portfolio and blog website for Axis Maps, featuring:
 git clone [repository-url]
 cd axismaps
 
-# Install dependencies
+# Install pnpm if you don't have it
+npm install -g pnpm
+
+# Install dependencies (MUST use pnpm)
 pnpm install
 
 # Start development server
@@ -44,6 +47,16 @@ pnpm run dev
 ```
 
 Visit `http://localhost:3000` to see the application.
+
+### Important: Use pnpm Only
+
+This project uses `pnpm` as its package manager. **Always use `pnpm` commands**, never `npm` or `yarn`:
+
+- ✅ `pnpm install` - Install dependencies
+- ✅ `pnpm add <package>` - Add a dependency
+- ✅ `pnpm add -D <package>` - Add a dev dependency
+- ❌ `npm install` - Do not use
+- ❌ `yarn add` - Do not use
 
 ## Development Commands
 
