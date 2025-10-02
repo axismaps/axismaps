@@ -17,7 +17,7 @@ function ArrowIcon() {
 
 export default function Footer() {
   return (
-    <footer className="mb-16 max-w-4xl mx-auto">
+    <footer className="mb-16 container max-w-7xl">
       <p className="mt-8 text-neutral-600 dark:text-neutral-300">
         Copyright © 2025 Axis Maps. All rights reserved.
         The material on this site may not be reproduced, distributed, transmitted, or otherwise used, except with the prior permission of Axis Maps.
