@@ -80,7 +80,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         {/* Header Banner */}
         <Link
           href="/guide"
-          className="mb-8 block rounded-lg p-12 text-center bg-cover bg-center bg-no-repeat transition-opacity hover:opacity-90"
+          className="mb-8 block p-12 text-center bg-cover bg-center bg-no-repeat transition-opacity hover:opacity-90"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/guide.jpg')`
           }}

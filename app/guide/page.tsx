@@ -18,7 +18,7 @@ export default function GuidePage() {
     <PageSection>
         {/* Hero Section */}
         <div
-          className="mb-12 rounded-lg p-16 text-center bg-cover bg-center bg-no-repeat relative"
+          className="mb-12 p-16 text-center bg-cover bg-center bg-no-repeat relative"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/guide.jpg')`
           }}
