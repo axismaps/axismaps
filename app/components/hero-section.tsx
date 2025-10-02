@@ -1,32 +1,13 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function HeroSection() {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <section className="relative -mx-4 md:-mx-6 h-[500px] overflow-hidden">
-      {/* Contour Background Images with Parallax */}
+      {/* Contour Background Images */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative w-full h-full max-w-7xl">
-          <div
-            className="absolute inset-0"
-            style={{
-              transform: `translateY(${scrollY * 0.2}px)`,
-            }}
-          >
+          <div className="absolute inset-0">
             <Image
               src="/contours_0.svg"
               alt=""
@@ -38,12 +19,7 @@ export default function HeroSection() {
               }}
             />
           </div>
-          <div
-            className="absolute inset-0"
-            style={{
-              transform: `translateY(${scrollY * 0.3}px)`,
-            }}
-          >
+          <div className="absolute inset-0">
             <Image
               src="/contours_750.svg"
               alt=""
@@ -55,12 +31,7 @@ export default function HeroSection() {
               }}
             />
           </div>
-          <div
-            className="absolute inset-0"
-            style={{
-              transform: `translateY(${scrollY * 0.4}px)`,
-            }}
-          >
+          <div className="absolute inset-0">
             <Image
               src="/contours_1500.svg"
               alt=""
@@ -72,12 +43,7 @@ export default function HeroSection() {
               }}
             />
           </div>
-          <div
-            className="absolute inset-0"
-            style={{
-              transform: `translateY(${scrollY * 0.5}px)`,
-            }}
-          >
+          <div className="absolute inset-0">
             <Image
               src="/contours_2250.svg"
               alt=""
