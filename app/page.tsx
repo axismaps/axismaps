@@ -141,7 +141,7 @@ export default function Page() {
                 style={{ color: "var(--axismaps-blue)" }}
               />
             </div>
-            <p className="text-sm">
+            <p className="text-base">
               We design and deploy second versions of{" "}
               <strong>popular tools</strong>, modernizing the underlying
               technology and UI while retaining the features that existing users
@@ -157,7 +157,7 @@ export default function Page() {
                 style={{ color: "var(--axismaps-blue)" }}
               />
             </div>
-            <p className="text-sm">
+            <p className="text-base">
               We build maps and applications that work on a wide{" "}
               <strong>range of devices</strong>, from desktops to tablets and
               smartphones.
@@ -172,7 +172,7 @@ export default function Page() {
                 style={{ color: "var(--axismaps-blue)" }}
               />
             </div>
-            <p className="text-sm">
+            <p className="text-base">
               We design simple and <strong>elegant user-interfaces</strong> for
               interactive maps.
             </p>
@@ -186,7 +186,7 @@ export default function Page() {
                 style={{ color: "var(--axismaps-blue)" }}
               />
             </div>
-            <p className="text-sm">
+            <p className="text-base">
               We design and build systems that{" "}
               <strong>automate the process</strong> of data updates and data
               additions.
@@ -201,7 +201,7 @@ export default function Page() {
                 style={{ color: "var(--axismaps-blue)" }}
               />
             </div>
-            <p className="text-sm">
+            <p className="text-base">
               We produce <strong>compelling cartographic visuals</strong> that
               communicate a wide variety of geographic information to end-users.
             </p>
