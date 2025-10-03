@@ -43,3 +43,4 @@ next-env.d.ts
 /webflow-cms/*
 /scripts/*
 /.env.local
+guide-page-after.png
