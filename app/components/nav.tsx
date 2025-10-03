@@ -72,7 +72,7 @@ export function Navbar() {
               <Link
                 key={path}
                 href={path}
-                className="transition-all hover:text-neutral-600 dark:hover:text-neutral-300 px-3 py-2 text-sm"
+                className="transition-all hover:text-neutral-600 dark:hover:text-neutral-300 px-3 py-2 text-base"
               >
                 {name}
               </Link>
@@ -131,7 +131,7 @@ export function Navbar() {
                     key={path}
                     href={path}
                     onClick={() => setIsMenuOpen(false)}
-                    className="block px-4 py-2.5 text-sm hover:bg-neutral-100 transition-colors"
+                    className="block px-4 py-2.5 text-base hover:bg-neutral-100 transition-colors"
                   >
                     {name}
                   </Link>
