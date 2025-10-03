@@ -83,7 +83,7 @@ export default function ContactPage() {
         <h1 className="text-4xl font-bold mb-8">Get in Touch</h1>
 
         <div className="mb-12">
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-900 mb-4">
             {`Have a project in mind? We'd love to hear from you. Send us a message
             using the form below, or email us directly.`}
           </p>
