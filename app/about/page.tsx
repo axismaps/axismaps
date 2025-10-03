@@ -54,46 +54,6 @@ export default function AboutPage() {
           Contact Us
         </Link>
       </div>
-
-      {/* Section Break */}
-      <hr className="my-16 border-gray-200" />
-
-      {/* Meet the Team Section */}
-      {/*<div className="container max-w-4xl">*/}
-      {/*  <h2 className="text-3xl font-bold mb-8">Meet the Team</h2>*/}
-
-      {/*  <div className="grid gap-8">*/}
-      {/*    /!* David Heyman *!/*/}
-      {/*    <div className="flex gap-6">*/}
-      {/*      <div className="flex-1">*/}
-      {/*        <h3 className="text-xl font-semibold mb-2">David Heyman</h3>*/}
-      {/*        <p className="text-gray-700 mb-3">*/}
-      {/*          As Managing Director of Axis Maps, Dave looks after clients, their projects and the Axis Maps team.*/}
-      {/*        </p>*/}
-      {/*        <ul className="list-disc list-inside text-gray-600">*/}
-      {/*          <li>Client relations</li>*/}
-      {/*          <li>Technical lead</li>*/}
-      {/*          <li>Data organizer</li>*/}
-      {/*        </ul>*/}
-      {/*      </div>*/}
-      {/*    </div>*/}
-
-      {/*    /!* Ben Sheesley *!/*/}
-      {/*    <div className="flex gap-6">*/}
-      {/*      <div className="flex-1">*/}
-      {/*        <h3 className="text-xl font-semibold mb-2">Ben Sheesley</h3>*/}
-      {/*        <p className="text-gray-700 mb-3">*/}
-      {/*          Ben is Axis Maps' Lead Designer, bringing his thoughtful designs to all of our projects.*/}
-      {/*        </p>*/}
-      {/*        <ul className="list-disc list-inside text-gray-600">*/}
-      {/*          <li>Map & UI designer</li>*/}
-      {/*          <li>Shipping magnate</li>*/}
-      {/*          <li>Stickler for details</li>*/}
-      {/*        </ul>*/}
-      {/*      </div>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
     </section>
   );
 }
