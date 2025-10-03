@@ -218,7 +218,7 @@ export default function Page() {
       {/* Resources Section */}
       <section id="resources" className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold mb-6">Resources by us, for you</h2>
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg mb-8" style={{ color: 'var(--color-gray-900)' }}>
           Explore our collection of tools and guides designed to help you create better maps and visualizations.
         </p>
 
