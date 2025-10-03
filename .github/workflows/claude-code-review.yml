@@ -31,6 +31,21 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Check repository permissions for workflow actor
+        shell: bash
+        env:
+          ACTOR: ${{ github.actor }}
+          REPO: ${{ github.repository }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          permissions=$(curl -s -H "Authorization: Bearer $TOKEN" \
+            https://api.github.com/repos/$REPO/collaborators/$ACTOR/permission | jq -r .permission)
+          echo "Actor $ACTOR has $permissions permission on $REPO"
+          if [[ "$permissions" != "admin" && "$permissions" != "write" ]]; then
+            echo "Insufficient permissions: $ACTOR has $permissions access to $REPO"
+            exit 1
+          fi
+
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@v1
