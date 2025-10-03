@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getProjects, formatDate } from "../utils";
+import { getProjects } from "../utils";
 import Link from "next/link";
 import Image from "next/image";
 import { evaluate } from "@mdx-js/mdx";
@@ -86,15 +86,8 @@ export default async function ProjectPage({
             )}
 
             <div className="flex flex-wrap gap-4 text-sm text-gray-800">
-              <time dateTime={project.metadata.publishedAt}>
-                {formatDate(project.metadata.publishedAt)}
-              </time>
-
               {project.metadata.client && (
-                <span>
-                  <span className="text-gray-600">•</span> Client:{" "}
-                  {project.metadata.client}
-                </span>
+                <span>Client: {project.metadata.client}</span>
               )}
 
               {project.metadata.category && (
