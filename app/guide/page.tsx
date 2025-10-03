@@ -15,22 +15,23 @@ export default function GuidePage() {
   const groupedGuides = getGuidesGroupedByCategory();
 
   return (
-    <PageSection>
-        {/* Hero Section */}
-        <div
-          className="mb-12 rounded-lg p-16 text-center bg-cover bg-center bg-no-repeat relative"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/guide.jpg')`
-          }}
-        >
-          <h1 className="mb-4 text-4xl font-bold text-white">
-            Cartography Guide
-          </h1>
-          <h2 className="text-xl text-white">
-            A short, friendly guide to basic principles of map design
-          </h2>
-        </div>
+    <>
+      {/* Hero Section */}
+      <div
+        className="relative -mx-4 md:-mx-6 mb-12 p-16 text-center bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/guide.jpg')`
+        }}
+      >
+        <h1 className="mb-4 text-4xl font-bold text-white">
+          Cartography Guide
+        </h1>
+        <h2 className="text-xl text-white">
+          A short, friendly guide to basic principles of map design
+        </h2>
+      </div>
 
+      <PageSection>
         <div className="flex flex-col-reverse sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
           <h1 className="title text-5xl font-bold">Welcome</h1>
           {/* Search Section */}
@@ -135,6 +136,7 @@ export default function GuidePage() {
             .
           </p>
         </div>
-    </PageSection>
+      </PageSection>
+    </>
   );
 }
