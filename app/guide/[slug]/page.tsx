@@ -76,11 +76,12 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
   } as any);
 
   return (
-    <PageSection>
-        {/* Header Banner */}
+    <>
+      {/* Header Banner - Match main guide page width */}
+      <div className="relative -mx-4 md:-mx-6 mb-12">
         <Link
           href="/guide"
-          className="mb-8 block rounded-lg p-6 text-center bg-cover bg-center bg-no-repeat transition-opacity hover:opacity-90"
+          className="block p-16 text-center bg-cover bg-center bg-no-repeat transition-opacity hover:opacity-90"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/guide.jpg')`
           }}
@@ -89,6 +90,9 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
             Cartography Guide
           </h2>
         </Link>
+      </div>
+
+      <PageSection>
 
         {/* Article Header */}
         <header className="mb-8">
@@ -206,5 +210,6 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
           </p>
         </div>
     </PageSection>
+    </>
   );
 }
