@@ -61,7 +61,7 @@ export default function GuidePage() {
           </p>
           <p>
             This guide is maintained by{" "}
-            <Link href="/" className="text-blue-600 hover:underline">
+            <Link href="/" className="link-primary hover:underline">
               Axis Maps
             </Link>
             , originally adapted from documentation written for indiemapper. However, the content here is about general cartography
@@ -81,7 +81,7 @@ export default function GuidePage() {
                   <li key={guide.slug}>
                     <Link
                       href={`/guide/${guide.slug}`}
-                      className="text-blue-600 hover:text-blue-800 hover:underline"
+                      className="link-primary hover:underline"
                     >
                       {guide.metadata.title}
                     </Link>
@@ -120,13 +120,13 @@ export default function GuidePage() {
           />
           <p className="text-sm text-gray-600">
             Cartography Guide by{" "}
-            <Link href="/guide" className="text-blue-600 hover:underline">
+            <Link href="/guide" className="link-primary hover:underline">
               Axis Maps
             </Link>{" "}
             is licensed under a{" "}
             <a
               href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
-              className="text-blue-600 hover:underline"
+              className="link-primary hover:underline"
               target="_blank"
               rel="noopener noreferrer"
             >
