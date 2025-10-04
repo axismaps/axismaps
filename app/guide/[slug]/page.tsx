@@ -96,10 +96,16 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
 
         {/* Article Header */}
         <header className="mb-8">
-          <div className="flex justify-end mb-4">
-          <div className="w-full sm:w-1/2">
-            <GuideSearchClient />
-          </div>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <Link
+              href="/guide"
+              className="inline-flex items-center text-sm text-gray-800 hover:text-gray-900"
+            >
+              ← Back to Contents
+            </Link>
+            <div className="w-full sm:w-1/2">
+              <GuideSearchClient />
+            </div>
           </div>
           <h1 className="mb-4 text-4xl font-bold tracking-tight text-gray-900">
             {guide.metadata.title}
