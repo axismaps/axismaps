@@ -81,7 +81,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
       <div className="relative -mx-4 md:-mx-6 mb-12">
         <Link
           href="/guide"
-          className="block p-16 text-center bg-cover bg-center bg-no-repeat transition-opacity hover:opacity-90"
+          className="block p-6 text-center bg-cover bg-center bg-no-repeat transition-opacity hover:opacity-90"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/guide.jpg')`
           }}
