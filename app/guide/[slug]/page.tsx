@@ -93,6 +93,12 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
       </div>
 
       <PageSection>
+        <Link
+          href="/guide"
+          className="inline-flex items-center text-sm text-gray-800 hover:text-gray-900 mb-8"
+        >
+          ← Back to Contents
+        </Link>
 
         {/* Article Header */}
         <header className="mb-8">
