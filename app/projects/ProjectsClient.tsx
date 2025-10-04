@@ -60,11 +60,11 @@ export default function ProjectsClient({
   return (
     <>
       {/* Title with inline category filters */}
-      <div className="flex items-end justify-between mb-12">
+      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 mb-12">
         <h1 className="title text-5xl font-bold">Projects</h1>
 
         {categories.length > 0 && (
-          <div className="hidden sm:flex flex-wrap gap-1.5 pb-2">
+          <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setSelectedCategory(null)}
               className={`px-2.5 py-1 rounded text-sm transition-colors ${
