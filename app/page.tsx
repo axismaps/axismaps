@@ -10,6 +10,7 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import { getProjects } from "./projects/utils";
+import { getYearsOfExperience } from "./lib/experience";
 import clientLogos from "./data/client-logos.json";
 
 /* eslint-disable @next/next/no-img-element */
@@ -20,6 +21,9 @@ export default function Page() {
   const recentProjects = projects
     .filter((p) => p.metadata.featured)
     .slice(0, 6);
+
+  // Calculate years of experience dynamically
+  const yearsOfExperience = getYearsOfExperience();
   return (
     <>
       <HeroSection />
@@ -39,7 +43,7 @@ export default function Page() {
             .
           </p>
           <p className="text-lg">
-            We have 15 years of experience partnering with{" "}
+            We have {yearsOfExperience} years of experience partnering with{" "}
             <Link href="#clients" className="link-primary">
               clients
             </Link>{" "}
