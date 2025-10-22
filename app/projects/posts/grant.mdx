@@ -1,0 +1,25 @@
+---
+title: "Ulysses S. Grant Battle Map"
+slug: "grant"
+publishedAt: "2020-05-01"
+featured: true
+subtitle: "An animated journey through Grant's Civil War victories"
+teaser: "Interactive scrolling map chronicling Ulysses S. Grant's key Civil War battles from Fort Donelson to Appomattox, featuring dramatic animations of troop movements and battle outcomes."
+coverImage: "/images/projects/grant-cover.jpg"
+client: "History Channel"
+category: "History"
+categorySlug: "history"
+mapUrl: "https://www.history.com/shows/grant/interactives/ulysses-s-grant-battle-map"
+---
+
+Built for the History Channel's three-part documentary series "Grant," this interactive scrolling map chronicles the key Civil War battles of Ulysses S. Grant from his early engagements through Lee's surrender at Appomattox. The map traces Grant's remarkable transformation from an unknown brigadier general to the commander who won the war, covering thirteen battles and major campaigns including Fort Donelson, Shiloh, the Vicksburg Campaign, and the Overland Campaign.
+
+The map uses a scroll-driven narrative format where users progress through Grant's military career as they scroll down the page. Each battle comes to life through carefully choreographed animations—the map smoothly pans across the landscape, zooms to the precise battle location, and displays troop movements with animated paths showing Union and Confederate forces converging. For the Vicksburg Campaign, users watch as Grant's army makes its audacious crossing of the Mississippi River and marches 200 miles inland, with each of the five battles appearing sequentially on the map. The Overland Campaign animations capture six weeks of relentless combat as Grant's forces pursue Lee across Virginia, with the map tracking their movements from the Wilderness through Spotsylvania to Petersburg.
+
+Each battle concludes with a dramatic explosion animation that punctuates the engagement, followed by a color-coded designation indicating whether it was a Union or Confederate victory. The explosion effects and victory declarations add a sense of drama and finality to each chapter of Grant's military career, making the progression through the war feel both epic and earned.
+
+The project was built as a lightweight static page using Mapbox GL JS for all map rendering and animation. Rather than employing a heavy framework like React, the application leverages vanilla JavaScript to handle scroll interactions and coordinate the storytelling elements with map movements. All content is stored in a CSV file and loaded dynamically, allowing the History Channel team to easily update battle descriptions, historical context, and strategic insights without requiring code changes.
+
+Beyond the scrolling experience, the map features expandable "Learn More" trays that slide in from the side with detailed information about each engagement, including battle statistics, strategic significance, and historical photographs sourced from archives. A hamburger menu provides access to biographical sketches of key Civil War generals from both sides, giving users deeper context about Grant's allies and adversaries like Robert E. Lee, James Longstreet, and William Tecumseh Sherman. The entire interface is fully responsive, working seamlessly across desktop, tablet, and mobile devices with touch-optimized interactions—critical given that over 50% of History Channel's audience accesses content on mobile.
+
+Battle location data came from the American Battlefield Trust, ensuring geographic and historical accuracy. The WebGL-powered animations created with Mapbox GL JS degrade gracefully on older devices without dedicated GPUs, ensuring the experience remains accessible across a wide range of hardware while maintaining the visual drama that makes the map engaging.
