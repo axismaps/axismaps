@@ -81,16 +81,15 @@ export default function Page() {
               key={client.name}
               className="flex items-center justify-center bg-gray-50 rounded-lg p-6 h-24"
             >
-              <div className="relative w-full h-12">
-                <Image
-                  src={client.logo}
-                  alt={client.shortName}
-                  title={client.name}
-                  fill
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  className="object-contain opacity-60 hover:opacity-100 transition-opacity grayscale"
-                />
-              </div>
+              <Image
+                src={client.logo}
+                alt={client.shortName}
+                title={client.name}
+                width={200}
+                height={48}
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className="max-h-12 w-auto opacity-60 hover:opacity-100 transition-opacity grayscale"
+              />
             </div>
           ))}
         </div>
