@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import HeroSection from "./components/hero-section";
 import ProjectCard from "./components/project-card";
 import ResourceCard from "./components/resource-card";
@@ -12,8 +13,6 @@ import {
 import { getProjects } from "./projects/utils";
 import { getYearsOfExperience } from "./lib/experience";
 import clientLogos from "./data/client-logos.json";
-
-/* eslint-disable @next/next/no-img-element */
 
 export default function Page() {
   // Get the 6 most recent featured projects
@@ -82,10 +81,13 @@ export default function Page() {
               key={client.name}
               className="flex items-center justify-center bg-gray-50 rounded-lg p-6 h-24"
             >
-              <img
+              <Image
                 src={client.logo}
                 alt={client.shortName}
                 title={client.name}
+                width={200}
+                height={48}
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="max-h-12 w-auto opacity-60 hover:opacity-100 transition-opacity grayscale"
               />
             </div>
