@@ -5,8 +5,6 @@
 .next/cache
 
 # Exclude pnpm store (critical for deployment size)
-.pnpm-store
-.pnpm-store/**
 **/.pnpm-store
 **/.pnpm-store/**
 **/pnpm-store
