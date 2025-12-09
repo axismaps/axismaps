@@ -26,7 +26,7 @@ A modern Next.js portfolio and blog website for Axis Maps, featuring:
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 24+
 - **pnpm 8+** (required - do not use npm or yarn)
 
 ### Installation
