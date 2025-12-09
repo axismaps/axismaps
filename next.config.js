@@ -27,6 +27,8 @@ const nextConfig = {
     '*': [
       // Exclude cache and store directories
       '.next/cache/**',
+      '.pnpm-store/**',
+      'node_modules/.pnpm-store/**',
       // Exclude source files not needed for runtime
       'axismaps.webflow/**',
       'webflow-cms/**',
