@@ -31,6 +31,7 @@ export default function ProjectCard({
             alt={project.metadata.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={85}
             className="object-cover transition-transform group-hover:scale-105"
           />
         </div>
