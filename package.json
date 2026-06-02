@@ -10,7 +10,8 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "import-blogs": "node scripts/import-blogs.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -31,8 +32,8 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.63.0",
     "react-icons": "^5.5.0",
+    "rehype-highlight": "^7.0.2",
     "resend": "^6.1.0",
-    "sugar-high": "^0.6.0",
     "tailwindcss": "4.0.0-alpha.13",
     "typescript": "5.3.3",
     "zod": "^4.1.11"

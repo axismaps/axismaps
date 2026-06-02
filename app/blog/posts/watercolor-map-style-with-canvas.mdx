@@ -1,0 +1,19 @@
+---
+title: "Watercolor map style with Canvas"
+slug: "watercolor-map-style-with-canvas"
+publishedAt: "2019-05-06"
+author: "andy-woodruff"
+authorName: "Andy Woodruff"
+summary: "Although the original watercolor map is made of pre-rendered tiles, instricate raster map rendering on the fly in a browser is gradually becoming practical as Canvas becomes more capable, and…"
+coverImage: "/images/blog/watercolor-map-style-with-canvas-cover.jpg"
+---
+
+![](/images/blog/watercolor-map-style-with-canvas/1.jpg)
+
+Although the original watercolor map is made of pre-rendered tiles, instricate raster map rendering on the fly in a browser is gradually becoming practical as Canvas becomes more capable, and libraries like D3 make it easy to render vector data to raster graphics. A partial duplication of some of Stamen's watercolor processes, this time using D3 and Canvas, is a great exercise to hint at what's possible and spur some new creative ideas in our web maps.
+
+[![](/images/blog/watercolor-map-style-with-canvas/2.jpg)](https://observablehq.com/@awoodruff/watercolor-map)
+
+This [watercolor map notebook](https://observablehq.com/@awoodruff/watercolor-map) on Observable does that, looking back at [Stamen's techniques](https://hi.stamen.com/watercolor-process-3dd5135861fe) as described by the late Zach Watson. (There is further [explanation of paint and texture](https://hi.stamen.com/watercolor-textures-15de97a4ad8b) from [Geraldine Sarmiento](http://geraldinesarmiento.com/).) _It needs to be viewed in the Chrome browser, as some Canvas techniques implemented are experimental and not supported by all browsers._
+
+Advanced map rendering with Canvas tends to involve drawing the same shapes many times as layers and masks are built up, and thus performance may still limit what we can do in realtime without even more advanced technology (WebGL?), but the possibilities are vast and fun nonetheless! [Play around with the notebook](https://observablehq.com/@awoodruff/watercolor-map) to see just one example!

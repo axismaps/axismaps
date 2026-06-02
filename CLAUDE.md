@@ -51,7 +51,7 @@ The Webflow export is located in `/axismaps.webflow/` and contains:
 - **Home** (index.html) → app/page.tsx ✅ Partially complete
 - **About** (about.html) → app/about/page.tsx ⏳ To be ported
 - **Projects** (projects.html) → app/projects/page.tsx ✅ Complete with 54 projects
-- **Blog** (blog.html) → app/blog/page.tsx ✅ Exists with sample posts
+- **Blog** (blog.html) → app/blog/page.tsx ✅ Low-prominence archive of 16 posts imported from Webflow (linked from footer only)
 - **Guide** (guide.html) → app/guide/page.tsx ⏳ To be ported
 - **Contact** (contact.html) → app/contact/page.tsx ⏳ To be ported
 
@@ -66,8 +66,7 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
 - **Tailwind CSS v4** (alpha) for styling via PostCSS
 - **MDX** for blog and project content with frontmatter parsing
   - `@next/mdx` for MDX configuration
-  - `@mdx-js/mdx` for runtime MDX evaluation
-  - `next-mdx-remote` for blog post rendering
+  - `@mdx-js/mdx` `evaluate()` for runtime MDX rendering (both projects and blog detail pages)
 - **Vercel Analytics & Speed Insights** for monitoring
 - **pnpm** as package manager
 
@@ -89,20 +88,26 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
   - `clients.json` - Client metadata
   - `categories.json` - Category metadata
 - `/public/images/projects` - Project cover images
+- `/public/images/blog` - Blog cover and inline images (per-post subfolders)
 - `/scripts` - Utility scripts
-  - `import-projects.js` - CSV to MDX converter
+  - `import-projects.js` - Projects CSV to MDX converter
+  - `import-blogs.js` - Blog CSV to MDX converter (also localizes images)
 - `/webflow-cms` - Source CSV data from Webflow export
 
 ### Content Systems
 
 #### Blog System
 
-Blog posts are MDX files in `/app/blog/posts/` with YAML frontmatter:
+A low-prominence archive of 16 posts imported from the Webflow CMS export (`webflow-cms/Axis Maps - Blogs.csv`) via `scripts/import-blogs.js`. Linked only from the footer, not the main nav.
 
-- Required fields: `title`, `publishedAt`, `summary`
-- Optional: `image`
-- Posts are parsed using custom utilities in `app/blog/utils.ts`
-- Rendered using `next-mdx-remote`
+Blog posts are MDX files in `/app/blog/posts/` with frontmatter:
+
+- Core fields: `title`, `slug`, `publishedAt`
+- Content fields: `summary`, `coverImage`, `author`, `authorName`
+- Optional: `category`, `categorySlug`
+- Parsed using `app/blog/utils.ts` (mirrors `app/projects/utils.ts`)
+- Rendered using `@mdx-js/mdx` `evaluate()` (same as projects), not `next-mdx-remote`
+- Cover and inline images are downloaded locally to `/public/images/blog/`
 
 #### Projects System
 
