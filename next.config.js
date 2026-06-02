@@ -11,12 +11,18 @@ const nextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   experimental: {
     mdxRs: true,
-    outputFileTracingRoot: undefined,
   },
   outputFileTracingExcludes: {
     '*': [
       // Exclude cache and store directories
       '.next/cache/**',
+      // Static assets served from the CDN, never read at runtime by a
+      // serverless function. Tracing them in bloats every function and was
+      // pushing them past Vercel's 250 MB limit. (public/search/* is kept —
+      // app/api/guide/search reads it at runtime.)
+      'public/images/**',
+      'public/*.jpg',
+      'public/*.png',
       // Exclude source files not needed for runtime
       'axismaps.webflow/**',
       'webflow-cms/**',
