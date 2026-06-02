@@ -1,0 +1,44 @@
+---
+title: "Relief mapping in 10 easy steps!"
+slug: "relief-mapping-in-10-easy-steps"
+publishedAt: "2018-05-17"
+author: "andy-woodruff"
+authorName: "Andy Woodruff"
+summary: "Try it at home! Satisfaction guaranteed!"
+coverImage: "/images/blog/relief-mapping-in-10-easy-steps-cover.jpg"
+---
+
+Try it at home! Satisfaction guaranteed!
+
+![](/images/blog/relief-mapping-in-10-easy-steps/1.jpg)
+
+Continuing our recent theme of [terrain-related side projects](https://github.com/axismaps/axis-jekyll/blob/master/blog/2018/04/contours-in-browser), a few days ago I finished (or, decided to quit working on) a shaded relief map of New Hampshire's White Mountains that I'd been pecking at from time to time for a few months. Most of our work is with interactive, web-based maps, and although we occasionally get to do [more traditional static cartography](https://github.com/axismaps/axis-jekyll/blob/master/projects/eca) (with hillshades, even), sometimes the kind of slow, singularly designed cartography we remember from our pre-web days has to be done just for fun.
+
+![](/images/blog/relief-mapping-in-10-easy-steps/2.gif)
+
+It's satisfying to see a map come together piece by piece, as in the above animation showing the main steps and layers in producing this map. Cartography is rarely a matter of throwing data into software and getting a map in return; rather, a single map usually involves multiple tools and data sources, and a lot of attention to small details. (The same is true of web maps, by the way: we write a lot of code for small design details that push beyond defaults.)
+
+There's no single way to make a shaded relief map, but here's how this one came together:
+
+1.  Download a good digital elevation model from the [National Map](https://nationalmap.gov/elevation.html).
+2.  Genereate a shaded relief image using Blender, per [Daniel Huffman's excellent tutorial](https://somethingaboutmaps.wordpress.com/2017/11/16/creating-shaded-relief-in-blender/).
+3.  Set up a [QGIS](http://qgis.org/) project with [land cover data](https://www.mrlc.gov/). Reduce it to only a few colors (mainly, evergreen forest and "everything else") and export it with dimensions matching the relief image.
+4.  In Photoshop, add land cover, then the relief layer with a "multiply" blending mode.
+5.  Heavily blur the land cover so that it's not harsh and pixelated. It becomes a subtle base layer, not an essential piece of data.
+6.  Add water lines and polygons (via Census [TIGER/Line](https://www.census.gov/geo/maps-data/data/tiger-line.html)) to QGIS, style, export, and add to Photoshop above land cover.
+7.  Use some Photoshop tricks to make relief highlights a bit brigher and warmer-colored, and shadows a cooler color.
+8.  Generate and label contour lines from the DEM using QGIS, then export and add them as a Photoshop layer.
+9.  Add roads (from OpenStreetMap via [Geofabrik's extracts](https://download.geofabrik.de/)) to the QGIS project. Export and style them with Illustrator, and place the .ai file as a layer in Photoshop underneath the relief. (Shadows thus fall on roads as they would in real life.)
+10.  Label all the peaks, physical features, and towns one by one in Illustrator (no GIS data involved), and place them into Photoshop.
+
+Then just a bit of cropping and cleanup, and it's done! That list, of course, vastly oversimplifies things, but it gives a good idea of everything that goes into a map. Labeling, for example, is hugely important and takes a lot of time to do right.
+
+![](/images/blog/relief-mapping-in-10-easy-steps/3.png)
+
+Perhaps my favorite touch, briefly visible in the animated sequence, is number 7 from the list above: adding extra punch to the relief map's highlights and shadows. Daniel Huffman also covers something like this (along with much more!) in his [walkthrough of terrain mapping in Photoshop](https://somethingaboutmaps.wordpress.com/2016/10/03/terrain-in-photoshop/). A brightened, warmer tone is applied to the light side of mountains at high elevations, while shadows are given a blue tint. Not only does this seem to boost the illusion of depth, it also better evokes the temperature and appearance of a warm sun and cool shadows in reality. The effects are applied lightly, but they make a difference.
+
+![](/images/blog/relief-mapping-in-10-easy-steps/4.jpg)
+
+It's been fun to practice this kind of cartography and learn new things along the way (Blender is great!), while more deeply studying a region that is somewhat dear to me. Here's the full final product.
+
+[![](/images/blog/relief-mapping-in-10-easy-steps/5.jpg)](http://andywoodruff.com/maps/white_mountains.jpg)

@@ -78,6 +78,61 @@ html {
   @apply font-medium;
 }
 
+/* Syntax highlighting (highlight.js, GitHub-light palette) */
+.prose .hljs {
+  color: rgb(36, 41, 46);
+  background: transparent;
+}
+.prose .hljs-comment,
+.prose .hljs-quote {
+  color: #6a737d;
+  font-weight: 400;
+}
+.prose .hljs-keyword,
+.prose .hljs-selector-tag,
+.prose .hljs-subst {
+  color: #d73a49;
+}
+.prose .hljs-string,
+.prose .hljs-doctag,
+.prose .hljs-regexp,
+.prose .hljs-addition,
+.prose .hljs-meta .hljs-string {
+  color: #032f62;
+}
+.prose .hljs-number,
+.prose .hljs-literal,
+.prose .hljs-variable,
+.prose .hljs-template-variable,
+.prose .hljs-attr,
+.prose .hljs-attribute,
+.prose .hljs-symbol,
+.prose .hljs-bullet {
+  color: #005cc5;
+}
+.prose .hljs-title,
+.prose .hljs-section,
+.prose .hljs-selector-id {
+  color: #6f42c1;
+}
+.prose .hljs-built_in,
+.prose .hljs-builtin-name,
+.prose .hljs-type,
+.prose .hljs-name,
+.prose .hljs-meta {
+  color: #e36209;
+}
+.prose .hljs-deletion {
+  color: #b31d28;
+  background: #ffeef0;
+}
+.prose .hljs-emphasis {
+  font-style: italic;
+}
+.prose .hljs-strong {
+  font-weight: 600;
+}
+
 .prose img {
   /* Don't apply styles to next/image */
   @apply m-0;
