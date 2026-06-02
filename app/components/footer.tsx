@@ -102,7 +102,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-12 pt-6 border-t border-neutral-200 dark:border-neutral-800 text-xs text-neutral-500 dark:text-neutral-400">
-          Copyright © 2025 Axis Maps. All rights reserved. The material on this
+          Copyright © {new Date().getFullYear()} Axis Maps. All rights reserved. The material on this
           site may not be reproduced, distributed, transmitted, or otherwise
           used, except with the prior permission of Axis Maps.
         </p>

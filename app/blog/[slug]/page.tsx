@@ -3,7 +3,7 @@ import Link from "next/link";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
-import { getBlogPosts, formatDate } from "../utils";
+import { getBlogPosts, getBlogPostBySlug, formatDate } from "../utils";
 import ProseWrapper from "../../components/prose-wrapper";
 
 export async function generateStaticParams() {
@@ -17,7 +17,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPosts().find((p) => p.slug === slug);
+  const post = getBlogPostBySlug(slug);
 
   if (!post) {
     return {};
@@ -35,7 +35,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPosts().find((p) => p.slug === slug);
+  const post = getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();

@@ -12,6 +12,10 @@ const turndownService = new TurndownService({
   bulletListMarker: '-'
 });
 
+// Drop <style>/<script> entirely — some posts embed an inline <style> block
+// that would otherwise leak into the MDX as visible (escaped) CSS text.
+turndownService.remove(['style', 'script', 'noscript']);
+
 // Remove wrapper p tags if content is already wrapped
 turndownService.addRule('removeWrapperParagraphs', {
   filter: function(node) {
@@ -218,12 +222,14 @@ async function downloadImage(url, destDir, returnPrefix, baseName) {
 
 // Download all inline body images and rewrite their URLs to local paths in the HTML
 async function localizeInlineImages(html, slug) {
-  const regex = /<img[^>]+src=["']([^"']+)["']/gi;
+  // Handle quoted ("..."/'...') and unquoted (src=https://...) attributes —
+  // some Webflow posts emit bare unquoted src values.
+  const regex = /<img[^>]+src=(?:"([^"]+)"|'([^']+)'|([^\s">]+))/gi;
   const urls = [];
   let m;
   while ((m = regex.exec(html)) !== null) {
-    const url = m[1];
-    if (url.startsWith('http') && !urls.includes(url)) {
+    const url = m[1] || m[2] || m[3];
+    if (url && url.startsWith('http') && !urls.includes(url)) {
       urls.push(url);
     }
   }
@@ -254,6 +260,10 @@ async function localizeInlineImages(html, slug) {
 // Main import function
 async function importBlogs() {
   try {
+    // Wipe output dirs so re-runs are reproducible and never leave orphaned
+    // posts or images behind (e.g. when slugs or image indexing change).
+    await fs.rm(POSTS_DIR, { recursive: true, force: true });
+    await fs.rm(IMAGES_DIR, { recursive: true, force: true });
     await fs.mkdir(POSTS_DIR, { recursive: true });
     await fs.mkdir(IMAGES_DIR, { recursive: true });
 
