@@ -56,13 +56,5 @@
     "msw": "^2.11.3",
     "turndown": "^7.2.1",
     "vitest": "^3.2.4"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "msw",
-      "sharp",
-      "unrs-resolver"
-    ]
   }
 }
