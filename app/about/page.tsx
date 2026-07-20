@@ -18,7 +18,7 @@ export default function AboutPage() {
         />
       </div>
       {/* Values and Vision Section */}
-      <div className="container max-w-4xl">
+      <div className="container">
         <h1 className="text-5xl font-bold mb-8">Values and vision</h1>
 
         <ProseWrapper variant="large">

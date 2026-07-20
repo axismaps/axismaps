@@ -51,7 +51,7 @@ export default async function BlogPostPage({
 
   return (
     <section className="pb-24 pt-8">
-      <div className="container max-w-4xl">
+      <div className="container">
         <Link
           href="/blog"
           className="inline-flex items-center text-sm text-gray-800 hover:text-gray-900 mb-8"
