@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import type { Photo } from "./utils";
 
 type Props = {
-  photos: string[];
+  photos: Photo[];
   /** Used to build the alt text, e.g. "Manhattan — Letterpress edition — black". */
   label: string;
 };
@@ -20,14 +21,18 @@ export default function PhotoGallery({ photos, label }: Props) {
 
   if (!photos.length) return null;
 
+  const lead = photos[active];
+
   return (
     <div>
       <div className="relative w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
         <Image
-          src={photos[active]}
+          src={lead.src}
           alt={`${label} — photograph ${active + 1} of ${photos.length}`}
-          width={2000}
-          height={1334}
+          // Real measured dimensions, not an assumed ratio — these shots vary by a
+          // pixel or two and a future edition could differ meaningfully.
+          width={lead.width}
+          height={lead.height}
           sizes="(max-width: 976px) 100vw, 976px"
           priority={active === 0}
           className="h-auto w-full"
@@ -38,7 +43,7 @@ export default function PhotoGallery({ photos, label }: Props) {
         <div className="mt-2 flex flex-wrap gap-2">
           {photos.map((photo, i) => (
             <button
-              key={photo}
+              key={photo.src}
               type="button"
               onClick={() => setActive(i)}
               aria-label={`Show photograph ${i + 1} of ${photos.length}`}
@@ -50,7 +55,7 @@ export default function PhotoGallery({ photos, label }: Props) {
               }`}
             >
               <Image
-                src={photo}
+                src={photo.src}
                 alt=""
                 width={160}
                 height={107}

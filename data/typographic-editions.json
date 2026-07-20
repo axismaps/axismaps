@@ -167,10 +167,26 @@
       "primary": false,
       "tilePath": null,
       "photos": [
-        "/images/typographic-maps/new-york/letterpress-black-1.jpg",
-        "/images/typographic-maps/new-york/letterpress-black-2.jpg",
-        "/images/typographic-maps/new-york/letterpress-black-3.jpg",
-        "/images/typographic-maps/new-york/letterpress-black-4.jpg"
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-black-1.jpg",
+          "width": 2000,
+          "height": 1334
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-black-2.jpg",
+          "width": 2000,
+          "height": 1334
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-black-3.jpg",
+          "width": 2000,
+          "height": 1334
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-black-4.jpg",
+          "width": 2000,
+          "height": 1334
+        }
       ]
     },
     {
@@ -183,10 +199,26 @@
       "primary": false,
       "tilePath": null,
       "photos": [
-        "/images/typographic-maps/new-york/letterpress-blue-1.jpg",
-        "/images/typographic-maps/new-york/letterpress-blue-2.jpg",
-        "/images/typographic-maps/new-york/letterpress-blue-3.jpg",
-        "/images/typographic-maps/new-york/letterpress-blue-4.jpg"
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-blue-1.jpg",
+          "width": 2000,
+          "height": 1334
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-blue-2.jpg",
+          "width": 2000,
+          "height": 1333
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-blue-3.jpg",
+          "width": 2000,
+          "height": 1335
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-blue-4.jpg",
+          "width": 2000,
+          "height": 1335
+        }
       ]
     }
   ],

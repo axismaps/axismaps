@@ -33,7 +33,10 @@ const photographic = (over: Partial<ViewableEdition> = {}): ViewableEdition => (
   letterpress: true,
   primary: false,
   url: null,
-  photos: ['/images/a-1.jpg', '/images/a-2.jpg'],
+  photos: [
+    { src: '/images/a-1.jpg', width: 2000, height: 1334 },
+    { src: '/images/a-2.jpg', width: 2000, height: 1335 },
+  ],
   ...over,
 });
 

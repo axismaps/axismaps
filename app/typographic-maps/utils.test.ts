@@ -112,7 +112,7 @@ describe('typographic map utilities', () => {
             id: 'letterpress-black',
             primary: false,
             tilePath: null,
-            photos: ['/images/typographic-maps/new-york/letterpress-black-1.jpg'],
+            photos: [{ src: '/images/typographic-maps/new-york/letterpress-black-1.jpg', width: 2000, height: 1334 }],
           }),
         ],
       });
@@ -180,11 +180,13 @@ describe('generated content', () => {
       .flatMap((e: any) => e.photos ?? []);
 
     expect(referenced.length).toBeGreaterThan(0);
-    for (const src of referenced) {
+    for (const photo of referenced) {
       expect(
-        fs.existsSync(path.join(process.cwd(), 'public', src)),
-        `missing ${src}`,
+        fs.existsSync(path.join(process.cwd(), 'public', photo.src)),
+        `missing ${photo.src}`,
       ).toBe(true);
+      expect(photo.width, photo.src).toBeGreaterThan(0);
+      expect(photo.height, photo.src).toBeGreaterThan(0);
     }
   });
 
@@ -194,8 +196,6 @@ describe('generated content', () => {
       for (const e of list as any[]) {
         const hasTiles = Boolean(e.tilePath);
         const hasPhotos = Boolean(e.photos?.length);
-        // London is the known exception: its 2018 source can't be read yet.
-        if (slug === 'london' && !hasTiles && !hasPhotos) continue;
         expect(hasTiles !== hasPhotos, `${slug}/${e.id}`).toBe(true);
       }
     }
@@ -211,7 +211,20 @@ describe('generated content', () => {
     }
   });
 
-  it('only cites press items over https or the Internet Archive', () => {
+  it('never backslash-escapes a frontmatter value', () => {
+    // parseFrontmatter strips the outer quote pair but does not unescape, so a `\"`
+    // written into frontmatter would be read back with the backslash intact. The
+    // importer folds straight quotes to typographic ones instead of escaping them.
+    for (const file of fs.readdirSync(root)) {
+      const raw = fs.readFileSync(path.join(root, file), 'utf-8');
+      const block = /---\s*([\s\S]*?)\s*---/.exec(raw)?.[1] ?? '';
+      expect(block, file).not.toContain('\\');
+    }
+  });
+
+  // Note: plain http is permitted deliberately — The Map Room's 2010 archive is
+  // only reachable over http, and an https URL for it 404s.
+  it('gives every press item a resolvable-looking URL, outlet and title', () => {
     const press = JSON.parse(
       fs.readFileSync(path.join(process.cwd(), 'data', 'typographic-press.json'), 'utf-8'),
     );

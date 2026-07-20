@@ -3,7 +3,11 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import PhotoGallery from './PhotoGallery';
 
-const photos = ['/images/one.jpg', '/images/two.jpg', '/images/three.jpg'];
+const photos = [
+  { src: '/images/one.jpg', width: 2000, height: 1334 },
+  { src: '/images/two.jpg', width: 2000, height: 1333 },
+  { src: '/images/three.jpg', width: 2000, height: 1335 },
+];
 
 describe('PhotoGallery', () => {
   it('leads with the first photograph', () => {
@@ -38,7 +42,12 @@ describe('PhotoGallery', () => {
   });
 
   it('hides the thumbnail strip when there is only one photograph', () => {
-    render(<PhotoGallery photos={['/images/only.jpg']} label="Manhattan" />);
+    render(
+      <PhotoGallery
+        photos={[{ src: '/images/only.jpg', width: 2000, height: 1334 }]}
+        label="Manhattan"
+      />,
+    );
 
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(screen.getByAltText('Manhattan — photograph 1 of 1')).toBeInTheDocument();

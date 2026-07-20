@@ -28,10 +28,18 @@ export type Edition = {
    */
   tilePath: string | null;
   /**
-   * Public paths to photographs of the physical print. Used instead of tiles where
-   * a photograph carries what a vector render can't — the letterpress editions.
+   * Photographs of the physical print, used instead of tiles where a photograph
+   * carries what a vector render can't — the letterpress editions. Dimensions are
+   * measured at import time rather than assumed; the shots aren't a uniform ratio.
    */
-  photos: string[];
+  photos: Photo[];
+};
+
+export type Photo = {
+  /** Public path, e.g. /images/typographic-maps/new-york/letterpress-black-1.jpg */
+  src: string;
+  width: number;
+  height: number;
 };
 
 export type PressItem = {

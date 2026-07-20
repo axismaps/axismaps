@@ -20,6 +20,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const sharp = require('sharp');
 
 const PRODUCTS = path.join(__dirname, '..', 'data', 'typographic-store-products.json');
 const SOURCES = path.join(__dirname, 'typographic-sources.json');
@@ -83,12 +84,25 @@ function toParagraphs(html) {
     .filter(Boolean);
 }
 
-/** Escape a value for the repo's flat `key: value` frontmatter parser (app/lib/mdx.ts). */
+/**
+ * Make a value safe for the repo's flat `key: value` frontmatter parser.
+ *
+ * parseFrontmatter (app/lib/mdx.ts) strips the outer quote pair but never unescapes,
+ * so writing `\"` would round-trip as a literal backslash-quote. Rather than escape,
+ * fold straight double quotes to typographic ones — lossless to the reader, better
+ * typography, and it can't confuse the parser. import-blogs.js sidesteps the same
+ * limitation by folding to single quotes.
+ */
 function fm(value) {
-  return `"${String(value).replace(/"/g, '\\"')}"`;
+  const text = String(value)
+    .replace(/\s+/g, ' ')
+    .replace(/"([^"]*)"/g, '“$1”')
+    .replace(/"/g, '”')
+    .trim();
+  return `"${text}"`;
 }
 
-function main() {
+async function main() {
   const catalogue = JSON.parse(fs.readFileSync(PRODUCTS, 'utf-8'));
   const products = catalogue.products || catalogue;
   const sources = JSON.parse(fs.readFileSync(SOURCES, 'utf-8'));
@@ -136,9 +150,34 @@ function main() {
     written++;
   }
 
-  writeEditions(sources);
+  writeEditions(sources, await measurePhotos(sources));
 
   console.log(`\n${written}/${sources.cities.length} written to ${path.relative(process.cwd(), OUT_DIR)}`);
+}
+
+/** Measure every photo an edition references, keyed by absolute path. */
+async function measurePhotos(sources) {
+  const sizes = new Map();
+  for (const city of sources.cities) {
+    for (const edition of city.editions) {
+      if (!edition.photoDir) continue;
+      const dir = path.join(
+        __dirname,
+        '..',
+        'public',
+        'images',
+        'typographic-maps',
+        city.slug
+      );
+      if (!fs.existsSync(dir)) continue;
+      for (const f of fs.readdirSync(dir).filter((n) => n.startsWith(`${edition.id}-`))) {
+        const file = path.join(dir, f);
+        const { width, height } = await sharp(file).metadata();
+        sizes.set(file, { width, height });
+      }
+    }
+  }
+  return sizes;
 }
 
 /**
@@ -146,7 +185,7 @@ function main() {
  * absolute Google Drive paths, which must not ship — this projects it down to just what
  * the gallery needs, plus the tile path each pyramid was uploaded under.
  */
-function writeEditions(sources) {
+function writeEditions(sources, sizes) {
   const byCity = {};
   let total = 0;
 
@@ -173,12 +212,18 @@ function writeEditions(sources) {
           'typographic-maps',
           city.slug
         );
+        // Carry each photo's real pixel dimensions so next/image can reserve the
+        // right box. These aren't uniform — the letterpress shots land between
+        // 1333 and 1335 px tall — so assuming a single ratio causes layout shift.
         const photos = fs.existsSync(dir)
           ? fs
               .readdirSync(dir)
               .filter((f) => f.startsWith(`${edition.id}-`))
               .sort()
-              .map((f) => `/images/typographic-maps/${city.slug}/${f}`)
+              .map((f) => ({
+                src: `/images/typographic-maps/${city.slug}/${f}`,
+                ...sizes.get(path.join(dir, f)),
+              }))
           : [];
         return { ...base, tilePath: null, photos };
       }
@@ -206,4 +251,7 @@ function writeEditions(sources) {
   );
 }
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
