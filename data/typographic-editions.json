@@ -1,0 +1,299 @@
+{
+  "austin": [
+    {
+      "id": "poster",
+      "label": "Typographic Map of Austin",
+      "year": 2013,
+      "orientation": "portrait",
+      "printSize": "24 × 36 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/austin/poster.dzi",
+      "photos": []
+    }
+  ],
+  "boston": [
+    {
+      "id": "poster",
+      "label": "Second edition",
+      "year": 2014,
+      "orientation": "portrait",
+      "printSize": "24 × 36 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/boston/poster.dzi",
+      "photos": []
+    },
+    {
+      "id": "first-edition",
+      "label": "First edition",
+      "year": 2010,
+      "orientation": "portrait",
+      "printSize": "24 × 36 in",
+      "letterpress": false,
+      "primary": false,
+      "tilePath": "typographic-maps/v1/boston/first-edition.dzi",
+      "photos": []
+    },
+    {
+      "id": "letterpress",
+      "label": "Letterpress edition",
+      "year": 2012,
+      "orientation": "landscape",
+      "printSize": "24 × 18 in",
+      "letterpress": true,
+      "primary": false,
+      "tilePath": "typographic-maps/v1/boston/letterpress.dzi",
+      "photos": []
+    }
+  ],
+  "chicago": [
+    {
+      "id": "poster",
+      "label": "Colour edition",
+      "year": 2010,
+      "orientation": "portrait",
+      "printSize": "24 × 36 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/chicago/poster.dzi",
+      "photos": []
+    },
+    {
+      "id": "night",
+      "label": "Night edition",
+      "year": 2010,
+      "orientation": "portrait",
+      "printSize": "24 × 36 in",
+      "letterpress": false,
+      "primary": false,
+      "tilePath": "typographic-maps/v1/chicago/night.dzi",
+      "photos": []
+    },
+    {
+      "id": "letterpress",
+      "label": "Letterpress edition",
+      "year": 2012,
+      "orientation": "portrait",
+      "printSize": "18 × 24 in",
+      "letterpress": true,
+      "primary": false,
+      "tilePath": "typographic-maps/v1/chicago/letterpress.dzi",
+      "photos": []
+    }
+  ],
+  "london": [
+    {
+      "id": "poster",
+      "label": "Typographic Map of London",
+      "year": 2012,
+      "orientation": "landscape",
+      "printSize": "36 × 24 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/london/poster.dzi",
+      "photos": []
+    }
+  ],
+  "los-angeles": [
+    {
+      "id": "poster",
+      "label": "Typographic Map of Los Angeles",
+      "year": 2022,
+      "orientation": "portrait",
+      "printSize": "24 × 36 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/los-angeles/poster.dzi",
+      "photos": []
+    }
+  ],
+  "madison": [
+    {
+      "id": "poster",
+      "label": "Typographic Map of Madison",
+      "year": 2009,
+      "orientation": "landscape",
+      "printSize": "24 × 18 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/madison/poster.dzi",
+      "photos": []
+    }
+  ],
+  "minneapolis": [
+    {
+      "id": "poster",
+      "label": "Typographic Map of Minneapolis",
+      "year": 2011,
+      "orientation": "landscape",
+      "printSize": "36 × 24 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/minneapolis/poster.dzi",
+      "photos": []
+    }
+  ],
+  "new-york": [
+    {
+      "id": "poster",
+      "label": "Typographic Map of Manhattan",
+      "year": 2012,
+      "orientation": "portrait",
+      "printSize": "A1 (23.4 × 33.1 in)",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/new-york/poster.dzi",
+      "photos": []
+    },
+    {
+      "id": "first-edition",
+      "label": "First edition",
+      "year": 2011,
+      "orientation": "portrait",
+      "printSize": "24 × 36 in",
+      "letterpress": false,
+      "primary": false,
+      "tilePath": "typographic-maps/v1/new-york/first-edition.dzi",
+      "photos": []
+    },
+    {
+      "id": "letterpress-black",
+      "label": "Letterpress edition — black",
+      "year": 2012,
+      "orientation": "portrait",
+      "printSize": "two sheets, 18 × 24 in each",
+      "letterpress": true,
+      "primary": false,
+      "tilePath": null,
+      "photos": [
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-black-1.jpg",
+          "width": 2000,
+          "height": 1334
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-black-2.jpg",
+          "width": 2000,
+          "height": 1334
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-black-3.jpg",
+          "width": 2000,
+          "height": 1334
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-black-4.jpg",
+          "width": 2000,
+          "height": 1334
+        }
+      ]
+    },
+    {
+      "id": "letterpress-blue",
+      "label": "Letterpress edition — blue",
+      "year": 2012,
+      "orientation": "portrait",
+      "printSize": "two sheets, 18 × 24 in each",
+      "letterpress": true,
+      "primary": false,
+      "tilePath": null,
+      "photos": [
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-blue-1.jpg",
+          "width": 2000,
+          "height": 1334
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-blue-2.jpg",
+          "width": 2000,
+          "height": 1333
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-blue-3.jpg",
+          "width": 2000,
+          "height": 1335
+        },
+        {
+          "src": "/images/typographic-maps/new-york/letterpress-blue-4.jpg",
+          "width": 2000,
+          "height": 1335
+        }
+      ]
+    }
+  ],
+  "philadelphia": [
+    {
+      "id": "poster",
+      "label": "Typographic Map of Philadelphia",
+      "year": 2012,
+      "orientation": "landscape",
+      "printSize": "36 × 24 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/philadelphia/poster.dzi",
+      "photos": []
+    }
+  ],
+  "san-francisco": [
+    {
+      "id": "poster",
+      "label": "Third edition",
+      "year": 2016,
+      "orientation": "landscape",
+      "printSize": "36 × 24 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/san-francisco/poster.dzi",
+      "photos": []
+    },
+    {
+      "id": "second-edition",
+      "label": "Second edition",
+      "year": 2012,
+      "orientation": "landscape",
+      "printSize": "36 × 24 in",
+      "letterpress": false,
+      "primary": false,
+      "tilePath": "typographic-maps/v1/san-francisco/second-edition.dzi",
+      "photos": []
+    },
+    {
+      "id": "letterpress",
+      "label": "Letterpress edition",
+      "year": 2011,
+      "orientation": "landscape",
+      "printSize": "24 × 18 in",
+      "letterpress": true,
+      "primary": false,
+      "tilePath": "typographic-maps/v1/san-francisco/letterpress.dzi",
+      "photos": []
+    }
+  ],
+  "seattle": [
+    {
+      "id": "poster",
+      "label": "Typographic Map of Seattle",
+      "year": 2012,
+      "orientation": "portrait",
+      "printSize": "24 × 36 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/seattle/poster.dzi",
+      "photos": []
+    }
+  ],
+  "washington-dc": [
+    {
+      "id": "poster",
+      "label": "Typographic Map of Washington DC",
+      "year": 2011,
+      "orientation": "portrait",
+      "printSize": "24 × 36 in",
+      "letterpress": false,
+      "primary": true,
+      "tilePath": "typographic-maps/v1/washington-dc/poster.dzi",
+      "photos": []
+    }
+  ]
+}

@@ -30,11 +30,7 @@ const resources = [
   { name: "Cartography Guide", href: "/guide", external: false },
   { name: "Contours", href: "https://contours.axismaps.com", external: true },
   { name: "ColorBrewer", href: "https://colorbrewer2.org", external: true },
-  {
-    name: "Typographic Map Store",
-    href: "https://store.axismaps.com",
-    external: true,
-  },
+  { name: "Typographic Maps", href: "/typographic-maps", external: false },
 ];
 
 const linkClasses =

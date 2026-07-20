@@ -28,8 +28,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files
-.env
+# env files — `.env` alone matched only that exact name, so files like the
+# `.env.vercel` that `vercel env pull` writes were not covered.
+.env*
+!.env*.example
 
 # vercel
 .vercel
@@ -41,6 +43,10 @@ next-env.d.ts
 # webflow
 /axismaps.webflow/*
 /webflow-cms/*
-/scripts/*
-/.env.local
 guide-page-after.png
+
+# deep-zoom tile pyramids (built by scripts/build-typographic-tiles.js, uploaded to Vercel Blob)
+/tiles-build/
+
+# local-only symlink for verifying the deep-zoom viewer against tiles-build/
+/public/tiles-local/

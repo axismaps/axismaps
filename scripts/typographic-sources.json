@@ -1,0 +1,289 @@
+{
+  "_comment": "Source artwork manifest for the typographic maps deep-zoom gallery. Consumed by scripts/build-typographic-tiles.js. Page sizes and PDF-readability were verified with pdfinfo/pdftotext on 2026-07-20; see _notes on individual entries. Paths are relative to the roots below, which point at the locally mounted Google Drive.",
+  "roots": {
+    "designs": "/Users/davidheyman/Library/CloudStorage/GoogleDrive-dave@axismaps.com/Shared drives/Axis Maps Project Data/Designs/typographicMaps",
+    "laArchive": "/Users/davidheyman/Library/CloudStorage/GoogleDrive-dave@axismaps.com/My Drive/Projects/ΙΙ ARCHIVE ΙΙ/la-typographic-map"
+  },
+  "render": {
+    "dpi": 400,
+    "tileSize": 510,
+    "overlap": 1,
+    "jpegQuality": 85
+  },
+  "cities": [
+    {
+      "slug": "austin",
+      "name": "Austin",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Typographic Map of Austin",
+          "year": 2013,
+          "root": "designs",
+          "file": "Austin/austin_20131003.pdf",
+          "orientation": "portrait",
+          "printSize": "24 × 36 in"
+        }
+      ]
+    },
+    {
+      "slug": "boston",
+      "name": "Boston",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Second edition",
+          "year": 2014,
+          "root": "designs",
+          "file": "Boston/New Boston/boston_111114.ai",
+          "orientation": "portrait",
+          "printSize": "24 × 36 in",
+          "primary": true
+        },
+        {
+          "id": "first-edition",
+          "label": "First edition",
+          "year": 2010,
+          "root": "designs",
+          "file": "Boston/boston_type_0311.ai",
+          "orientation": "portrait",
+          "printSize": "24 × 36 in"
+        },
+        {
+          "id": "letterpress",
+          "label": "Letterpress edition",
+          "year": 2012,
+          "root": "designs",
+          "file": "Boston letterpress/boston_letterpress_outlined.ai",
+          "orientation": "landscape",
+          "printSize": "24 × 18 in",
+          "letterpress": true
+        }
+      ]
+    },
+    {
+      "slug": "chicago",
+      "name": "Chicago",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Colour edition",
+          "year": 2010,
+          "root": "designs",
+          "file": "Chicago/ChicagoWords_dayColorHoods_20101006.ai",
+          "orientation": "portrait",
+          "printSize": "24 × 36 in",
+          "primary": true
+        },
+        {
+          "id": "night",
+          "label": "Night edition",
+          "year": 2010,
+          "root": "designs",
+          "file": "Chicago/ChicagoWords_night_20101006.ai",
+          "orientation": "portrait",
+          "printSize": "24 × 36 in"
+        },
+        {
+          "id": "letterpress",
+          "label": "Letterpress edition",
+          "year": 2012,
+          "root": "designs",
+          "file": "Chicago letterpress/Chicago_cs3_outlines_v2.ai",
+          "orientation": "portrait",
+          "printSize": "18 × 24 in",
+          "letterpress": true
+        }
+      ]
+    },
+    {
+      "slug": "london",
+      "name": "London",
+      "_note": "The 2018 redraw (London/london_20180831.ai) was saved without 'Create PDF Compatible File' and cannot be read outside Illustrator, which the studio no longer has. No PDF, TIFF or flattened export of that edition exists anywhere in Drive. The 2012 edition below is shipped in its place; swap this entry if the 2018 file is ever recovered.",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Typographic Map of London",
+          "year": 2012,
+          "root": "designs",
+          "file": "London/london_20120723.pdf",
+          "orientation": "landscape",
+          "printSize": "36 × 24 in",
+          "primary": true
+        }
+      ]
+    },
+    {
+      "slug": "los-angeles",
+      "name": "Los Angeles",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Typographic Map of Los Angeles",
+          "year": 2022,
+          "root": "laArchive",
+          "file": "LA_final.pdf",
+          "orientation": "portrait",
+          "printSize": "24 × 36 in"
+        }
+      ]
+    },
+    {
+      "slug": "madison",
+      "name": "Madison",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Typographic Map of Madison",
+          "year": 2009,
+          "root": "designs",
+          "file": "Madison/madison_type_1109.ai",
+          "orientation": "landscape",
+          "printSize": "24 × 18 in"
+        }
+      ]
+    },
+    {
+      "slug": "minneapolis",
+      "name": "Minneapolis",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Typographic Map of Minneapolis",
+          "year": 2011,
+          "root": "designs",
+          "file": "Minneapolis/minneapolis_20110722.pdf",
+          "orientation": "landscape",
+          "printSize": "36 × 24 in"
+        }
+      ]
+    },
+    {
+      "slug": "new-york",
+      "name": "New York City",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Typographic Map of Manhattan",
+          "year": 2012,
+          "root": "designs",
+          "file": "NYC/ny_type_A1_20121011.ai",
+          "orientation": "portrait",
+          "printSize": "A1 (23.4 × 33.1 in)",
+          "primary": true
+        },
+        {
+          "id": "first-edition",
+          "label": "First edition",
+          "year": 2011,
+          "root": "designs",
+          "file": "NYC/ny_type_0329.ai",
+          "orientation": "portrait",
+          "printSize": "24 × 36 in"
+        },
+        {
+          "id": "letterpress-black",
+          "label": "Letterpress edition — black",
+          "year": 2012,
+          "orientation": "portrait",
+          "printSize": "two sheets, 18 × 24 in each",
+          "letterpress": true,
+          "_note": "Shown as photographs rather than tiles. A vector render can't convey the debossed type or the cotton stock, which is the whole point of a letterpress print. Vector masters still exist at Manhattan letterpress/ny_letterpress_{uptown,downtown}_June3_outlines_cs3.ai if a zoomable version is ever wanted.",
+          "photoRoot": "designs",
+          "photoDir": "Photos/Fab/Manhattan Letterpress Set Black"
+        },
+        {
+          "id": "letterpress-blue",
+          "label": "Letterpress edition — blue",
+          "year": 2012,
+          "orientation": "portrait",
+          "printSize": "two sheets, 18 × 24 in each",
+          "letterpress": true,
+          "photoRoot": "designs",
+          "photoDir": "Photos/Fab/Manhattan Letterpress Set Blue"
+        }
+      ]
+    },
+    {
+      "slug": "philadelphia",
+      "name": "Philadelphia",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Typographic Map of Philadelphia",
+          "year": 2012,
+          "root": "designs",
+          "file": "Philly/philadelphia_20121203.ai",
+          "orientation": "landscape",
+          "printSize": "36 × 24 in"
+        }
+      ]
+    },
+    {
+      "slug": "san-francisco",
+      "name": "San Francisco",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Third edition",
+          "year": 2016,
+          "root": "designs",
+          "file": "SF/sf_20160512.pdf",
+          "orientation": "landscape",
+          "printSize": "36 × 24 in",
+          "primary": true,
+          "_note": "Use the .pdf, NOT sf_20160512.ai — the .ai was saved without PDF content and renders as an Adobe placeholder page."
+        },
+        {
+          "id": "second-edition",
+          "label": "Second edition",
+          "year": 2012,
+          "root": "designs",
+          "file": "SF/sf_20120723.pdf",
+          "orientation": "landscape",
+          "printSize": "36 × 24 in"
+        },
+        {
+          "id": "letterpress",
+          "label": "Letterpress edition",
+          "year": 2011,
+          "root": "designs",
+          "file": "SF letterpress/SF_waterlines_June3_outlines_cs3.ai",
+          "orientation": "landscape",
+          "printSize": "24 × 18 in",
+          "letterpress": true
+        }
+      ]
+    },
+    {
+      "slug": "seattle",
+      "name": "Seattle",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Typographic Map of Seattle",
+          "year": 2012,
+          "root": "designs",
+          "file": "Seattle/seattle_20120723.pdf",
+          "orientation": "portrait",
+          "printSize": "24 × 36 in"
+        }
+      ]
+    },
+    {
+      "slug": "washington-dc",
+      "name": "Washington DC",
+      "editions": [
+        {
+          "id": "poster",
+          "label": "Typographic Map of Washington DC",
+          "year": 2011,
+          "root": "designs",
+          "file": "DC/dc_20110330.ai",
+          "orientation": "portrait",
+          "printSize": "24 × 36 in"
+        }
+      ]
+    }
+  ]
+}

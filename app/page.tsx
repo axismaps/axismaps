@@ -253,11 +253,10 @@ export default function Page() {
           />
 
           <ResourceCard
-            title="Typographic Map Store"
-            description="Beautiful typographic maps of cities around the world. Each map is composed entirely of text labels, creating a unique visualization of place names."
+            title="Typographic Maps"
+            description="Twelve city maps drawn entirely in type, with every street, park, and shoreline built from the names of the places themselves. Zoom in and read them."
             imageSrc="/images/resources/typographic.jpg"
-            href="https://store.axismaps.com"
-            isExternal={true}
+            href="/typographic-maps"
           />
         </div>
       </section>
