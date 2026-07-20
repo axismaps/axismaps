@@ -94,7 +94,14 @@ export default async function TypographicMapPage({
       </div>
 
       <div className="container mb-10">
-        <EditionViewer city={map.metadata.city} editions={viewable} />
+        {/* Keyed on the slug so the selected edition can't survive a client-side
+            navigation between cities. App Router remounts on a param change today,
+            but the viewer holds derived state and shouldn't rely on that. */}
+        <EditionViewer
+          key={map.slug}
+          city={map.metadata.city}
+          editions={viewable}
+        />
       </div>
 
       <div className="container">
@@ -129,7 +136,15 @@ export default async function TypographicMapPage({
                       Letterpress · edition of 50, signed and numbered
                     </span>
                   )}
-                  {!edition.tilePath && (
+                  {edition.photos.length > 0 && (
+                    <span className="text-xs text-gray-500">
+                      shown as photographs
+                    </span>
+                  )}
+                  {/* Viewable means tiles *or* photographs — mirroring
+                      getViewableEditions. Checking tilePath alone would label the
+                      photographed letterpress editions unviewable. */}
+                  {!edition.tilePath && edition.photos.length === 0 && (
                     <span className="text-xs text-gray-500">
                       (not currently viewable)
                     </span>

@@ -3,18 +3,14 @@
 import { useId, useState } from "react";
 import DeepZoomViewer from "./DeepZoomViewer";
 import PhotoGallery from "./PhotoGallery";
+import type { Edition } from "./utils";
 
-type ViewableEdition = {
-  id: string;
-  label: string;
-  year: number;
-  orientation: "portrait" | "landscape";
-  printSize: string;
-  letterpress: boolean;
-  primary: boolean;
-  /** Tile manifest URL. Null for editions shown as photographs. */
+/**
+ * An edition with its tile path already resolved to an absolute URL — null where
+ * the edition is shown as photographs instead.
+ */
+export type ViewableEdition = Omit<Edition, "tilePath"> & {
   url: string | null;
-  photos: string[];
 };
 
 type Props = {
@@ -47,9 +43,12 @@ export default function EditionViewer({ city, editions }: Props) {
 
   return (
     <div>
+      {/* A plain toggle-button group rather than role="tablist"/"tab". The ARIA tabs
+          pattern also requires a linked tabpanel and arrow-key roving focus; a
+          half-implemented version misleads screen readers more than no roles do. */}
       {editions.length > 1 && (
         <div
-          role="tablist"
+          role="group"
           aria-label={`${city} editions`}
           className="mb-3 flex flex-wrap gap-2"
         >
@@ -58,9 +57,8 @@ export default function EditionViewer({ city, editions }: Props) {
             return (
               <button
                 key={edition.id}
-                role="tab"
                 type="button"
-                aria-selected={selected}
+                aria-pressed={selected}
                 onClick={() => setActiveId(edition.id)}
                 className={`rounded border px-4 py-2 text-sm transition-colors ${
                   selected
@@ -112,12 +110,16 @@ export default function EditionViewer({ city, editions }: Props) {
             arrow keys to pan, <kbd>+</kbd> and <kbd>−</kbd> to zoom, and{" "}
             <kbd>0</kbd> to reset. Printed at {active.printSize}.
           </>
-        ) : (
+        ) : active.letterpress ? (
           <>
             Photographed from the original print — {active.printSize}. Hand-printed
             letterpress on 110 lb Crane’s Lettra cotton paper, in a signed and
             numbered edition of 50.
           </>
+        ) : (
+          // Every photo edition is a letterpress print today, but the caption above
+          // asserts specifics (cotton stock, edition of 50) that only hold for those.
+          <>Photographed from the original print — {active.printSize}.</>
         )}
       </p>
     </div>

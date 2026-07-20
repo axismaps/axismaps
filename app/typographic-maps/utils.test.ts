@@ -6,7 +6,6 @@ import {
   getTypographicMapBySlug,
   getEditions,
   getViewableEditions,
-  getPrimaryEdition,
   getPress,
   getFeaturedPress,
   tileUrl,
@@ -124,30 +123,8 @@ describe('typographic map utilities', () => {
       ]);
     });
 
-    it('prefers the primary edition, falling back to the first viewable one', () => {
-      vi.mocked(loadDataFile).mockReturnValue({
-        boston: [
-          edition({ id: 'first-edition', primary: false }),
-          edition({ id: 'poster', primary: true }),
-        ],
-      });
-      expect(getPrimaryEdition('boston')?.id).toBe('poster');
-
-      vi.mocked(loadDataFile).mockReturnValue({
-        boston: [
-          edition({ id: 'first-edition', primary: false }),
-          edition({ id: 'letterpress', primary: false }),
-        ],
-      });
-      expect(getPrimaryEdition('boston')?.id).toBe('first-edition');
-    });
-
-    it('returns undefined when a city has no viewable edition at all', () => {
-      vi.mocked(loadDataFile).mockReturnValue({
-        london: [edition({ tilePath: null })],
-      });
-      expect(getPrimaryEdition('london')).toBeUndefined();
-    });
+    // Primary-edition selection is exercised in EditionViewer.test.tsx, where the
+    // logic actually lives — it has to run client-side.
   });
 
   describe('press', () => {

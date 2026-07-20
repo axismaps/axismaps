@@ -4,6 +4,7 @@ import {
   getTypographicMaps,
   getEditions,
   getPress,
+  getFeaturedPress,
   type PressItem,
 } from "./utils";
 
@@ -50,7 +51,7 @@ function PressCard({ item }: { item: PressItem }) {
 export default function TypographicMapsPage() {
   const maps = getTypographicMaps();
   const press = getPress();
-  const featured = press.filter((item) => item.featured);
+  const featured = getFeaturedPress();
   const more = press.filter((item) => !item.featured);
 
   return (

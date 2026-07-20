@@ -114,9 +114,11 @@ function main() {
     }
 
     const sizes = (product.variants || []).map((v) => v.title).join(', ');
-    const primary =
-      city.editions.find((e) => e.primary) || city.editions[0];
 
+    // Deliberately minimal. Anything about the artwork itself — orientation,
+    // print size per edition, how many editions there are — lives in
+    // data/typographic-editions.json, which is the single source of truth the
+    // viewer reads. Duplicating it here just lets the two drift.
     const frontmatter = [
       `title: ${fm(city.name)}`,
       `slug: ${fm(city.slug)}`,
@@ -124,9 +126,6 @@ function main() {
       `city: ${fm(city.name)}`,
       `teaser: ${fm(body[0].slice(0, 160).replace(/\s+\S*$/, '') + '…')}`,
       `printSizes: ${fm(sizes)}`,
-      `orientation: ${fm(primary.orientation)}`,
-      `storeHandle: ${fm(handle)}`,
-      `editionCount: ${fm(city.editions.length)}`,
     ].join('\n');
 
     const mdx = `---\n${frontmatter}\n---\n\n${body.join('\n\n')}\n`;

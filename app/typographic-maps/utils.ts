@@ -10,9 +10,6 @@ export type TypographicMapMetadata = {
   city: string;
   teaser?: string;
   printSizes?: string;
-  orientation?: "portrait" | "landscape";
-  storeHandle?: string;
-  editionCount?: string;
 };
 
 export type TypographicMap = ContentItem<TypographicMapMetadata>;
@@ -76,11 +73,6 @@ export function getViewableEditions(slug: string): Edition[] {
   return getEditions(slug).filter(
     (edition) => edition.tilePath || edition.photos?.length,
   );
-}
-
-export function getPrimaryEdition(slug: string): Edition | undefined {
-  const viewable = getViewableEditions(slug);
-  return viewable.find((edition) => edition.primary) ?? viewable[0];
 }
 
 export function getPress(): PressItem[] {
