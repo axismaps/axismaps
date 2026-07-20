@@ -107,7 +107,13 @@ async function main() {
     for (const edition of cityEditions) {
       const name = `${citySlug}/${edition.id}`;
       if (!edition.tilePath) {
-        console.log(`⏭  ${name} — no tiles (blocked source)`);
+        // Photo editions ship from public/ and have nothing to upload; an edition
+        // with neither is one whose source artwork can't be read yet.
+        console.log(
+          edition.photos?.length
+            ? `⏭  ${name} — shown as photographs, nothing to upload`
+            : `⏭  ${name} — no tiles (source not readable)`
+        );
         continue;
       }
 
