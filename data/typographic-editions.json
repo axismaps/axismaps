@@ -86,12 +86,12 @@
     {
       "id": "poster",
       "label": "Typographic Map of London",
-      "year": 2018,
+      "year": 2012,
       "orientation": "landscape",
       "printSize": "36 × 24 in",
       "letterpress": false,
       "primary": true,
-      "tilePath": null,
+      "tilePath": "typographic-maps/v1/london/poster.dzi",
       "photos": []
     }
   ],

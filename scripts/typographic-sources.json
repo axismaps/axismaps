@@ -99,18 +99,17 @@
     {
       "slug": "london",
       "name": "London",
-      "_blocked": "london_20180831.ai was saved without 'Create PDF Compatible File' and cannot be read outside Illustrator. Awaiting a re-saved copy. Set file to the re-saved 2018 artwork when it lands; london_20120723.pdf (36 × 24, renders fine) is the 2012 fallback.",
+      "_note": "The 2018 redraw (London/london_20180831.ai) was saved without 'Create PDF Compatible File' and cannot be read outside Illustrator, which the studio no longer has. No PDF, TIFF or flattened export of that edition exists anywhere in Drive. The 2012 edition below is shipped in its place; swap this entry if the 2018 file is ever recovered.",
       "editions": [
         {
           "id": "poster",
           "label": "Typographic Map of London",
-          "year": 2018,
+          "year": 2012,
           "root": "designs",
-          "file": "London/london_20180831.ai",
+          "file": "London/london_20120723.pdf",
           "orientation": "landscape",
           "printSize": "36 × 24 in",
-          "primary": true,
-          "blocked": true
+          "primary": true
         }
       ]
     },
