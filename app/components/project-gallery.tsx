@@ -19,11 +19,12 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
   // slide shares the visible slide's box and so counts as near the viewport
   // — only leaving it unmounted actually avoids the download.
   const [mounted, setMounted] = useState<Set<number>>(
-    () => new Set([0, 1 % images.length]),
+    () => new Set(images.length > 1 ? [0, 1] : [0]),
   );
   const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
+    if (images.length === 0) return;
     setMounted((previous) => {
       const upcoming = (current + 1) % images.length;
       if (previous.has(current) && previous.has(upcoming)) return previous;
@@ -36,7 +37,11 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
 
   const go = useCallback(
     (delta: number) =>
-      setCurrent((index) => (index + delta + images.length) % images.length),
+      setCurrent((index) =>
+        images.length === 0
+          ? 0
+          : (index + delta + images.length) % images.length,
+      ),
     [images.length],
   );
 
@@ -59,6 +64,10 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
     }
     touchStartX.current = null;
   }
+
+  // The detail page only renders this with two or more images, but the
+  // component should not depend on its caller repeating that check.
+  if (images.length === 0) return null;
 
   return (
     // tabIndex makes the arrow keys work once the gallery is focused, rather

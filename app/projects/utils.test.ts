@@ -335,6 +335,28 @@ describe('Project Utilities', () => {
       ]);
     });
 
+    it('should order a tenth image after the second, not the first', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readdirSync).mockReturnValue([
+        '10-tenth.jpg',
+        '02-second.jpg',
+        '01-first.jpg',
+      ] as any);
+
+      expect(getProjectGallery('demo')).toEqual([
+        '/images/projects/demo/01-first.jpg',
+        '/images/projects/demo/02-second.jpg',
+        '/images/projects/demo/10-tenth.jpg',
+      ]);
+    });
+
+    it('should refuse a slug that escapes the projects image directory', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+
+      expect(getProjectGallery('../../../etc')).toEqual([]);
+      expect(fs.readdirSync).not.toHaveBeenCalled();
+    });
+
     it('should return empty array when the directory cannot be read', () => {
       vi.mocked(fs.existsSync).mockReturnValue(true);
       vi.mocked(fs.readdirSync).mockImplementation(() => {

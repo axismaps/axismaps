@@ -72,24 +72,29 @@ const GALLERY_IMAGE_PATTERN = /\.(png|jpe?g|webp|avif)$/i;
 // Most projects have no such directory, in which case the detail page falls
 // back to coverImage.
 export function getProjectGallery(slug: string): string[] {
-  const galleryDir = path.join(
-    process.cwd(),
-    "public",
-    "images",
-    "projects",
-    slug,
-  );
+  const galleryRoot = path.join(process.cwd(), "public", "images", "projects");
+  const galleryDir = path.resolve(galleryRoot, slug);
+
+  // Slugs come from MDX filenames rather than user input, but this should not
+  // read outside the projects image directory on any caller's behalf.
+  if (!galleryDir.startsWith(galleryRoot + path.sep)) {
+    return [];
+  }
 
   if (!fs.existsSync(galleryDir)) {
     return [];
   }
 
   try {
-    return fs
-      .readdirSync(galleryDir)
-      .filter((file) => GALLERY_IMAGE_PATTERN.test(file))
-      .sort()
-      .map((file) => `/images/projects/${slug}/${file}`);
+    return (
+      fs
+        .readdirSync(galleryDir)
+        .filter((file) => GALLERY_IMAGE_PATTERN.test(file))
+        // Numeric collation so a tenth image sorts after the second rather
+        // than after the first, as a plain lexicographic sort would have it.
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+        .map((file) => `/images/projects/${slug}/${file}`)
+    );
   } catch (error) {
     console.error(`Error reading gallery directory ${galleryDir}:`, error);
     return [];

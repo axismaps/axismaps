@@ -116,6 +116,18 @@ describe('ProjectGallery', () => {
     expect(rendered[1].className).toContain('pointer-events-none');
   });
 
+  it('renders nothing when given no images', () => {
+    const { container } = render(<ProjectGallery images={[]} title="Empty" />);
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it('handles a single image without wrapping arithmetic breaking', async () => {
+    const user = userEvent.setup();
+    render(<ProjectGallery images={[images[0]]} title="Solo" />);
+    await user.click(screen.getByLabelText('Next image'));
+    expect(screen.getByText('Image 1 of 1')).toBeInTheDocument();
+  });
+
   it('labels the carousel with the project title', () => {
     renderGallery();
     expect(screen.getByRole('group')).toHaveAttribute(
