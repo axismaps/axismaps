@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 
 interface ProjectGalleryProps {
@@ -23,26 +23,29 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
   );
   const touchStartX = useRef<number | null>(null);
 
-  useEffect(() => {
-    if (images.length === 0) return;
-    setMounted((previous) => {
-      const upcoming = (current + 1) % images.length;
-      if (previous.has(current) && previous.has(upcoming)) return previous;
-      const next = new Set(previous);
-      next.add(current);
-      next.add(upcoming);
-      return next;
-    });
-  }, [current, images.length]);
+  // Mounting is updated alongside the index rather than in an effect. Doing it
+  // after paint meant a jump to an unmounted slide — wrapping backwards, or a
+  // distant dot — rendered one empty frame before the image appeared.
+  const show = useCallback(
+    (index: number) => {
+      if (images.length === 0) return;
+      setCurrent(index);
+      setMounted((previous) => {
+        const upcoming = (index + 1) % images.length;
+        if (previous.has(index) && previous.has(upcoming)) return previous;
+        const next = new Set(previous);
+        next.add(index);
+        next.add(upcoming);
+        return next;
+      });
+    },
+    [images.length],
+  );
 
   const go = useCallback(
     (delta: number) =>
-      setCurrent((index) =>
-        images.length === 0
-          ? 0
-          : (index + delta + images.length) % images.length,
-      ),
-    [images.length],
+      show((current + delta + images.length) % images.length),
+    [show, current, images.length],
   );
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
@@ -54,6 +57,12 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
       event.preventDefault();
       go(1);
     }
+  }
+
+  // A tap on a nav button that drifts past the swipe threshold would otherwise
+  // fire both the button's onClick and the swipe, advancing two slides.
+  function stopTouch(event: React.TouchEvent<HTMLButtonElement>) {
+    event.stopPropagation();
   }
 
   function handleTouchEnd(event: React.TouchEvent<HTMLDivElement>) {
@@ -114,6 +123,8 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
         <button
           type="button"
           onClick={() => go(-1)}
+          onTouchStart={stopTouch}
+          onTouchEnd={stopTouch}
           aria-label="Previous image"
           className="absolute left-2 top-1/2 -translate-y-1/2 grid place-items-center h-9 w-9 rounded-full bg-white/90 text-gray-700 shadow hover:bg-white hover:text-gray-900 transition-colors"
         >
@@ -123,6 +134,8 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
         <button
           type="button"
           onClick={() => go(1)}
+          onTouchStart={stopTouch}
+          onTouchEnd={stopTouch}
           aria-label="Next image"
           className="absolute right-2 top-1/2 -translate-y-1/2 grid place-items-center h-9 w-9 rounded-full bg-white/90 text-gray-700 shadow hover:bg-white hover:text-gray-900 transition-colors"
         >
@@ -135,7 +148,7 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
           <button
             key={src}
             type="button"
-            onClick={() => setCurrent(index)}
+            onClick={() => show(index)}
             aria-label={`Go to image ${index + 1}`}
             aria-current={index === current}
             className={`h-2 rounded-full transition-all ${

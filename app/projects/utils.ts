@@ -101,6 +101,36 @@ export function getProjectGallery(slug: string): string[] {
   }
 }
 
+export type ProjectHero =
+  | { kind: "video"; url: string }
+  | { kind: "gallery"; images: string[] }
+  | { kind: "image"; src: string }
+  | { kind: "none" };
+
+// Hero precedence for a project detail page, in one place so it is legible
+// and testable rather than buried in a nested ternary:
+//   1. a video, if the project has one
+//   2. the gallery, once there are enough images to page through
+//   3. a single still — the lone gallery image if that is all there is,
+//      otherwise coverImage
+// coverImage therefore no longer reaches the hero on a project with a
+// gallery, though it still drives the index and related-project cards.
+export function resolveProjectHero(
+  metadata: Pick<ProjectMetadata, "videoUrl" | "coverImage">,
+  gallery: string[],
+): ProjectHero {
+  if (metadata.videoUrl) {
+    return { kind: "video", url: metadata.videoUrl };
+  }
+
+  if (gallery.length > 1) {
+    return { kind: "gallery", images: gallery };
+  }
+
+  const still = gallery[0] ?? metadata.coverImage;
+  return still ? { kind: "image", src: still } : { kind: "none" };
+}
+
 // Type definitions for client and category data
 export type Category = {
   name: string;

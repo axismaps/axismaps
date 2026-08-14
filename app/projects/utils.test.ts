@@ -6,6 +6,7 @@ import {
   getProjectsByClient,
   getFeaturedProjects,
   getProjectGallery,
+  resolveProjectHero,
   getClients,
   getCategories,
   formatDate,
@@ -370,6 +371,50 @@ describe('Project Utilities', () => {
       expect(consoleError).toHaveBeenCalled();
 
       consoleError.mockRestore();
+    });
+  });
+
+  describe('resolveProjectHero', () => {
+    const gallery = ['/images/projects/demo/01.jpg', '/images/projects/demo/02.jpg'];
+
+    it('should prefer a video over everything else', () => {
+      expect(
+        resolveProjectHero(
+          { videoUrl: 'https://vimeo.com/123', coverImage: '/cover.jpg' },
+          gallery
+        )
+      ).toEqual({ kind: 'video', url: 'https://vimeo.com/123' });
+    });
+
+    it('should prefer the gallery over coverImage', () => {
+      expect(resolveProjectHero({ coverImage: '/cover.jpg' }, gallery)).toEqual({
+        kind: 'gallery',
+        images: gallery,
+      });
+    });
+
+    it('should fall back to coverImage when there is no gallery', () => {
+      expect(resolveProjectHero({ coverImage: '/cover.jpg' }, [])).toEqual({
+        kind: 'image',
+        src: '/cover.jpg',
+      });
+    });
+
+    it('should show a lone gallery image rather than paging through one slide', () => {
+      expect(
+        resolveProjectHero({ coverImage: '/cover.jpg' }, [gallery[0]])
+      ).toEqual({ kind: 'image', src: gallery[0] });
+    });
+
+    it('should use a lone gallery image when coverImage is unset', () => {
+      expect(resolveProjectHero({}, [gallery[0]])).toEqual({
+        kind: 'image',
+        src: gallery[0],
+      });
+    });
+
+    it('should resolve to nothing when there is no media at all', () => {
+      expect(resolveProjectHero({}, [])).toEqual({ kind: 'none' });
     });
   });
 

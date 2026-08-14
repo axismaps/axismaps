@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getProjects, getProjectGallery } from "../utils";
+import { getProjects, getProjectGallery, resolveProjectHero } from "../utils";
 import Link from "next/link";
 import Image from "next/image";
 import { evaluate } from "@mdx-js/mdx";
@@ -57,9 +57,10 @@ export default async function ProjectPage({
         .slice(0, 3)
     : [];
 
-  // Skipped entirely when a video leads, so a video-led project does not pay
-  // for a directory read whose result is discarded.
+  // The directory read is skipped entirely when a video leads, so a video-led
+  // project does not pay for a result that would be discarded.
   const gallery = project.metadata.videoUrl ? [] : getProjectGallery(slug);
+  const hero = resolveProjectHero(project.metadata, gallery);
 
   // Evaluate MDX content to get React component
   const { default: MDXContent } = await evaluate(project.content, {
@@ -128,7 +129,7 @@ export default async function ProjectPage({
             </div>
           </header>
 
-          {project.metadata.videoUrl ? (
+          {hero.kind === "video" ? (
             <div className="aspect-video mb-8">
               {project.metadata.videoUrl.includes("vimeo") ? (
                 <iframe
@@ -150,18 +151,18 @@ export default async function ProjectPage({
                 ></iframe>
               ) : null}
             </div>
-          ) : gallery.length > 1 ? (
+          ) : hero.kind === "gallery" ? (
             // Keyed so carousel state cannot survive a client-side move
             // between two projects, whatever the router does with the subtree.
             <ProjectGallery
               key={slug}
-              images={gallery}
+              images={hero.images}
               title={project.metadata.title}
             />
-          ) : project.metadata.coverImage ? (
+          ) : hero.kind === "image" ? (
             <div className="relative w-full h-96 mb-8 rounded-lg overflow-hidden">
               <img
-                src={project.metadata.coverImage}
+                src={hero.src}
                 alt={project.metadata.title}
                 className="w-full h-full object-cover"
               />

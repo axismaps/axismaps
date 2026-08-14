@@ -80,6 +80,18 @@ describe('ProjectGallery', () => {
     expect(visibleIndex()).toBe(0);
   });
 
+  it('mounts a distant slide in the same update that selects it', async () => {
+    const user = userEvent.setup();
+    renderGallery();
+    // Slide 3 is unmounted at this point; growing `mounted` after paint would
+    // show an empty frame first.
+    await user.click(screen.getByLabelText('Go to image 3'));
+    expect(visibleIndex()).toBe(2);
+    expect(
+      slides().some((img) => img.getAttribute('alt')?.includes('3 of 3')),
+    ).toBe(true);
+  });
+
   it('jumps to an image via its indicator', async () => {
     const user = userEvent.setup();
     renderGallery();
