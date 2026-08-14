@@ -131,19 +131,19 @@ export default async function ProjectPage({
 
           {hero.kind === "video" ? (
             <div className="aspect-video mb-8">
-              {project.metadata.videoUrl.includes("vimeo") ? (
+              {hero.url.includes("vimeo") ? (
                 <iframe
-                  src={`https://player.vimeo.com/video/${project.metadata.videoUrl.match(/vimeo\.com\/(\d+)/)?.[1] || project.metadata.videoUrl.split("/").pop()}`}
+                  src={`https://player.vimeo.com/video/${hero.url.match(/vimeo\.com\/(\d+)/)?.[1] || hero.url.split("/").pop()}`}
                   className="w-full h-full rounded-lg"
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
                 ></iframe>
-              ) : project.metadata.videoUrl.includes("youtube.com") || project.metadata.videoUrl.includes("youtu.be") ? (
+              ) : hero.url.includes("youtube.com") || hero.url.includes("youtu.be") ? (
                 <iframe
                   src={`https://www.youtube.com/embed/${
-                    project.metadata.videoUrl.includes("youtube.com")
-                      ? project.metadata.videoUrl.split("v=")[1]?.split("&")[0]
-                      : project.metadata.videoUrl.split("/").pop()?.split("?")[0]
+                    hero.url.includes("youtube.com")
+                      ? hero.url.split("v=")[1]?.split("&")[0]
+                      : hero.url.split("/").pop()?.split("?")[0]
                   }`}
                   className="w-full h-full rounded-lg"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
