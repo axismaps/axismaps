@@ -57,7 +57,9 @@ export default async function ProjectPage({
         .slice(0, 3)
     : [];
 
-  const gallery = getProjectGallery(slug);
+  // Skipped entirely when a video leads, so a video-led project does not pay
+  // for a directory read whose result is discarded.
+  const gallery = project.metadata.videoUrl ? [] : getProjectGallery(slug);
 
   // Evaluate MDX content to get React component
   const { default: MDXContent } = await evaluate(project.content, {
@@ -149,7 +151,13 @@ export default async function ProjectPage({
               ) : null}
             </div>
           ) : gallery.length > 1 ? (
-            <ProjectGallery images={gallery} title={project.metadata.title} />
+            // Keyed so carousel state cannot survive a client-side move
+            // between two projects, whatever the router does with the subtree.
+            <ProjectGallery
+              key={slug}
+              images={gallery}
+              title={project.metadata.title}
+            />
           ) : project.metadata.coverImage ? (
             <div className="relative w-full h-96 mb-8 rounded-lg overflow-hidden">
               <img
