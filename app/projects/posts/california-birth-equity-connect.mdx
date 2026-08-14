@@ -1,0 +1,26 @@
+---
+title: "California Birth Equity Connect"
+slug: "california-birth-equity-connect"
+publishedAt: "2026-08-12"
+featured: true
+subtitle: "Mapping the organizations and policy behind birth justice in California"
+teaser: "A platform for the California Coalition for Black Birth Justice that maps where birth justice organizations work, how they approach it, and which policies have moved — built to help a movement coordinate rather than to publish another dataset."
+client: "California Coalition for Black Birth Justice"
+clientSlug: "california-coalition-for-black-birth-justice"
+category: "Public Health"
+categorySlug: "public-health"
+coverImage: "/images/projects/california-birth-equity-connect-cover.jpg"
+mapUrl: "https://birthequityconnect.com"
+---
+
+The California Birth Equity Connect is an informational platform for anyone working to improve maternal health outcomes in California, focused on the inequities affecting Black families. It was built for the California Coalition for Black Birth Justice, whose stated mission is to unify and strengthen the Black birth justice movement in the state. The Coalition’s starting point in commissioning it was that California already had no shortage of quantitative data about pregnancy and birth outcomes, and that what the movement lacked was a picture of itself — who is doing the work, where, by what methods, and what has actually changed in policy as a result.
+
+The platform is organised around the three questions the Coalition wanted answerable. Geographic reach asks where organizations contributing to birth justice are located and where the movement could extend further. Strategic approaches asks how different organizations go about the work and which methods they consider most effective. Policy successes and opportunities asks what legislation has been proposed or passed, what is missing, and what is still needed. Each has its own view, and the underlying records are structured so an organization’s service area, its approaches and the populations it serves can all be queried rather than simply read.
+
+The organizational directory carries detailed metadata on each entry — organizational form, approach, populations served by gender, age, race and ethnicity, and the region covered — and the policy tracker records bill number, adoption status, focus area and legislative cycle for each entry, with a link out to the full text. Filtering runs across every facet at once and the counts update together, so narrowing to one approach immediately shows how the organizations taking it break down by type, by population served and by region. The map presents the same result geographically as a shaded grid rather than as pins. That choice does two things a pin map cannot. Organizations describe their own coverage in their own terms — one names a county, another a neighbourhood, a third works statewide — and a grid absorbs that unevenness instead of pretending to a precision the underlying answers do not have. It also holds the smallest organizations at the same visual weight as the largest, so a two-person group does not vanish beside a statewide institution on a map meant to show a movement to itself.
+
+Several decisions came directly out of design review with the Coalition’s strategic advisors. The category labels were rewritten out of public health vocabulary and into plain questions — how are they organized, how do they accomplish their goals, whom do they benefit — because the language a sector uses internally is not the language its members search in. Advisors also raised that a directory describing community organizations should not simply describe them at them: the platform accepts corrections on any organization or policy record through a submission form, so the people closest to the work can flag what is wrong without the Coalition running a separate feedback channel. The same conversation, weighing how much detail should be openly published and what an organization with privacy concerns could do about it, is why access is managed at all — accounts issued by invitation with role-based permissions, and a terms of use flow recorded against each one.
+
+The policy tracker takes a deliberately light approach to a problem that sinks projects like this. Rather than re-describing legislation in full and committing the Coalition to maintaining it, each entry carries the essentials and links out to the official record, with the tracker stamped with its own last-updated date so a user can judge how current it is. For broader analysis, the site publishes the Coalition’s State of Black Birth Equity in California report alongside the tool.
+
+The application is built on Next.js and Payload CMS with Vercel Postgres and Blob storage, using Mapbox GL for the map and Chakra UI throughout. Content is edited through Payload’s Lexical rich text editor, so the Coalition’s staff maintain the organizational records, policy entries and site copy directly, without engineering involvement.

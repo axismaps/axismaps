@@ -1,0 +1,27 @@
+---
+title: "On the Edge"
+slug: "cpre-on-the-edge"
+publishedAt: "2026-08-12"
+featured: true
+subtitle: "A national map of England’s urban-edge countryside, built from public memory"
+teaser: "A campaign map that invites people across England to record what the countryside on their doorstep means to them, turning thousands of personal stories into evidence a charity can take to the places where planning decisions get made."
+client: "CPRE"
+clientSlug: "cpre"
+category: "Environment"
+categorySlug: "environment"
+coverImage: "/images/projects/cpre-on-the-edge-cover.jpg"
+mapUrl: "https://maps.cpre.org.uk"
+launchDate: "2026-05-11"
+---
+
+On the Edge is the interactive centrepiece of a national campaign by CPRE, the countryside charity, for England’s edgelands — the fields, footpaths and scrubby margins where towns give way to open country. CPRE launched the campaign in May 2026, alongside a garden at the RHS Chelsea Flower Show, arguing that these are among the most undervalued landscapes in the country: under constant pressure from development, largely overlooked in policy, and yet the everyday point of contact with the countryside for the great majority of people who live in towns and cities. The map turns that argument into evidence by asking the public to record what their own local countryside means to them, and CPRE bills it as the first interactive map of its kind for England.
+
+Rather than asking contributors to drop a pin, the map lays a grid of five-kilometre hexagons over the country and asks them to choose the cell covering the place they have in mind. The resolution is a deliberate privacy decision: it is coarse enough that a story is about a stretch of countryside rather than about where someone lives, which is the right trade for a campaign asking strangers to describe places that matter to them. Each cell carries a stable identifier, fixed early because it underpins everything downstream and could not be changed later without invalidating every story already filed against it.
+
+What that grid is really doing is turning anecdote into something a campaigning organisation can act on. Every hexagon is joined to postcode sectors, named towns and villages, rural and urban classifications, region — and, most usefully, to CPRE’s own branches and districts and to parliamentary constituencies. The join is deliberately inclusive: any area a hexagon touches counts, so a story filed on a boundary reaches every branch and every MP with a claim to it rather than being lost to a tie-break. A campaigner can go to a constituency meeting holding the accounts their own constituents have written.
+
+The map is drawn in a bespoke style built for the campaign, using satellite-derived land use data to separate woodland from scrub, agriculture, parkland and rough grass in varied greens. The intent is recognition rather than reference — enough organic texture that someone can find the field they walk without needing a label to confirm it. Labelling stays sparse and thickens as you zoom, and the maximum zoom is capped at roughly the size of a hexagon, a conscious refusal to let the map become a route planner or an access guide for land that is often private. CPRE has since adopted the style as its in-house cartography for other projects.
+
+Contributing is deliberately light. Selecting a hexagon opens a form asking why the place matters, with an optional first name, a set of topic tags that can be chosen from a preset list or typed fresh, and up to one photograph, one video and one audio clip — the last recordable in the browser, so someone can simply talk about a place rather than write about it. Submissions land in a Payload CMS queue where moderators approve, reject or lightly edit them, with every edit version-tracked so an author’s words can be restored. Automated profanity screening runs first, because on a campaign promoted nationally the gap between submitting a story and seeing it appear is what determines whether people submit a second one.
+
+The map does double duty as a browsing tool. Published hexagons are shaded, so pulling back from a neighbourhood to a region shows where people have spoken up and where the campaign has yet to reach; the accounts inside a cell can be filtered by topic, by media type and by recency, with moderators able to feature the strongest. Within three months of launch it had gathered more than two thousand published stories, ringing the major urban areas — Manchester, Liverpool, Sheffield, Birmingham, Newcastle, London and the East Anglian towns — and thinning across the emptier countryside between them, which is exactly the pattern the campaign argued would appear. The application is built on Next.js and Payload CMS with Postgres, using Mapbox GL and PMTiles to keep the grid quick to draw under traffic that arrives in bursts tied to press coverage.

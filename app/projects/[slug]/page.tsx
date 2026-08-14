@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
-import { getProjects } from "../utils";
+import { getProjects, getProjectGallery } from "../utils";
 import Link from "next/link";
 import Image from "next/image";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import ProseWrapper from "../../components/prose-wrapper";
+import ProjectGallery from "../../components/project-gallery";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -55,6 +56,8 @@ export default async function ProjectPage({
         )
         .slice(0, 3)
     : [];
+
+  const gallery = getProjectGallery(slug);
 
   // Evaluate MDX content to get React component
   const { default: MDXContent } = await evaluate(project.content, {
@@ -145,6 +148,8 @@ export default async function ProjectPage({
                 ></iframe>
               ) : null}
             </div>
+          ) : gallery.length > 1 ? (
+            <ProjectGallery images={gallery} title={project.metadata.title} />
           ) : project.metadata.coverImage ? (
             <div className="relative w-full h-96 mb-8 rounded-lg overflow-hidden">
               <img

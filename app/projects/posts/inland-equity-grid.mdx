@@ -1,0 +1,29 @@
+---
+title: "Inland Equity Grid"
+slug: "inland-equity-grid"
+publishedAt: "2026-08-12"
+featured: true
+subtitle: "A directory of community organizations mapped against environmental burden"
+teaser: "A cross-sector platform for California’s Inland Empire that puts a searchable directory of community organizations alongside tract-level environmental and health data, so partners can see who serves where, who to work with, and where the need is greatest."
+client: "Public Health Alliance of Southern California"
+clientSlug: "public-health-alliance-of-southern-california"
+category: "Public Health"
+categorySlug: "public-health"
+coverImage: "/images/projects/inland-equity-grid-cover.jpg"
+mapUrl: "https://ieg.healthyplacesindex.org"
+launchDate: "2026-06-25"
+---
+
+The Inland Equity Grid is a collaborative initiative for California’s Inland region, built to strengthen community resilience by connecting partners, sharing resources and putting data behind coordinated action. San Bernardino and Riverside counties cover a vast area carrying some of the worst air quality in the state, and the organizations working there — food banks, shelters, clinics, legal aid, youth programs — had no shared picture of who does what, or where the gaps fall. The platform was funded by the California Air Resources Board and developed with a steering committee drawn from the region, after several years of planning. It carries no funder branding in its name — the steering committee was explicit that CARB paid for the work but does not own it — and launched at the region’s safety summit in June 2026.
+
+The platform is organised around organizations rather than around the map. A visitor starts with a group — by name, by the service it provides, or by clicking the place they care about — and everything that follows describes the communities that organization actually serves. That inversion is what makes the data useful to the people in it: a director opening their own profile finds an argument for a grant application, not a research instrument they have to learn. The search runs across all three dimensions at once, so a question like which housing providers work in areas with the worst air quality resolves in a single interaction. Every organization is tagged with the services it provides across fourteen categories, from food, housing and health through to legal and immigration support, transportation, disability services, disaster preparedness and climate resilience, and further filters cover organizational form, approach, demographics served, languages and whether a group operates locally or countywide. That last distinction matters enormously in a region where a single county is larger than several US states.
+
+The map beneath the directory carries census-tract indicators as a choropleth — fine particulate air quality by default, shown as a percentile rank against every tract in California, with other measures including the Healthy Places Index available from the same control. Air quality leads because it is what the funding addressed, but the steering committee was clear that it should not be the only lens, so the directory is always readable against whichever burden is most relevant to the question being asked.
+
+Where the platform goes beyond a conventional service directory is the organization profile. Alongside a mission statement, programs and contact details, each organization gets a map of its own service area and a reading of the communities inside it — the population covered, its Healthy Places Index and air quality percentiles expressed in plain language rather than raw numbers, a histogram of how the tracts it serves are distributed, and tract-level figures on hover. Key indicators are then selected automatically from the services that organization provides, so a food programme is measured on school meal eligibility, SNAP enrolment, retail density and food insecurity, each arrowed above or below the California average, while a housing organization sees an entirely different set.
+
+Collaboration is treated as a first-class feature rather than a directory side effect, and the framing was argued over. An early draft labelled the section “similar organizations”; the steering committee pushed back, wanting it recast as capacity building through collaboration, on the grounds that partnership is about extending an organization’s reach rather than shoring up its internal capacity. That is the heading it carries today. Each profile offers three views of the organizations around it: those whose programs share its services, those providing services it does not, and those covering similar ground geographically — a peer to build with, a partner who fills the gaps, and whoever else is already working the same streets.
+
+The same platform answers a question nobody set out to design for. Because organizational service areas sit on the same map as hazard data, emergency staff can overlay an incident on the directory and see which groups already operate inside the affected area — a use for it that surfaced in review rather than in the brief. What the platform deliberately does not do yet is map service gaps across the region: while many organizations describe their coverage at county level rather than by specific location, an absence on the map would say more about the state of the directory than about the state of the region. That waits for fuller registration and the planned statewide expansion.
+
+The application is built on Next.js and Payload CMS with Vercel Postgres, using Mapbox GL for the map and Turf.js to resolve organizational service areas against census geography. Organizations maintain their own profiles through the CMS rather than submitting changes to an administrator, which is what determines whether a directory like this is still accurate a year after launch. The Inland Empire is the pilot region, with the structure designed to extend to the rest of the state.

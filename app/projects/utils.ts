@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import { getMDXData } from "../lib/mdx";
 import { formatDate as formatDateBase } from "../lib/date";
@@ -62,6 +63,37 @@ export function getProjectsByClient(clientSlug: string): Project[] {
 export function getFeaturedProjects(): Project[] {
   const projects = getProjects();
   return getFeaturedContent(projects, "featured");
+}
+
+const GALLERY_IMAGE_PATTERN = /\.(png|jpe?g|webp|avif)$/i;
+
+// Gallery images live in public/images/projects/{slug}/ and are ordered by
+// filename, so prefix them: 01-overview.png, 02-compare-mode.png, and so on.
+// Most projects have no such directory, in which case the detail page falls
+// back to coverImage.
+export function getProjectGallery(slug: string): string[] {
+  const galleryDir = path.join(
+    process.cwd(),
+    "public",
+    "images",
+    "projects",
+    slug,
+  );
+
+  if (!fs.existsSync(galleryDir)) {
+    return [];
+  }
+
+  try {
+    return fs
+      .readdirSync(galleryDir)
+      .filter((file) => GALLERY_IMAGE_PATTERN.test(file))
+      .sort()
+      .map((file) => `/images/projects/${slug}/${file}`);
+  } catch (error) {
+    console.error(`Error reading gallery directory ${galleryDir}:`, error);
+    return [];
+  }
 }
 
 // Type definitions for client and category data

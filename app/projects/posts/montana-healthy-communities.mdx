@@ -1,0 +1,27 @@
+---
+title: "Montana Healthy Communities Dashboard"
+slug: "montana-healthy-communities"
+publishedAt: "2026-08-12"
+featured: true
+subtitle: "Health, environment and adaptive capacity for every community in Montana"
+teaser: "An open dashboard for the University of Montana that brings health outcomes, environmental exposures and socioeconomic data onto one statewide map, and scores every community on its capacity to recover from disruption."
+client: "University of Montana"
+clientSlug: "university-of-montana"
+category: "Public Health"
+categorySlug: "public-health"
+coverImage: "/images/projects/montana-healthy-communities-cover.jpg"
+mapUrl: "https://healthycommunities.dev"
+launchDate: "2026-04-14"
+---
+
+The Montana Healthy Communities Dashboard is an open-access mapping platform built with researchers at the University of Montana’s School of Public and Community Health. Montana’s health, environmental and socioeconomic data had been scattered across agencies and formats, which made even basic questions — whether asthma rates track with wildfire smoke, whether the places carrying the heaviest environmental burden are also the ones with the least income and housing to absorb it — slow to answer and hard to answer consistently. The dashboard brings those measures onto a single statewide map, following the model of the California Healthy Places Index, which we built for the Public Health Alliance of Southern California.
+
+The map carries more than twenty indicators across three broad families. Environmental exposures cover air quality, a heat index and the wildfire smoke days that have become a defining feature of Montana summers. Health outcomes include asthma, chronic obstructive pulmonary disease, cardiovascular emergency visits and hospital admissions, binge drinking and premature death. Socioeconomic and demographic measures run from poverty, unemployment and per capita income through to crowding, mobile homes, vehicle access, disability, English proficiency and high school incompletion. Every indicator can be viewed across five geographies — block group, census tract, county, place and school district — and stepped through by data year, so a state agency setting budget priorities and a county health department planning outreach can each work at the resolution and period they need.
+
+The dashboard’s distinctive measure is the Adaptive Capacity Index, which estimates a community’s inherent ability to adjust to, manage and recover from disruption by drawing on its resources, knowledge and social networks. The index sums the ranks of thirteen American Community Survey variables relative to every other Montana community, organised into four subdomains: demographics, housing and transportation, language and education, and socioeconomics. Each subdomain is also selectable in its own right, so a user can see which component is driving a low overall score rather than taking the composite on trust. Higher percentile rankings indicate a stronger ability to adapt — which reframes the question from what a community is currently suffering to what it has to draw on, a more useful basis for deciding where investment does the most good.
+
+Comparison is built into the map rather than bolted on. Any two indicators can be placed on the same view as a bivariate choropleth, and the legend is a scatterplot of the two rankings with its quadrants labelled in plain language, so the combination that matters — worse asthma alongside worse adaptive capacity, say — can be picked out both in the distribution and on the map. Those labels exist because stakeholders reviewing the wireframes said a bivariate map without them was unreadable to anyone who did not already think in quantiles. The same review asked for plain-language definitions of terms like adaptive capacity and percentile, which is why every indicator now carries one on screen, and for the underlying data to be downloadable at whatever location a user is looking at, which is why it is.
+
+The design brief was for a data-first tool with minimal ceremony — no splash screens standing between a public health officer and the map. That put the burden on the interface to explain itself, and shaped a recurring concern through review: that a dashboard which makes it easy to rank Montana communities against each other could as easily be misread as a league table. The plain-language framing, the emphasis on adaptive capacity as something a community has rather than something it lacks, and the definitions attached to every indicator are all responses to that.
+
+The platform is a Turborepo monorepo with three deployed applications: the public dashboard, an internal content management system where researchers maintain indicators, domains and help content, and a data-processing service that ingests source data from object storage, computes composite scores and generates the vector tiles the map renders. Prisma manages the schema and the materialized views that keep aggregate queries fast, with shared packages holding the indicator services and the Mapbox-based map component so the dashboard and the CMS stay consistent. The result is a system the university can keep current as new data years arrive, which is what determines whether a dashboard like this is still trusted in five years.
