@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 interface ProjectGalleryProps {
@@ -14,7 +14,25 @@ const SWIPE_THRESHOLD = 50;
 
 export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
   const [current, setCurrent] = useState(0);
+  // Slides are mounted as they are reached, plus the one after. Marking an
+  // unseen slide `loading="lazy"` would not defer anything, because every
+  // slide shares the visible slide's box and so counts as near the viewport
+  // — only leaving it unmounted actually avoids the download.
+  const [mounted, setMounted] = useState<Set<number>>(
+    () => new Set([0, 1 % images.length]),
+  );
   const touchStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    setMounted((previous) => {
+      const upcoming = (current + 1) % images.length;
+      if (previous.has(current) && previous.has(upcoming)) return previous;
+      const next = new Set(previous);
+      next.add(current);
+      next.add(upcoming);
+      return next;
+    });
+  }, [current, images.length]);
 
   const go = useCallback(
     (delta: number) =>
@@ -62,23 +80,27 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
         }}
         onTouchEnd={handleTouchEnd}
       >
-        {images.map((src, index) => (
-          <Image
-            key={src}
-            src={src}
-            alt={`${title} — screenshot ${index + 1} of ${images.length}`}
-            fill
-            sizes="(max-width: 1024px) 100vw, 1024px"
-            quality={85}
-            priority={index === 0}
-            loading={index === 0 ? undefined : "lazy"}
-            // object-contain so no part of a UI screenshot gets cropped away.
-            className={`object-contain transition-opacity duration-300 ${
-              index === current ? "opacity-100" : "opacity-0"
-            }`}
-            aria-hidden={index !== current}
-          />
-        ))}
+        {images.map((src, index) =>
+          mounted.has(index) ? (
+            <Image
+              key={src}
+              src={src}
+              alt={`${title} — screenshot ${index + 1} of ${images.length}`}
+              fill
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              quality={85}
+              priority={index === 0}
+              // Hidden slides stay mounted for the cross-fade, so they must
+              // not swallow clicks meant for the visible one.
+              className={`object-contain transition-opacity duration-300 ${
+                index === current
+                  ? "opacity-100"
+                  : "opacity-0 pointer-events-none"
+              }`}
+              aria-hidden={index !== current}
+            />
+          ) : null,
+        )}
 
         <button
           type="button"

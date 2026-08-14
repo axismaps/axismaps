@@ -5,12 +5,21 @@ import {
   getProjectsByCategory,
   getProjectsByClient,
   getFeaturedProjects,
+  getProjectGallery,
   getClients,
   getCategories,
   formatDate,
   type Project,
   type ProjectMetadata,
 } from './utils';
+
+// getProjectGallery reads the gallery directory off disk
+vi.mock('fs', () => ({
+  default: {
+    existsSync: vi.fn(),
+    readdirSync: vi.fn(),
+  },
+}));
 
 // Mock the lib modules
 vi.mock('../lib/mdx', () => ({
@@ -31,6 +40,7 @@ vi.mock('../lib/date', () => ({
   formatDate: vi.fn((date: string) => date),
 }));
 
+import fs from 'fs';
 import { getMDXData } from '../lib/mdx';
 import { getContentBySlug, getContentByCategory, getFeaturedContent } from '../lib/content';
 import { loadDataFile } from '../lib/data-loader';
@@ -286,6 +296,58 @@ describe('Project Utilities', () => {
       const result = getFeaturedProjects();
 
       expect(result).toEqual([]);
+    });
+  });
+
+  describe('getProjectGallery', () => {
+    it('should return empty array when the gallery directory does not exist', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(false);
+
+      expect(getProjectGallery('no-gallery')).toEqual([]);
+      expect(fs.readdirSync).not.toHaveBeenCalled();
+    });
+
+    it('should return public paths for image files, sorted by filename', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readdirSync).mockReturnValue([
+        '02-second.jpg',
+        '01-first.png',
+        '03-third.webp',
+      ] as any);
+
+      expect(getProjectGallery('demo')).toEqual([
+        '/images/projects/demo/01-first.png',
+        '/images/projects/demo/02-second.jpg',
+        '/images/projects/demo/03-third.webp',
+      ]);
+    });
+
+    it('should filter out non-image files', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readdirSync).mockReturnValue([
+        '01-shot.jpg',
+        '.DS_Store',
+        'notes.txt',
+      ] as any);
+
+      expect(getProjectGallery('demo')).toEqual([
+        '/images/projects/demo/01-shot.jpg',
+      ]);
+    });
+
+    it('should return empty array when the directory cannot be read', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readdirSync).mockImplementation(() => {
+        throw new Error('EACCES');
+      });
+      const consoleError = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+
+      expect(getProjectGallery('demo')).toEqual([]);
+      expect(consoleError).toHaveBeenCalled();
+
+      consoleError.mockRestore();
     });
   });
 

@@ -25,16 +25,30 @@ describe('ProjectGallery', () => {
   const renderGallery = () =>
     render(<ProjectGallery images={images} title="Demo Project" />);
 
-  // The visible slide is the one at full opacity; the rest stay mounted so
-  // the browser can cross-fade between them.
-  const visibleIndex = () =>
-    screen
-      .getAllByRole('img', { hidden: true })
-      .findIndex((img) => img.className.includes('opacity-100'));
+  const slides = () => screen.getAllByRole('img', { hidden: true });
 
-  it('renders every image', () => {
+  // Slides mount lazily, so read the position out of the alt text rather than
+  // from the index within the rendered set.
+  const visibleIndex = () => {
+    const visible = slides().find((img) =>
+      img.className.includes('opacity-100'),
+    );
+    const match = visible?.getAttribute('alt')?.match(/screenshot (\d+) of/);
+    return match ? Number(match[1]) - 1 : -1;
+  };
+
+  it('mounts only the current and next slide initially', () => {
     renderGallery();
-    expect(screen.getAllByRole('img', { hidden: true })).toHaveLength(3);
+    // Mounting every slide up front would defeat the deferral: they all share
+    // the visible slide's box, so the browser would fetch them immediately.
+    expect(slides()).toHaveLength(2);
+  });
+
+  it('mounts further slides as they are reached', async () => {
+    const user = userEvent.setup();
+    renderGallery();
+    await user.click(screen.getByLabelText('Next image'));
+    expect(slides()).toHaveLength(3);
   });
 
   it('shows the first image initially', () => {
@@ -90,9 +104,16 @@ describe('ProjectGallery', () => {
 
   it('hides the off-screen images from assistive technology', () => {
     renderGallery();
-    const rendered = screen.getAllByRole('img', { hidden: true });
+    const rendered = slides();
     expect(rendered[0]).not.toHaveAttribute('aria-hidden', 'true');
     expect(rendered[1]).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('stops hidden slides swallowing clicks meant for the visible one', () => {
+    renderGallery();
+    const rendered = slides();
+    expect(rendered[0].className).not.toContain('pointer-events-none');
+    expect(rendered[1].className).toContain('pointer-events-none');
   });
 
   it('labels the carousel with the project title', () => {
