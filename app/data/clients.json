@@ -29,11 +29,23 @@
     "logo": "",
     "shortName": "BC Workshop"
   },
+  "california-coalition-for-black-birth-justice": {
+    "name": "California Coalition for Black Birth Justice",
+    "slug": "california-coalition-for-black-birth-justice",
+    "logo": "",
+    "shortName": "CCBBJ"
+  },
   "conservation-law-foundation": {
     "name": "Conservation Law Foundation",
     "slug": "conservation-law-foundation",
     "logo": "",
     "shortName": "Conservation Law Foundation"
+  },
+  "cpre": {
+    "name": "CPRE",
+    "slug": "cpre",
+    "logo": "",
+    "shortName": "CPRE"
   },
   "deaths-door-spirits": {
     "name": "Death's Door Spirits",
@@ -226,6 +238,12 @@
     "slug": "ucla-center-for-health-policy-research",
     "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f976d5fb68c0d3700e00078_ucla.png",
     "shortName": "UCLA Center for Health Policy Research"
+  },
+  "university-of-montana": {
+    "name": "University of Montana",
+    "slug": "university-of-montana",
+    "logo": "",
+    "shortName": "University of Montana"
   },
   "university-of-wisconsin-arboretum": {
     "name": "University of Wisconsin Arboretum",

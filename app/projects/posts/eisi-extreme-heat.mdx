@@ -1,0 +1,29 @@
+---
+title: "EISI for Extreme Heat"
+slug: "eisi-extreme-heat"
+publishedAt: "2026-08-12"
+featured: true
+subtitle: "A guided extreme heat vulnerability assessment for California Tribes"
+teaser: "Guiding California Tribes from climate projections to a finished vulnerability assessment"
+client: "Public Health Alliance of Southern California"
+clientSlug: "public-health-alliance-of-southern-california"
+category: "Environment"
+categorySlug: "environment"
+coverImage: "/images/projects/eisi-extreme-heat-cover.jpg"
+mapUrl: "https://eisi.healthyplacesindex.org"
+launchDate: "2026-05-26"
+---
+
+The Exposures, Impacts, and Strategies Inventory for Extreme Heat is an online tool that guides California Tribes through an extreme heat vulnerability assessment. It was built for the Public Health Alliance of Southern California, in a collaboration led by the Pala Band of Mission Indians with Prosper Sustainably and the Tribal Climate Health Project, funded through the California Energy Commission's Tribal Research Grant Program. It takes the EISI framework, created by the Tribal Climate Health Project, and runs it as a guided web application.
+
+The assessment runs as seven steps: find your area, primary exposures, secondary exposures, assets, impacts, community profile, and generate report. A progress rail runs down the left, the current step sits in the middle, and the community profile assembles on the right as the form is completed.
+
+Each exposure carries the underlying climate data. Annual days above ninety and a hundred degrees, extreme heat days above the historical baseline, heat health events and warm nights are each given across four periods, a historical baseline of 1961 to 1990, a current period, and mid and end century projections, with a trend line alongside. The Tribe sets the risk level itself on a slider from none to high, and a checkbox against each measure decides whether it appears in the final report.
+
+Assets, the community resources a Tribe wants to protect, are recorded next. Impacts follow, with those related to the exposures and assets already selected appearing first. Each impact opens tabs for threatened community assets, impact indicators and impact modifiers, and takes the same none to high ranking.
+
+The report is generated on demand, and its contents come from the assessment itself. The exposures a Tribe marked as a risk, the measures it checked into its community profile, the assets it recorded and the way it ranked each impact all decide what appears in the document, so no two Tribes produce the same one. It arrives as an editable Word file, opening with a key that separates data brought through from the assessment, general boilerplate the Tribe can rewrite, and prompts marking where local data, traditional knowledge and community engagement belong.
+
+Behind the tool is an admin console holding a content library of four collections: exposures, impacts, assets and strategies. These are shared across every inventory, so each report is built from the same vocabulary. Assessments are held as separate inventories, keeping work for different territories or planning cycles distinct.
+
+The application is built on Next.js and Payload CMS with Vercel Postgres, using Mapbox GL for the mapping and Chakra UI for the interface, behind accounts with role-based permissions.

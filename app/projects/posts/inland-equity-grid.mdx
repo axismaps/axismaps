@@ -1,0 +1,29 @@
+---
+title: "Inland Equity Grid"
+slug: "inland-equity-grid"
+publishedAt: "2026-08-12"
+featured: true
+subtitle: "A directory of community organizations mapped against the conditions they work in"
+teaser: "Helping organizations across the Inland Empire find each other and understand the communities they serve"
+client: "Public Health Alliance of Southern California"
+clientSlug: "public-health-alliance-of-southern-california"
+category: "Public Health"
+categorySlug: "public-health"
+coverImage: "/images/projects/inland-equity-grid-cover.jpg"
+mapUrl: "https://ieg.healthyplacesindex.org"
+launchDate: "2026-06-25"
+---
+
+The Inland Equity Grid is a platform built for the Public Health Alliance of Southern California in collaboration with Building Resilient Communities, and funded by the California Air Resources Board. It covers San Bernardino and Riverside counties, and combines a searchable directory of community organizations with census tract data on environmental and health conditions across California.
+
+Organizations are listed by the services they provide across fourteen categories, from food, housing and health through to legal and immigration support, transportation, disability services, disaster preparedness and climate resilience. Further filters cover organizational form, approach, demographics served, languages, and whether a group works locally or across a whole county. Search runs by name, by service, or by clicking a place on the map.
+
+Each organization has a profile carrying its mission, description, programs, contact details and service area. The service area is drawn from census tracts, with a dropdown to switch between an organization's programs. Alongside it sits a reading of the communities inside that area: total population, Healthy Places Index and air quality percentiles given in plain language as well as in numbers, a histogram showing how its tracts are distributed, and tract-level figures on hover.
+
+A key indicators tab selects measures from the services an organization provides. A food program is measured on school meal eligibility, SNAP enrollment, retail density and food insecurity. A housing organization gets a different set. Each is shown as a percentile against the California average with an arrow above or below it, and any of them can be put on the map.
+
+A collaborate tab shows the organizations around each one: those providing the same services in different places, and those working the same ground with different services. Because service areas and hazard data share a map, emergency staff can overlay an incident on the directory and see which groups already operate inside the affected area.
+
+Organizations register themselves and maintain their own profiles through the CMS. Adding a program, changing a service area or updating contact details is done directly by the organization rather than sent to an administrator to apply.
+
+The application is built on Next.js and Payload CMS with Vercel Postgres, using Mapbox GL for the map and Turf.js to resolve organizational service areas against census geography.

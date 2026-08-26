@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
-import { getProjects } from "../utils";
+import { getProjects, getProjectGallery, resolveProjectHero } from "../utils";
 import Link from "next/link";
 import Image from "next/image";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import ProseWrapper from "../../components/prose-wrapper";
+import ProjectGallery from "../../components/project-gallery";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -55,6 +56,11 @@ export default async function ProjectPage({
         )
         .slice(0, 3)
     : [];
+
+  // The directory read is skipped entirely when a video leads, so a video-led
+  // project does not pay for a result that would be discarded.
+  const gallery = project.metadata.videoUrl ? [] : getProjectGallery(slug);
+  const hero = resolveProjectHero(project.metadata, gallery);
 
   // Evaluate MDX content to get React component
   const { default: MDXContent } = await evaluate(project.content, {
@@ -123,21 +129,21 @@ export default async function ProjectPage({
             </div>
           </header>
 
-          {project.metadata.videoUrl ? (
+          {hero.kind === "video" ? (
             <div className="aspect-video mb-8">
-              {project.metadata.videoUrl.includes("vimeo") ? (
+              {hero.url.includes("vimeo") ? (
                 <iframe
-                  src={`https://player.vimeo.com/video/${project.metadata.videoUrl.match(/vimeo\.com\/(\d+)/)?.[1] || project.metadata.videoUrl.split("/").pop()}`}
+                  src={`https://player.vimeo.com/video/${hero.url.match(/vimeo\.com\/(\d+)/)?.[1] || hero.url.split("/").pop()}`}
                   className="w-full h-full rounded-lg"
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
                 ></iframe>
-              ) : project.metadata.videoUrl.includes("youtube.com") || project.metadata.videoUrl.includes("youtu.be") ? (
+              ) : hero.url.includes("youtube.com") || hero.url.includes("youtu.be") ? (
                 <iframe
                   src={`https://www.youtube.com/embed/${
-                    project.metadata.videoUrl.includes("youtube.com")
-                      ? project.metadata.videoUrl.split("v=")[1]?.split("&")[0]
-                      : project.metadata.videoUrl.split("/").pop()?.split("?")[0]
+                    hero.url.includes("youtube.com")
+                      ? hero.url.split("v=")[1]?.split("&")[0]
+                      : hero.url.split("/").pop()?.split("?")[0]
                   }`}
                   className="w-full h-full rounded-lg"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -145,10 +151,18 @@ export default async function ProjectPage({
                 ></iframe>
               ) : null}
             </div>
-          ) : project.metadata.coverImage ? (
+          ) : hero.kind === "gallery" ? (
+            // Keyed so carousel state cannot survive a client-side move
+            // between two projects, whatever the router does with the subtree.
+            <ProjectGallery
+              key={slug}
+              images={hero.images}
+              title={project.metadata.title}
+            />
+          ) : hero.kind === "image" ? (
             <div className="relative w-full h-96 mb-8 rounded-lg overflow-hidden">
               <img
-                src={project.metadata.coverImage}
+                src={hero.src}
                 alt={project.metadata.title}
                 className="w-full h-full object-cover"
               />

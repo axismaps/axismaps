@@ -5,12 +5,22 @@ import {
   getProjectsByCategory,
   getProjectsByClient,
   getFeaturedProjects,
+  getProjectGallery,
+  resolveProjectHero,
   getClients,
   getCategories,
   formatDate,
   type Project,
   type ProjectMetadata,
 } from './utils';
+
+// getProjectGallery reads the gallery directory off disk
+vi.mock('fs', () => ({
+  default: {
+    existsSync: vi.fn(),
+    readdirSync: vi.fn(),
+  },
+}));
 
 // Mock the lib modules
 vi.mock('../lib/mdx', () => ({
@@ -31,6 +41,7 @@ vi.mock('../lib/date', () => ({
   formatDate: vi.fn((date: string) => date),
 }));
 
+import fs from 'fs';
 import { getMDXData } from '../lib/mdx';
 import { getContentBySlug, getContentByCategory, getFeaturedContent } from '../lib/content';
 import { loadDataFile } from '../lib/data-loader';
@@ -286,6 +297,124 @@ describe('Project Utilities', () => {
       const result = getFeaturedProjects();
 
       expect(result).toEqual([]);
+    });
+  });
+
+  describe('getProjectGallery', () => {
+    it('should return empty array when the gallery directory does not exist', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(false);
+
+      expect(getProjectGallery('no-gallery')).toEqual([]);
+      expect(fs.readdirSync).not.toHaveBeenCalled();
+    });
+
+    it('should return public paths for image files, sorted by filename', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readdirSync).mockReturnValue([
+        '02-second.jpg',
+        '01-first.png',
+        '03-third.webp',
+      ] as any);
+
+      expect(getProjectGallery('demo')).toEqual([
+        '/images/projects/demo/01-first.png',
+        '/images/projects/demo/02-second.jpg',
+        '/images/projects/demo/03-third.webp',
+      ]);
+    });
+
+    it('should filter out non-image files', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readdirSync).mockReturnValue([
+        '01-shot.jpg',
+        '.DS_Store',
+        'notes.txt',
+      ] as any);
+
+      expect(getProjectGallery('demo')).toEqual([
+        '/images/projects/demo/01-shot.jpg',
+      ]);
+    });
+
+    it('should order a tenth image after the second, not the first', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readdirSync).mockReturnValue([
+        '10-tenth.jpg',
+        '02-second.jpg',
+        '01-first.jpg',
+      ] as any);
+
+      expect(getProjectGallery('demo')).toEqual([
+        '/images/projects/demo/01-first.jpg',
+        '/images/projects/demo/02-second.jpg',
+        '/images/projects/demo/10-tenth.jpg',
+      ]);
+    });
+
+    it('should refuse a slug that escapes the projects image directory', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+
+      expect(getProjectGallery('../../../etc')).toEqual([]);
+      expect(fs.readdirSync).not.toHaveBeenCalled();
+    });
+
+    it('should return empty array when the directory cannot be read', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readdirSync).mockImplementation(() => {
+        throw new Error('EACCES');
+      });
+      const consoleError = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+
+      expect(getProjectGallery('demo')).toEqual([]);
+      expect(consoleError).toHaveBeenCalled();
+
+      consoleError.mockRestore();
+    });
+  });
+
+  describe('resolveProjectHero', () => {
+    const gallery = ['/images/projects/demo/01.jpg', '/images/projects/demo/02.jpg'];
+
+    it('should prefer a video over everything else', () => {
+      expect(
+        resolveProjectHero(
+          { videoUrl: 'https://vimeo.com/123', coverImage: '/cover.jpg' },
+          gallery
+        )
+      ).toEqual({ kind: 'video', url: 'https://vimeo.com/123' });
+    });
+
+    it('should prefer the gallery over coverImage', () => {
+      expect(resolveProjectHero({ coverImage: '/cover.jpg' }, gallery)).toEqual({
+        kind: 'gallery',
+        images: gallery,
+      });
+    });
+
+    it('should fall back to coverImage when there is no gallery', () => {
+      expect(resolveProjectHero({ coverImage: '/cover.jpg' }, [])).toEqual({
+        kind: 'image',
+        src: '/cover.jpg',
+      });
+    });
+
+    it('should show a lone gallery image rather than paging through one slide', () => {
+      expect(
+        resolveProjectHero({ coverImage: '/cover.jpg' }, [gallery[0]])
+      ).toEqual({ kind: 'image', src: gallery[0] });
+    });
+
+    it('should use a lone gallery image when coverImage is unset', () => {
+      expect(resolveProjectHero({}, [gallery[0]])).toEqual({
+        kind: 'image',
+        src: gallery[0],
+      });
+    });
+
+    it('should resolve to nothing when there is no media at all', () => {
+      expect(resolveProjectHero({}, [])).toEqual({ kind: 'none' });
     });
   });
 
