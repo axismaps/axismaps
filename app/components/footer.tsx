@@ -44,12 +44,21 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-2">
             <p className="text-lg font-semibold tracking-tight">Axis Maps</p>
-            <a
-              href="mailto:info@axismaps.com"
-              className={`mt-2 inline-block ${linkClasses}`}
-            >
-              info@axismaps.com
-            </a>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              Hewitt, TX | Lichfield, UK
+            </p>
+            <ul className="mt-2 space-y-0">
+              <li>
+                <a href="mailto:info@axismaps.com" className={linkClasses}>
+                  info@axismaps.com
+                </a>
+              </li>
+              <li>
+                <a href="mailto:info@axismaps.co.uk" className={linkClasses}>
+                  info@axismaps.co.uk
+                </a>
+              </li>
+            </ul>
           </div>
 
           {/* Pages */}
@@ -101,6 +110,12 @@ export default function Footer() {
           Copyright © {new Date().getFullYear()} Axis Maps. All rights reserved. The material on this
           site may not be reproduced, distributed, transmitted, or otherwise
           used, except with the prior permission of Axis Maps.
+        </p>
+        <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+          Axis Maps LLC is a Texas limited liability company. Axis Maps Limited
+          is registered in England and Wales, company number 08157001.
+          Registered office: 19 Woodfields Drive, Lichfield, WS14 9HH. VAT
+          number GB 174 5108 13.
         </p>
       </div>
     </footer>

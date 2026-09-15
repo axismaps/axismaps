@@ -12,7 +12,8 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       exclude: [
-        'node_modules/',
+        '**/node_modules/**',
+        '.claude/**',
         'test/',
         '*.config.*',
         '**/*.d.ts',
@@ -23,7 +24,7 @@ export default defineConfig({
       ],
     },
     include: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
-    exclude: ['node_modules', '.next', 'build'],
+    exclude: ['**/node_modules/**', '.next/**', 'build/**', '.claude/**'],
   },
   resolve: {
     alias: {
