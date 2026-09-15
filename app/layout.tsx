@@ -21,7 +21,8 @@ export const metadata: Metadata = {
       "Axis Maps brings cartography to interactive mapping. We design custom maps that combine intuitive user interfaces with great cartographic and interactive design.",
     url: baseUrl,
     siteName: "Axis Maps",
-    locale: "en_US",
+    locale: "en_GB",
+    alternateLocale: ["en_US"],
     type: "website",
   },
   robots: {

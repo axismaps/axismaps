@@ -206,9 +206,12 @@ export default function ContactPage() {
             </p>
 
             <p>
-              For typographic maps, visit our{" "}
-              <a href="#" className="text-blue-600 hover:underline">
-                typographic map store
+              UK enquiries:{" "}
+              <a
+                href="mailto:info@axismaps.co.uk"
+                className="text-blue-600 hover:underline"
+              >
+                info@axismaps.co.uk
               </a>
             </p>
           </div>

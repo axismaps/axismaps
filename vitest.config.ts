@@ -23,7 +23,7 @@ export default defineConfig({
       ],
     },
     include: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
-    exclude: ['node_modules', '.next', 'build'],
+    exclude: ['**/node_modules/**', '.next', 'build', '.claude/**'],
   },
   resolve: {
     alias: {

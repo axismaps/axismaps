@@ -48,6 +48,16 @@ export default function AboutPage() {
             efficiency and delivery, but also for great cartographic and
             interactive design.
           </p>
+
+          <p>
+            Today we work from two offices, in Lichfield, England and Hewitt,
+            Texas.{" "}
+            <strong>
+              UK clients contract with Axis Maps Limited, registered in England
+              and Wales, in pounds sterling.
+            </strong>{" "}
+            US clients contract in dollars.
+          </p>
         </ProseWrapper>
 
         <Link href="/contact" className="btn-primary mt-8">
