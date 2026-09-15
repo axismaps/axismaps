@@ -72,7 +72,7 @@ describe('Home Page', () => {
     render(<Page />);
 
     expect(
-      screen.getByText(/in the UK, the US and beyond, from our offices in\s+Lichfield, England and Hewitt, Texas\./)
+      screen.getByText(/in the US, the UK and beyond, from our offices in\s+Hewitt, Texas and Lichfield, England\./)
     ).toBeInTheDocument();
   });
 

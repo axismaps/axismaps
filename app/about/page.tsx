@@ -50,13 +50,12 @@ export default function AboutPage() {
           </p>
 
           <p>
-            Today we work from two offices, in Lichfield, England and Hewitt,
-            Texas.{" "}
+            Today we work from two offices, in Hewitt, Texas and Lichfield,
+            England. US clients contract in dollars.{" "}
             <strong>
               UK clients contract with Axis Maps Limited, registered in England
               and Wales, in pounds sterling.
-            </strong>{" "}
-            US clients contract in dollars.
+            </strong>
           </p>
         </ProseWrapper>
 

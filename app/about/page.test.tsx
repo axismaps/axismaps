@@ -7,7 +7,7 @@ describe('About Page', () => {
     render(<AboutPage />);
 
     expect(
-      screen.getByText(/Today we work from two offices, in Lichfield, England and Hewitt,\s+Texas\./)
+      screen.getByText(/Today we work from two offices, in Hewitt, Texas and Lichfield,\s+England\. US clients contract in dollars\./)
     ).toBeInTheDocument();
   });
 

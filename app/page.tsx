@@ -46,8 +46,8 @@ export default function Page() {
             <Link href="#clients" className="link-primary">
               clients
             </Link>{" "}
-            large and small, in the UK, the US and beyond, from our offices in
-            Lichfield, England and Hewitt, Texas.
+            large and small, in the US, the UK and beyond, from our offices in
+            Hewitt, Texas and Lichfield, England.
           </p>
           <p className="text-lg">
             With a full range of{" "}
