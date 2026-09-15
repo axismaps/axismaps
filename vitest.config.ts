@@ -12,7 +12,8 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       exclude: [
-        'node_modules/',
+        '**/node_modules/**',
+        '.claude/**',
         'test/',
         '*.config.*',
         '**/*.d.ts',
