@@ -1,4 +1,4 @@
-import { getProjects, getCategories, getClients, formatDate } from "./utils";
+import { getProjects, getCategories, formatDate } from "./utils";
 import Link from "next/link";
 import Image from "next/image";
 import ProjectsClient from "./ProjectsClient";
@@ -12,7 +12,6 @@ export const metadata = {
 export default function ProjectsPage() {
   const allProjects = getProjects();
   const categories = getCategories();
-  const clients = getClients();
 
   const featuredProjects = allProjects.filter((p) => p.metadata.featured);
 
