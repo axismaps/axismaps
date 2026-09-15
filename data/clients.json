@@ -35,6 +35,12 @@
     "logo": "",
     "shortName": "CCBBJ"
   },
+  "california-department-of-public-health": {
+    "name": "California Department of Public Health",
+    "slug": "california-department-of-public-health",
+    "logo": "",
+    "shortName": "California Department of Public Health"
+  },
   "conservation-law-foundation": {
     "name": "Conservation Law Foundation",
     "slug": "conservation-law-foundation",
@@ -149,11 +155,23 @@
     "logo": "",
     "shortName": "Old Berwick Historical Society"
   },
+  "organon": {
+    "name": "Organon",
+    "slug": "organon",
+    "logo": "",
+    "shortName": "Organon"
+  },
   "pearson-education": {
     "name": "Pearson Education",
     "slug": "pearson-education",
     "logo": "https://uploads-ssl.webflow.com/5f6a4786fa53db61032919f9/5f809927420cbb55060de421_pearson.png",
     "shortName": "Pearson"
+  },
+  "peopleforbikes": {
+    "name": "PeopleForBikes",
+    "slug": "peopleforbikes",
+    "logo": "",
+    "shortName": "PeopleForBikes"
   },
   "phillips-academy-andover": {
     "name": "Phillips Academy Andover",
