@@ -68,6 +68,14 @@ describe('Home Page', () => {
     expect(screen.getByRole('heading', { name: /Who we are/i })).toBeInTheDocument();
   });
 
+  test('should name the UK and US offices', () => {
+    render(<Page />);
+
+    expect(
+      screen.getByText(/in the UK, the US and beyond, from our offices in\s+Lichfield, England and Hewitt, Texas\./)
+    ).toBeInTheDocument();
+  });
+
   test('should not contain hardcoded "15 years" text', () => {
     render(<Page />);
 
