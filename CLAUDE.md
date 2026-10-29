@@ -82,7 +82,15 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
     - `utils.ts` - Project parsing and filtering utilities
   - `/components` - Shared React components
     - `mdx.tsx` - Custom MDX components
-  - `/og` - Open Graph image generation route
+  - `/lib` - Shared non-component modules
+    - `site.ts` - `baseUrl`, kept apart from the content layer so the `/og`
+      route does not bundle the MDX readers
+    - `metadata.ts` - Per-page social tags, and the card-size threshold
+    - `image-size.ts` - Image dimensions read from the file header
+    - `og-artwork.ts` - Card sizes, the `/og` path guard and the artwork fetch
+  - `/og` - Open Graph image generation route. Renders a plain titled card,
+    or, given `?image=/images/...&title=...`, letterboxes that site-relative
+    picture onto the 1200x630 card (see `app/lib/og-artwork.ts`)
   - `/rss` - RSS feed generation route
 - `/data` - JSON data files
   - `clients.json` - Client metadata
