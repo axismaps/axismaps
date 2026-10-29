@@ -6,6 +6,7 @@ import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import ProseWrapper from "../../components/prose-wrapper";
 import ProjectGallery from "../../components/project-gallery";
+import { pageMetadata, publicImage } from "../../lib/metadata";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -27,10 +28,21 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
-    title: project.metadata.title,
-    description: project.metadata.teaser || project.metadata.subtitle,
-  };
+  const { title, teaser, subtitle, coverImage, publishedAt } = project.metadata;
+
+  // The still a visitor meets first makes the best card, so the gallery leads
+  // and the index cover stands in for the projects that have no gallery
+  // directory. A video-led project has no shareable frame either way.
+  const cardImage = getProjectGallery(slug)[0] ?? coverImage;
+
+  return pageMetadata({
+    title,
+    description: teaser || subtitle,
+    path: `/projects/${slug}`,
+    type: "article",
+    publishedTime: publishedAt,
+    images: cardImage ? [publicImage(cardImage, title)] : undefined,
+  });
 }
 
 export default async function ProjectPage({

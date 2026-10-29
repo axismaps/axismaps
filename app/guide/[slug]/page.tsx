@@ -7,6 +7,7 @@ import * as runtime from "react/jsx-runtime";
 import GuideSearchClient from "../GuideSearchClient";
 import PageSection from "../../components/page-section";
 import ProseWrapper from "../../components/prose-wrapper";
+import { defaultOgImage, pageMetadata } from "../../lib/metadata";
 
 export async function generateStaticParams() {
   const guides = getGuides();
@@ -23,30 +24,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   const { title, summary, publishedAt } = guide.metadata;
-  const ogImage = `https://axismaps.com/og?title=${encodeURIComponent(title)}`;
 
-  return {
+  // Guide chapters are prose with no photograph of their own, so each one gets
+  // a generated card carrying its title.
+  return pageMetadata({
     title,
     description: summary,
-    openGraph: {
-      title,
-      description: summary,
-      type: "article",
-      publishedTime: publishedAt,
-      url: `https://axismaps.com/guide/${guide.slug}`,
-      images: [
-        {
-          url: ogImage,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description: summary,
-      images: [ogImage],
-    },
-  };
+    path: `/guide/${guide.slug}`,
+    type: "article",
+    publishedTime: publishedAt,
+    images: [
+      {
+        ...defaultOgImage,
+        url: `/og?title=${encodeURIComponent(title)}`,
+        alt: title,
+      },
+    ],
+  });
 }
 
 export default async function GuidePage({ params }: { params: Promise<{ slug: string }> }) {

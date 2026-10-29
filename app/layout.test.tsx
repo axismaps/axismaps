@@ -5,7 +5,7 @@ import { describe, test, expect, vi } from 'vitest';
 vi.mock('geist/font/sans', () => ({ GeistSans: { variable: '' } }));
 vi.mock('geist/font/mono', () => ({ GeistMono: { variable: '' } }));
 vi.mock('@vercel/analytics/next', () => ({ Analytics: () => null }));
-vi.mock('./sitemap', () => ({ baseUrl: 'https://axismaps.com' }));
+vi.mock('./sitemap', () => ({ baseUrl: 'https://www.axismaps.com' }));
 vi.mock('./components/nav', () => ({ Navbar: () => null }));
 vi.mock('./components/footer', () => ({ default: () => null }));
 

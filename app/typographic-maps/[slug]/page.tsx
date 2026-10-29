@@ -10,6 +10,7 @@ import {
   getViewableEditions,
   tileUrl,
 } from "../utils";
+import { defaultOgImage, pageMetadata } from "../../lib/metadata";
 
 export async function generateStaticParams() {
   return getTypographicMaps().map((map) => ({ slug: map.slug }));
@@ -25,15 +26,23 @@ export async function generateMetadata({
   if (!map) return {};
 
   const title = `Typographic Map of ${map.metadata.city}`;
-  return {
+
+  // The artwork itself is served as deep-zoom tiles rather than as one file a
+  // crawler could fetch, so these pages fall back to the generated card.
+  return pageMetadata({
     title,
     description: map.metadata.teaser,
-    openGraph: {
-      title,
-      description: map.metadata.teaser,
-      type: "article",
-    },
-  };
+    path: `/typographic-maps/${slug}`,
+    type: "article",
+    publishedTime: map.metadata.publishedAt,
+    images: [
+      {
+        ...defaultOgImage,
+        url: `/og?title=${encodeURIComponent(title)}`,
+        alt: title,
+      },
+    ],
+  });
 }
 
 export default async function TypographicMapPage({

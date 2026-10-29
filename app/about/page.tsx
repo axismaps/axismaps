@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ProseWrapper from "../components/prose-wrapper";
+import { pageMetadata } from "../lib/metadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "About",
   description: "Learn about Axis Maps and our values and vision",
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
