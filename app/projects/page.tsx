@@ -3,11 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import ProjectsClient from "./ProjectsClient";
 import PageSection from "../components/page-section";
+import { pageMetadata } from "../lib/metadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Projects",
   description: "Our portfolio of interactive mapping projects",
-};
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   const allProjects = getProjects();

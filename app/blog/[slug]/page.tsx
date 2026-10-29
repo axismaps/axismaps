@@ -5,6 +5,7 @@ import * as runtime from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
 import { getBlogPosts, getBlogPostBySlug, formatDate } from "../utils";
 import ProseWrapper from "../../components/prose-wrapper";
+import { pageMetadata, publicImage } from "../../lib/metadata";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
@@ -23,10 +24,16 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
-    title: post.metadata.title,
-    description: post.metadata.summary,
-  };
+  const { title, summary, coverImage, publishedAt } = post.metadata;
+
+  return pageMetadata({
+    title,
+    description: summary,
+    path: `/blog/${slug}`,
+    type: "article",
+    publishedTime: publishedAt,
+    images: coverImage ? [publicImage(coverImage, title)] : undefined,
+  });
 }
 
 export default async function BlogPostPage({

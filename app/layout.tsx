@@ -6,24 +6,40 @@ import { Navbar } from "./components/nav";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "./components/footer";
 import { baseUrl } from "./sitemap";
+import {
+  defaultOgImage,
+  ogAlternateLocale,
+  ogLocale,
+  siteDescription,
+  siteName,
+  siteTitle,
+} from "./lib/metadata";
 
+// Site-wide defaults, which also stand in as the homepage's own metadata.
+// Every other page overrides openGraph and twitter through pageMetadata so it
+// gets its own title, description, URL and image.
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Axis Maps - Data-Driven Cartography",
-    template: "%s | Axis Maps",
+    default: siteTitle,
+    template: `%s | ${siteName}`,
   },
-  description:
-    "Axis Maps brings cartography to interactive mapping. We design custom maps that combine intuitive user interfaces with great cartographic and interactive design.",
+  description: siteDescription,
   openGraph: {
-    title: "Axis Maps - Data-Driven Cartography",
-    description:
-      "Axis Maps brings cartography to interactive mapping. We design custom maps that combine intuitive user interfaces with great cartographic and interactive design.",
+    title: siteTitle,
+    description: siteDescription,
     url: baseUrl,
-    siteName: "Axis Maps",
-    locale: "en_GB",
-    alternateLocale: ["en_US"],
+    siteName,
+    locale: ogLocale,
+    alternateLocale: ogAlternateLocale,
     type: "website",
+    images: [defaultOgImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: [defaultOgImage],
   },
   robots: {
     index: true,

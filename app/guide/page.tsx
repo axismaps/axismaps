@@ -4,12 +4,13 @@ import Image from "next/image";
 import GuideSearchClient from "./GuideSearchClient";
 import PageSection from "../components/page-section";
 import ProseWrapper from "../components/prose-wrapper";
+import { pageMetadata } from "../lib/metadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Cartography Guide",
-  description:
-    "A short, friendly guide to basic principles of map design",
-};
+  description: "A short, friendly guide to basic principles of map design",
+  path: "/guide",
+});
 
 export default function GuidePage() {
   const groupedGuides = getGuidesGroupedByCategory();

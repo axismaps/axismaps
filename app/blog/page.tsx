@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { getBlogPosts, formatDate } from "./utils";
 import PageSection from "../components/page-section";
+import { pageMetadata } from "../lib/metadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Blog Archive",
   description: "Archived posts from the Axis Maps blog.",
-};
+  path: "/blog",
+});
 
 export default function BlogPage() {
   const posts = getBlogPosts();

@@ -7,18 +7,16 @@ import {
   getFeaturedPress,
   type PressItem,
 } from "./utils";
+import { pageMetadata } from "../lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Typographic Maps",
   description:
     "Twelve city maps drawn entirely in type — every street, park, and shoreline built from the names of the places themselves. Zoom in to read them.",
-  openGraph: {
-    title: "Typographic Maps | Axis Maps",
-    description:
-      "Twelve city maps drawn entirely in type. Every piece of type was placed by hand.",
-    type: "website",
-  },
-};
+  socialDescription:
+    "Twelve city maps drawn entirely in type. Every piece of type was placed by hand.",
+  path: "/typographic-maps",
+});
 
 function formatPressDate(date: string) {
   return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
