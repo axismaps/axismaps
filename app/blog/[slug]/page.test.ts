@@ -9,6 +9,9 @@ type Card = { url: string; width?: number; height?: number };
 async function cardFor(slug: string): Promise<Card> {
   const metadata = await generateMetadata({ params: Promise.resolve({ slug }) });
   const images = metadata.openGraph?.images as Card[] | undefined;
+  // Said out loud rather than asserted away: a post that lost its card image
+  // should fail naming the post, not with a TypeError from the subscript.
+  expect(images?.[0], `${slug} has no card image`).toBeDefined();
   return images![0];
 }
 
