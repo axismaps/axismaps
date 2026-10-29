@@ -5,7 +5,13 @@ import * as runtime from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
 import { getBlogPosts, getBlogPostBySlug, formatDate } from "../utils";
 import ProseWrapper from "../../components/prose-wrapper";
-import { pageMetadata, publicImage } from "../../lib/metadata";
+import { pageMetadata, socialCardImage } from "../../lib/metadata";
+
+// socialCardImage measures the cover under public/, which only exists at build
+// time: a page rendered on demand would measure nothing and quietly name the
+// undersized file. Every post is known up front, so the build is told to fail
+// rather than let one of these pages become dynamic.
+export const dynamic = "error";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
@@ -26,13 +32,17 @@ export async function generateMetadata({
 
   const { title, summary, coverImage, publishedAt } = post.metadata;
 
+  // Most of these covers are too small or too square to carry a large preview
+  // on their own — one is a 750x150 strip — so socialCardImage composites
+  // those onto a 1200x630 card and leaves the few that already fit pointing
+  // at the file itself.
   return pageMetadata({
     title,
     description: summary,
     path: `/blog/${slug}`,
     type: "article",
     publishedTime: publishedAt,
-    images: coverImage ? [publicImage(coverImage, title)] : undefined,
+    images: coverImage ? [socialCardImage(coverImage, title)] : undefined,
   });
 }
 
