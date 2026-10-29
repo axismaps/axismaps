@@ -1,12 +1,19 @@
 import { ImageResponse } from "next/og";
-import { artworkOrigin, fetchArtwork } from "../lib/og-artwork";
 import {
   allowedCardArtworkPath,
+  artworkOrigins,
+  fetchArtwork,
   largeCardHeight,
   largeCardWidth,
-} from "../lib/metadata";
+} from "../lib/og-artwork";
 
 const brandBlue = "#4a6ecf";
+
+// A card that came out right is worth caching for as long as the CDN will hold
+// it, which is what next/og asks for by default. A card that lost its artwork
+// to a timeout or an unreachable host is not: without this, one bad minute
+// would pin the artwork-less card at the CDN and in crawler caches for a year.
+const degradedCacheControl = "public, max-age=60, s-maxage=60";
 const cardBackground = "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)";
 
 // Long project titles would otherwise push the wordmark off the card. The
@@ -32,7 +39,7 @@ export async function GET(request: Request) {
   );
   const path = allowedCardArtworkPath(url.searchParams.get("image"));
   const artwork = path
-    ? await fetchArtwork(`${artworkOrigin(request.url)}${path}`)
+    ? await fetchArtwork(artworkOrigins(request.url), path)
     : null;
 
   // With a picture to show, the card becomes a frame for it: the artwork is
@@ -124,14 +131,14 @@ export async function GET(request: Request) {
         {/* Content Container */}
         <div tw="flex flex-col w-full h-full p-16 justify-between relative">
           {/* Header with Logo */}
-          <div tw="flex items-center gap-4">
+          <div tw="flex items-center">
             <div
               tw="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-2xl"
               style={{ backgroundColor: brandBlue }}
             >
               A
             </div>
-            <div tw="flex flex-col">
+            <div tw="flex flex-col ml-4">
               <span tw="text-3xl font-semibold text-gray-900">Axis Maps</span>
               <span tw="text-lg text-gray-600">Data-Driven Cartography</span>
             </div>
@@ -153,13 +160,13 @@ export async function GET(request: Request) {
           {/* Footer */}
           <div tw="flex items-center justify-between">
             <div tw="text-lg text-gray-600">axismaps.com</div>
-            <div tw="flex gap-2">
+            <div tw="flex">
               <div
                 tw="h-2 w-24 rounded-full"
                 style={{ backgroundColor: brandBlue }}
               />
-              <div tw="h-2 w-16 bg-gray-300 rounded-full" />
-              <div tw="h-2 w-8 bg-gray-300 rounded-full" />
+              <div tw="h-2 w-16 bg-gray-300 rounded-full ml-2" />
+              <div tw="h-2 w-8 bg-gray-300 rounded-full ml-2" />
             </div>
           </div>
         </div>
@@ -168,6 +175,7 @@ export async function GET(request: Request) {
     {
       width: largeCardWidth,
       height: largeCardHeight,
+      ...(path ? { headers: { "cache-control": degradedCacheControl } } : {}),
     },
   );
 }

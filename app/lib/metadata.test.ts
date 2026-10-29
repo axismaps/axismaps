@@ -9,7 +9,6 @@ vi.mock("./image-size", async (importOriginal) => {
   return { ...actual, readImageSize: vi.fn(actual.readImageSize) };
 });
 import {
-  allowedCardArtworkPath,
   defaultOgImage,
   fillsLargeCard,
   pageMetadata,
@@ -149,33 +148,6 @@ describe("fillsLargeCard", () => {
     // and a wide strip the same share of its width.
     expect(fillsLargeCard({ width: 1590, height: 1514 })).toBe(false);
     expect(fillsLargeCard({ width: 3200, height: 1000 })).toBe(false);
-  });
-});
-
-describe("allowedCardArtworkPath", () => {
-  test("accepts a site-relative path to an image under /images/", () => {
-    expect(allowedCardArtworkPath("/images/projects/hpi-cover.png")).toBe(
-      "/images/projects/hpi-cover.png",
-    );
-    expect(
-      allowedCardArtworkPath("/images/blog/a-post/cover.JPEG"),
-    ).toBe("/images/blog/a-post/cover.JPEG");
-  });
-
-  test("refuses anything that would fetch from somewhere else", () => {
-    expect(allowedCardArtworkPath(null)).toBeNull();
-    expect(allowedCardArtworkPath("https://example.com/x.png")).toBeNull();
-    expect(allowedCardArtworkPath("//example.com/x.png")).toBeNull();
-    expect(allowedCardArtworkPath("/images/../../secrets/x.png")).toBeNull();
-    expect(allowedCardArtworkPath("/public/x.png")).toBeNull();
-    expect(allowedCardArtworkPath("/images/x.svg")).toBeNull();
-    // satori renders neither, and a WebP takes the response down with it.
-    expect(allowedCardArtworkPath("/images/x.webp")).toBeNull();
-    expect(allowedCardArtworkPath("/images/x.png?w=1")).toBeNull();
-    expect(allowedCardArtworkPath("/images\\..\\x.png")).toBeNull();
-    // searchParams hands the route a decoded path, so an encoded traversal
-    // arrives as the plain one above; the raw form is refused as well.
-    expect(allowedCardArtworkPath("/images/%2e%2e/x.png")).toBeNull();
   });
 });
 

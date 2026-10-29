@@ -1,10 +1,14 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { artworkOrigin, fetchArtwork } from "./og-artwork";
+import {
+  allowedCardArtworkPath,
+  artworkOrigins,
+  fetchArtwork,
+  maxArtworkBytes,
+} from "./og-artwork";
 
 const pngBytes = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 
-// Mirrors the module's own cap; a body past it is dropped either way.
-const maxBytesForTest = 8 * 1024 * 1024;
+
 
 function imageResponse(
   body: Uint8Array = pngBytes,
@@ -22,29 +26,35 @@ afterEach(() => {
   vi.unstubAllEnvs();
 });
 
-describe("artworkOrigin", () => {
-  test("serves the artwork from the deployment running the request", () => {
+describe("artworkOrigins", () => {
+  test("tries this deployment first, then the production domain", () => {
+    // The deployment serves the images this build ships; the production
+    // domain is the host deployment protection cannot take away.
     vi.stubEnv("VERCEL_URL", "axismaps-abc123.vercel.app");
 
-    expect(artworkOrigin("https://www.axismaps.com/og?image=/images/a.png")).toBe(
+    expect(
+      artworkOrigins("https://www.axismaps.com/og?image=/images/a.png"),
+    ).toEqual([
       "https://axismaps-abc123.vercel.app",
-    );
+      "https://www.axismaps.com",
+    ]);
   });
 
   test("uses the dev server's own origin when running locally", () => {
     vi.stubEnv("VERCEL_URL", "");
 
-    expect(artworkOrigin("http://localhost:3000/og")).toBe(
+    expect(artworkOrigins("http://localhost:3000/og")).toEqual([
       "http://localhost:3000",
-    );
+      "https://www.axismaps.com",
+    ]);
   });
 
   test("ignores a Host it does not recognise, which the caller sets", () => {
     vi.stubEnv("VERCEL_URL", "");
 
-    expect(artworkOrigin("https://attacker.example/og")).toBe(
+    expect(artworkOrigins("https://attacker.example/og")).toEqual([
       "https://www.axismaps.com",
-    );
+    ]);
   });
 });
 
@@ -52,7 +62,7 @@ describe("fetchArtwork", () => {
   test("returns the bytes inline so satori never fetches them itself", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(imageResponse()));
 
-    expect(await fetchArtwork("https://example.test/images/a.png")).toBe(
+    expect(await fetchArtwork(["https://example.test"], "/images/a.png")).toBe(
       `data:image/png;base64,${Buffer.from(pngBytes).toString("base64")}`,
     );
   });
@@ -63,17 +73,19 @@ describe("fetchArtwork", () => {
       vi.fn().mockResolvedValue(imageResponse(pngBytes, { status: 404 })),
     );
 
-    expect(await fetchArtwork("https://example.test/images/gone.png")).toBeNull();
+    expect(await fetchArtwork(["https://example.test"], "/images/gone.png")).toBeNull();
   });
 
   test("gives up on anything that is not an image", async () => {
-    // A deployment-protection challenge answers 200 with an HTML page.
+    // A deployment-protection challenge answers 200 with an HTML page, and
+    // the body is what settles it: the header could say anything.
+    const html = new TextEncoder().encode("<!doctype html><title>Sign in");
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue(imageResponse(pngBytes, { type: "text/html" })),
+      vi.fn().mockResolvedValue(imageResponse(html, { type: "image/png" })),
     );
 
-    expect(await fetchArtwork("https://example.test/images/a.png")).toBeNull();
+    expect(await fetchArtwork(["https://example.test"], "/images/a.png")).toBeNull();
   });
 
   test("gives up on a file too big to be worth a card", async () => {
@@ -84,7 +96,7 @@ describe("fetchArtwork", () => {
       ),
     );
 
-    expect(await fetchArtwork("https://example.test/images/huge.png")).toBeNull();
+    expect(await fetchArtwork(["https://example.test"], "/images/huge.png")).toBeNull();
   });
 
   test("gives up on a format satori cannot draw, whatever the header says", async () => {
@@ -98,7 +110,7 @@ describe("fetchArtwork", () => {
       vi.fn().mockResolvedValue(imageResponse(webpBytes, { type: "image/png" })),
     );
 
-    expect(await fetchArtwork("https://example.test/images/a.png")).toBeNull();
+    expect(await fetchArtwork(["https://example.test"], "/images/a.png")).toBeNull();
   });
 
   test("gives up on an empty body", async () => {
@@ -107,20 +119,69 @@ describe("fetchArtwork", () => {
       vi.fn().mockResolvedValue(imageResponse(new Uint8Array())),
     );
 
-    expect(await fetchArtwork("https://example.test/images/a.png")).toBeNull();
+    expect(await fetchArtwork(["https://example.test"], "/images/a.png")).toBeNull();
   });
 
   test("still catches an oversized file that declared no length", async () => {
-    const huge = new Uint8Array(maxBytesForTest + 1);
+    const huge = new Uint8Array(maxArtworkBytes + 1);
     huge.set(pngBytes);
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(imageResponse(huge)));
 
-    expect(await fetchArtwork("https://example.test/images/huge.png")).toBeNull();
+    expect(await fetchArtwork(["https://example.test"], "/images/huge.png")).toBeNull();
+  });
+
+  test("falls back to the next host when the first does not answer", async () => {
+    // A deployment behind protection answers its own fetch with a challenge;
+    // the production domain is still there to serve the file.
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(imageResponse(pngBytes, { status: 401 }))
+      .mockResolvedValueOnce(imageResponse());
+    vi.stubGlobal("fetch", fetchMock);
+
+    expect(
+      await fetchArtwork(
+        ["https://deployment.test", "https://www.axismaps.com"],
+        "/images/a.png",
+      ),
+    ).toContain("data:image/png;base64,");
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      2,
+      "https://www.axismaps.com/images/a.png",
+      expect.anything(),
+    );
   });
 
   test("gives up when the request fails or times out", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("timed out")));
 
-    expect(await fetchArtwork("https://example.test/images/a.png")).toBeNull();
+    expect(await fetchArtwork(["https://example.test"], "/images/a.png")).toBeNull();
+  });
+});
+
+describe("allowedCardArtworkPath", () => {
+  test("accepts a site-relative path to an image under /images/", () => {
+    expect(allowedCardArtworkPath("/images/projects/hpi-cover.png")).toBe(
+      "/images/projects/hpi-cover.png",
+    );
+    expect(
+      allowedCardArtworkPath("/images/blog/a-post/cover.JPEG"),
+    ).toBe("/images/blog/a-post/cover.JPEG");
+  });
+
+  test("refuses anything that would fetch from somewhere else", () => {
+    expect(allowedCardArtworkPath(null)).toBeNull();
+    expect(allowedCardArtworkPath("https://example.com/x.png")).toBeNull();
+    expect(allowedCardArtworkPath("//example.com/x.png")).toBeNull();
+    expect(allowedCardArtworkPath("/images/../../secrets/x.png")).toBeNull();
+    expect(allowedCardArtworkPath("/public/x.png")).toBeNull();
+    expect(allowedCardArtworkPath("/images/x.svg")).toBeNull();
+    // satori renders neither, and a WebP takes the response down with it.
+    expect(allowedCardArtworkPath("/images/x.webp")).toBeNull();
+    expect(allowedCardArtworkPath("/images/x.png?w=1")).toBeNull();
+    expect(allowedCardArtworkPath("/images\\..\\x.png")).toBeNull();
+    // searchParams hands the route a decoded path, so an encoded traversal
+    // arrives as the plain one above; the raw form is refused as well.
+    expect(allowedCardArtworkPath("/images/%2e%2e/x.png")).toBeNull();
   });
 });
