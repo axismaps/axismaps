@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { baseUrl } from "../sitemap";
+import { artworkOrigin, fetchArtwork } from "../lib/og-artwork";
 import {
   allowedCardArtworkPath,
   largeCardHeight,
@@ -9,37 +9,28 @@ import {
 const brandBlue = "#4a6ecf";
 const cardBackground = "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)";
 
-// The host to fetch the artwork from. Satori has no filesystem, and public/
-// images are deliberately left out of the serverless bundle, so the picture
-// comes back over HTTP from the deployment serving this request. VERCEL_URL is
-// set by the platform; the request's own Host header is only trusted for the
-// local dev server, since anywhere else it is the caller's to set and would
-// turn this route into a fetch of someone else's /images/.
-function artworkOrigin(request: Request): string {
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  const { origin, hostname } = new URL(request.url);
-  return hostname === "localhost" || hostname === "127.0.0.1"
-    ? origin
-    : baseUrl;
-}
-
-// Long project titles would otherwise push the wordmark off the card.
+// Long project titles would otherwise push the wordmark off the card. The
+// character count is the rough cut; the span's own width is what actually
+// holds the line, for a title too wide to measure in characters.
 function truncate(title: string, limit = 58): string {
   return title.length > limit ? `${title.slice(0, limit - 1).trimEnd()}…` : title;
 }
 
-export function GET(request: Request) {
+export async function GET(request: Request) {
   const url = new URL(request.url);
   const title = url.searchParams.get("title") || "Data-Driven Cartography";
-  const artwork = allowedCardArtworkPath(url.searchParams.get("image"));
+  const path = allowedCardArtworkPath(url.searchParams.get("image"));
+  const artwork = path
+    ? await fetchArtwork(`${artworkOrigin(request.url)}${path}`)
+    : null;
 
   // With a picture to show, the card becomes a frame for it: the artwork is
   // letterboxed whole onto a white plate rather than cropped to 1.91:1, which
   // would cut a 975x305 banner down to a slice and most of a portrait cover
   // away. Branding drops to a sign-off line under the plate, where it stays
   // readable at the size a feed shows a card without competing with the map.
+  // Artwork that could not be fetched falls through to the plain titled card
+  // below, which beats the empty plate this would otherwise draw.
   if (artwork) {
     return new ImageResponse(
       (
@@ -57,7 +48,7 @@ export function GET(request: Request) {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`${artworkOrigin(request)}${artwork}`}
+                src={artwork}
                 alt=""
                 width={largeCardWidth}
                 height={largeCardHeight}
@@ -74,7 +65,12 @@ export function GET(request: Request) {
           <div tw="flex items-center justify-between h-24 px-10 pb-2">
             <span
               tw="text-3xl font-semibold text-gray-900"
-              style={{ maxWidth: "820px" }}
+              style={{
+                maxWidth: "820px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
             >
               {truncate(title)}
             </span>

@@ -140,6 +140,11 @@ export function allowedCardArtworkPath(raw: string | null): string | null {
 // The card image for a page: the artwork itself where it already fills a large
 // card, and otherwise the same artwork composited onto one at /og. Either way
 // the preview shows the real picture at the size the networks want.
+//
+// Like publicImage, this measures the file under public/, so it belongs in a
+// generateMetadata that runs at build time. A page rendered from the
+// serverless bundle, which excludes public/images, would measure nothing and
+// quietly name the undersized file instead.
 export function socialCardImage(src: string, title: string): OgImage {
   const size = readImageSize(path.join(process.cwd(), "public", src));
 

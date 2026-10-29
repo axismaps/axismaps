@@ -161,6 +161,10 @@ describe("allowedCardArtworkPath", () => {
     expect(allowedCardArtworkPath("/public/x.png")).toBeNull();
     expect(allowedCardArtworkPath("/images/x.svg")).toBeNull();
     expect(allowedCardArtworkPath("/images/x.png?w=1")).toBeNull();
+    expect(allowedCardArtworkPath("/images\\..\\x.png")).toBeNull();
+    // searchParams hands the route a decoded path, so an encoded traversal
+    // arrives as the plain one above; the raw form is refused as well.
+    expect(allowedCardArtworkPath("/images/%2e%2e/x.png")).toBeNull();
   });
 });
 
