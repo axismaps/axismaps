@@ -15,6 +15,8 @@ export const maxArtworkBytes = 8 * 1024 * 1024;
 
 // A card nobody waits for is better than a request that hangs: a crawler gives
 // og:image a few seconds at most before it gives up on the preview entirely.
+// This is the budget for the whole card, not for each host tried, so a hung
+// first host cannot spend it twice over.
 const fetchTimeoutMs = 4000;
 
 // Site-relative paths under /images/ only. The /og route turns this parameter
@@ -84,11 +86,9 @@ function renderableType(bytes: Uint8Array): string | null {
   return null;
 }
 
-async function fetchFrom(url: string): Promise<string | null> {
+async function fetchFrom(url: string, signal: AbortSignal): Promise<string | null> {
   try {
-    const response = await fetch(url, {
-      signal: AbortSignal.timeout(fetchTimeoutMs),
-    });
+    const response = await fetch(url, { signal });
 
     if (!response.ok) {
       return null;
@@ -122,8 +122,10 @@ export async function fetchArtwork(
   origins: string[],
   path: string,
 ): Promise<string | null> {
+  const deadline = AbortSignal.timeout(fetchTimeoutMs);
+
   for (const origin of origins) {
-    const artwork = await fetchFrom(`${origin}${path}`);
+    const artwork = await fetchFrom(`${origin}${path}`, deadline);
     if (artwork) {
       return artwork;
     }

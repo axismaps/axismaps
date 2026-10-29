@@ -172,6 +172,21 @@ describe("fetchArtwork", () => {
     );
   });
 
+  test("spends one deadline across the hosts, not one each", async () => {
+    // Two hosts at four seconds apiece would be eight, which is longer than
+    // a crawler waits for a picture.
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(imageResponse(pngBytes, { status: 500 }))
+      .mockResolvedValueOnce(imageResponse());
+    vi.stubGlobal("fetch", fetchMock);
+
+    await fetchArtwork(["https://one.test", "https://two.test"], "/images/a.png");
+
+    const [first, second] = fetchMock.mock.calls;
+    expect(first[1].signal).toBe(second[1].signal);
+  });
+
   test("gives up when the request fails or times out", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("timed out")));
 

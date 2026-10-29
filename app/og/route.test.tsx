@@ -24,9 +24,15 @@ function card(query: string) {
 
 // The two cards are different pictures, so their bytes differ: enough to tell
 // which branch rendered without pinning the test to a byte count that every
-// change to the layout would break.
-async function bodySize(response: Response): Promise<number> {
-  return (await response.arrayBuffer()).byteLength;
+// change to the layout would break. The PNG header comes back with it, since
+// the size the networks lay a card out for is the whole point.
+async function renderedCard(response: Response) {
+  const bytes = Buffer.from(await response.arrayBuffer());
+  return {
+    size: bytes.byteLength,
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20),
+  };
 }
 
 beforeEach(() => {
@@ -46,6 +52,10 @@ describe("GET /og", () => {
     expect(fetchArtwork).not.toHaveBeenCalled();
     // Nothing went wrong, so the card keeps next/og's own long cache.
     expect(response.headers.get("cache-control")).toContain("immutable");
+    expect(await renderedCard(response)).toMatchObject({
+      width: 1200,
+      height: 630,
+    });
   });
 
   test("composites the artwork named by a site-relative path", async () => {
@@ -64,7 +74,9 @@ describe("GET /og", () => {
     );
     // The artwork branch really rendered, rather than quietly falling through
     // to the plain card, which would otherwise pass every assertion above.
-    expect(await bodySize(composited)).not.toBe(await bodySize(plain));
+    const rendered = await renderedCard(composited);
+    expect(rendered).toMatchObject({ width: 1200, height: 630 });
+    expect(rendered.size).not.toBe((await renderedCard(plain)).size);
   });
 
   test("never fetches an image parameter pointing somewhere else", async () => {

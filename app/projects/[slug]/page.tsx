@@ -10,6 +10,12 @@ import { pageMetadata, socialCardImage } from "../../lib/metadata";
 
 /* eslint-disable @next/next/no-img-element */
 
+// socialCardImage measures the cover under public/, which only exists at build
+// time: a page rendered on demand would measure nothing and quietly name the
+// undersized file. Every project is known up front, so the build is told to
+// fail rather than let one of these pages become dynamic.
+export const dynamic = "error";
+
 export async function generateStaticParams() {
   const projects = getProjects();
   return projects.map((project) => ({ slug: project.slug }));
