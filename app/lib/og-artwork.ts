@@ -27,7 +27,9 @@ const fetchTimeoutMs = 4000;
 // mid-stream, leaving the crawler with nothing at all. A WebP cover keeps its
 // own undersized card instead, which at least still shows the artwork.
 export function allowedCardArtworkPath(raw: string | null): string | null {
-  if (!raw || raw.includes("..")) {
+  // A whole segment, not the two characters anywhere: a cover genuinely named
+  // "survey..final.png" climbs out of nothing and should keep its card.
+  if (!raw || raw.split("/").includes("..")) {
     return null;
   }
   return /^\/images\/[\w.-]+(\/[\w.-]+)*\.(png|jpe?g)$/i.test(raw)
@@ -46,23 +48,22 @@ export function allowedCardArtworkPath(raw: string | null): string | null {
 // it were ever switched on, would otherwise leave every card self-fetching a
 // 401 and quietly losing its artwork.
 //
-// The request's own Host is trusted only for the local dev server, since
-// anywhere else it is the caller's to set and would make this route fetch
-// someone else's /images/.
+// Nothing from the request is trusted where the platform can tell us who we
+// are: request.url is built from the Host header, so a deployment that read it
+// could be asked to fetch http://localhost/images/. Off Vercel there is no
+// VERCEL_URL to go on, and only a local dev server's own origin is taken.
 export function artworkOrigins(requestUrl: string): string[] {
+  if (process.env.VERCEL_URL) {
+    return dedupe([`https://${process.env.VERCEL_URL}`, baseUrl]);
+  }
+
   const { origin, hostname } = new URL(requestUrl);
   const local = hostname === "localhost" || hostname === "127.0.0.1";
+  return local ? dedupe([origin, baseUrl]) : [baseUrl];
+}
 
-  const candidates = [
-    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
-    local ? origin : null,
-    baseUrl,
-  ];
-
-  return candidates.filter(
-    (host, index): host is string =>
-      host !== null && candidates.indexOf(host) === index,
-  );
+function dedupe(origins: string[]): string[] {
+  return origins.filter((origin, index) => origins.indexOf(origin) === index);
 }
 
 // What satori will actually draw, read from the file rather than taken from a

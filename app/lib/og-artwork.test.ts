@@ -9,7 +9,6 @@ import {
 const pngBytes = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 
 
-
 function imageResponse(
   body: Uint8Array = pngBytes,
   init: { status?: number; type?: string; length?: string } = {},
@@ -53,6 +52,17 @@ describe("artworkOrigins", () => {
     vi.stubEnv("VERCEL_URL", "");
 
     expect(artworkOrigins("https://attacker.example/og")).toEqual([
+      "https://www.axismaps.com",
+    ]);
+  });
+
+  test("reads nothing from the request where the platform tells us the host", () => {
+    // request.url is built from the Host header, so a deployment that took
+    // the hint could be asked to fetch http://localhost/images/.
+    vi.stubEnv("VERCEL_URL", "axismaps-abc123.vercel.app");
+
+    expect(artworkOrigins("http://localhost/og")).toEqual([
+      "https://axismaps-abc123.vercel.app",
       "https://www.axismaps.com",
     ]);
   });
@@ -122,6 +132,16 @@ describe("fetchArtwork", () => {
     expect(await fetchArtwork(["https://example.test"], "/images/a.png")).toBeNull();
   });
 
+  test("takes a file that is exactly at the cap", async () => {
+    const atCap = new Uint8Array(maxArtworkBytes);
+    atCap.set(pngBytes);
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(imageResponse(atCap)));
+
+    expect(
+      await fetchArtwork(["https://example.test"], "/images/big.png"),
+    ).toContain("data:image/png;base64,");
+  });
+
   test("still catches an oversized file that declared no length", async () => {
     const huge = new Uint8Array(maxArtworkBytes + 1);
     huge.set(pngBytes);
@@ -183,5 +203,11 @@ describe("allowedCardArtworkPath", () => {
     // searchParams hands the route a decoded path, so an encoded traversal
     // arrives as the plain one above; the raw form is refused as well.
     expect(allowedCardArtworkPath("/images/%2e%2e/x.png")).toBeNull();
+  });
+
+  test("accepts two dots inside a filename, which climb out of nothing", () => {
+    expect(allowedCardArtworkPath("/images/projects/survey..final.png")).toBe(
+      "/images/projects/survey..final.png",
+    );
   });
 });

@@ -32,7 +32,9 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   // The parameter is public and unbounded, and satori lays out every character
   // it is given before anything gets drawn, so the string is cut to a sane
-  // length on the way in rather than at the point it is rendered.
+  // length on the way in rather than at the point it is rendered. This cut is
+  // by UTF-16 unit and could leave a half character at the end; truncate's own
+  // cut, at 58 code points, lands far inside it and takes any such tail off.
   const title = (url.searchParams.get("title") || "Data-Driven Cartography").slice(
     0,
     300,
@@ -175,6 +177,9 @@ export async function GET(request: Request) {
     {
       width: largeCardWidth,
       height: largeCardHeight,
+      // Only when a usable path was asked for and could not be served. A
+      // rejected one (a WebP, say) renders this card every time and deserves
+      // the long cache next/og asks for by default.
       ...(path ? { headers: { "cache-control": degradedCacheControl } } : {}),
     },
   );

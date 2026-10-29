@@ -1,13 +1,5 @@
 import { describe, test, expect, vi } from "vitest";
 import { readImageSize } from "./image-size";
-
-// Passes through to the real header read, so the tests below still measure
-// the site's own files; one test overrides it to reach a branch no file in
-// public/ currently exercises.
-vi.mock("./image-size", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("./image-size")>();
-  return { ...actual, readImageSize: vi.fn(actual.readImageSize) };
-});
 import {
   defaultOgImage,
   fillsLargeCard,
@@ -18,6 +10,14 @@ import {
   siteTitle,
   socialCardImage,
 } from "./metadata";
+
+// Passes through to the real header read, so the tests below still measure
+// the site's own files; one test overrides it to reach a branch no file in
+// public/ currently exercises.
+vi.mock("./image-size", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./image-size")>();
+  return { ...actual, readImageSize: vi.fn(actual.readImageSize) };
+});
 
 describe("publicImage", () => {
   test("keeps the original file path and adds its dimensions", () => {
