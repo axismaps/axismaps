@@ -17,22 +17,52 @@ jobs:
     #   github.event.pull_request.user.login == 'external-contributor' ||
     #   github.event.pull_request.user.login == 'new-developer' ||
     #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
-    
+
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: read
       issues: read
       id-token: write
-    
+
     steps:
+      # This review is advisory, not a merge gate. If the credential is missing
+      # the job skips with a notice instead of going red, so a broken reviewer
+      # never looks like a failing build.
+      - name: Check for review credentials
+        id: creds
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          if [ -n "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Claude review skipped::The CLAUDE_CODE_OAUTH_TOKEN secret is not set, so there is nothing to authenticate with."
+            {
+              echo "### Claude review skipped"
+              echo
+              echo "The \`CLAUDE_CODE_OAUTH_TOKEN\` secret is not set on this repository."
+              echo
+              echo "To enable the review, generate a token locally with \`claude setup-token\`"
+              echo "and store it under **Settings → Secrets and variables → Actions** as"
+              echo "\`CLAUDE_CODE_OAUTH_TOKEN\`."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Checkout repository
+        if: steps.creds.outputs.available == 'true'
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
+      # continue-on-error keeps a reviewer problem (expired token, rate limit,
+      # action outage) from failing the check. The step below turns a non-zero
+      # outcome into a visible warning instead.
       - name: Run Claude Code Review
         id: claude-review
+        if: steps.creds.outputs.available == 'true'
+        continue-on-error: true
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -46,12 +76,32 @@ jobs:
             - Performance considerations
             - Security concerns
             - Test coverage
-            
+
             Use the repository's CLAUDE.md for guidance on style and conventions. Be constructive and helpful in your feedback.
 
             Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
-          
+
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.claude.com/en/docs/claude-code/sdk#command-line for available options
           claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
 
+      - name: Report incomplete review
+        if: steps.creds.outputs.available == 'true' && steps.claude-review.outcome != 'success'
+        run: |
+          echo "::warning title=Claude review did not complete::The review step failed. The code itself was not judged - check the step log above."
+          {
+            echo "### Claude review did not complete"
+            echo
+            echo "The review step failed, so this pull request was **not** reviewed."
+            echo "This says nothing about the code; the other checks are the ones to trust."
+            echo
+            echo "Most likely causes, in order:"
+            echo
+            echo "1. **The \`CLAUDE_CODE_OAUTH_TOKEN\` secret has expired.** These tokens"
+            echo "   last about a year. Regenerate with \`claude setup-token\` and update the"
+            echo "   secret under **Settings → Secrets and variables → Actions**."
+            echo "2. A rate limit or usage limit on the account behind the token."
+            echo "3. An outage or regression in \`anthropics/claude-code-action@v1\`."
+            echo
+            echo "Re-run this job with debug logging enabled to see the underlying error."
+          } >> "$GITHUB_STEP_SUMMARY"
