@@ -65,6 +65,9 @@ export async function GET(request: Request) {
                 boxShadow: "0 10px 30px rgba(15, 23, 42, 0.18)",
               }}
             >
+              {/* The width and height below are nominal: the sizing and
+                  object-fit in style are what letterbox the picture, and
+                  satori wants the attributes there as well. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={artwork}

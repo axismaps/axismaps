@@ -86,6 +86,32 @@ describe("GET /og", () => {
     expect(fetchArtwork).not.toHaveBeenCalled();
   });
 
+  test("turns a format satori cannot draw into the plain card", async () => {
+    const response = await card("image=%2Fimages%2Fprojects%2Fa.webp&title=W");
+
+    expect(response.status).toBe(200);
+    expect(fetchArtwork).not.toHaveBeenCalled();
+    // Refused on sight rather than attempted and lost, so this card is the
+    // right answer every time and keeps the long cache.
+    expect(response.headers.get("cache-control")).toContain("immutable");
+  });
+
+  test("falls back when the artwork is too big to use", async () => {
+    // fetchArtwork drops an oversized file the same way it drops a missing
+    // one, and the route cannot tell the two apart.
+    fetchArtwork.mockResolvedValue(null);
+
+    const response = await card("image=%2Fimages%2Fprojects%2Fhuge.png");
+
+    expect(await renderedCard(response)).toMatchObject({
+      width: 1200,
+      height: 630,
+    });
+    expect(response.headers.get("cache-control")).toBe(
+      "public, max-age=60, s-maxage=60",
+    );
+  });
+
   test("falls back to the plain card when the artwork cannot be had", async () => {
     // Rather than the empty plate satori draws for an <img> it cannot load.
     fetchArtwork.mockResolvedValue(null);
