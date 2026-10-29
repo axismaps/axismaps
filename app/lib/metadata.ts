@@ -131,7 +131,9 @@ export function fillsLargeCard({ width, height }: ImageSize): boolean {
 // Like publicImage, this measures the file under public/, so it belongs in a
 // generateMetadata that runs at build time. A page rendered from the
 // serverless bundle, which excludes public/images, would measure nothing and
-// quietly name the undersized file instead.
+// quietly name the undersized file instead. A page adopting this wants
+// `export const dynamic = "error"` with it, as app/projects/[slug] has, so
+// that the build says so rather than the card.
 export function socialCardImage(src: string, title: string): OgImage {
   const size = readImageSize(path.join(process.cwd(), "public", src));
 

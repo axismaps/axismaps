@@ -19,6 +19,28 @@ export const maxArtworkBytes = 8 * 1024 * 1024;
 // first host cannot spend it twice over.
 const fetchTimeoutMs = 4000;
 
+// The card's title, from a public parameter. Satori lays out every character
+// it is handed before anything is drawn, so an unbounded string is cut here
+// on the way in. The cut is by UTF-16 unit, which is cheap on a huge string
+// and could leave half a character at the end; nothing is drawn at this
+// length, and the two cards each shorten it further in their own way.
+export function cardTitle(raw: string | null): string {
+  return (raw || "Data-Driven Cartography").slice(0, 300);
+}
+
+// The artwork card gives its title one line beside the wordmark, so a long
+// one is cut rather than wrapped. Counting code points keeps the cut off the
+// middle of an emoji or an accented character, including the half one the
+// bound above may have left. The plain card has room to wrap and keeps its
+// title whole.
+export function fitTitleToFooter(title: string, limit = 58): string {
+  const characters = Array.from(title);
+
+  return characters.length > limit
+    ? `${characters.slice(0, limit - 1).join("").trimEnd()}…`
+    : title;
+}
+
 // Site-relative paths under /images/ only. The /og route turns this parameter
 // into a fetch, so an absolute URL, a protocol-relative one or a traversal out
 // of public/ must not get through; a path that fails this is simply ignored by
@@ -99,15 +121,14 @@ async function fetchFrom(url: string, signal: AbortSignal): Promise<string | nul
       return null;
     }
 
-    const bytes = new Uint8Array(await response.arrayBuffer());
+    // A view on the body rather than a copy of it.
+    const bytes = Buffer.from(await response.arrayBuffer());
     if (bytes.byteLength > maxArtworkBytes) {
       return null;
     }
 
     const type = renderableType(bytes);
-    return type
-      ? `data:${type};base64,${Buffer.from(bytes).toString("base64")}`
-      : null;
+    return type ? `data:${type};base64,${bytes.toString("base64")}` : null;
   } catch {
     return null;
   }
@@ -122,6 +143,9 @@ export async function fetchArtwork(
   origins: string[],
   path: string,
 ): Promise<string | null> {
+  // One signal for the lot, body reads included: a host that dribbles out a
+  // slow download has spent the card's time just as surely as one that hangs,
+  // and the next host gets what is left rather than four fresh seconds.
   const deadline = AbortSignal.timeout(fetchTimeoutMs);
 
   for (const origin of origins) {

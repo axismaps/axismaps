@@ -2,12 +2,13 @@ import { afterEach, describe, expect, test, vi } from "vitest";
 import {
   allowedCardArtworkPath,
   artworkOrigins,
+  cardTitle,
   fetchArtwork,
+  fitTitleToFooter,
   maxArtworkBytes,
 } from "./og-artwork";
 
 const pngBytes = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
-
 
 function imageResponse(
   body: Uint8Array = pngBytes,
@@ -224,5 +225,45 @@ describe("allowedCardArtworkPath", () => {
     expect(allowedCardArtworkPath("/images/projects/survey..final.png")).toBe(
       "/images/projects/survey..final.png",
     );
+  });
+});
+
+describe("cardTitle", () => {
+  test("falls back to the site's own line when none is given", () => {
+    expect(cardTitle(null)).toBe("Data-Driven Cartography");
+    expect(cardTitle("")).toBe("Data-Driven Cartography");
+  });
+
+  test("bounds a title satori would otherwise lay out in full", () => {
+    expect(cardTitle("a".repeat(5000))).toHaveLength(300);
+  });
+});
+
+describe("fitTitleToFooter", () => {
+  test("leaves a title that fits beside the wordmark alone", () => {
+    expect(fitTitleToFooter("Healthy Places Index")).toBe(
+      "Healthy Places Index",
+    );
+  });
+
+  test("cuts a long one and marks the cut", () => {
+    const fitted = fitTitleToFooter("A Very Long Project Title ".repeat(10));
+
+    expect(fitted).toHaveLength(58);
+    expect(fitted.endsWith("…")).toBe(true);
+  });
+
+  test("never cuts a character in half", () => {
+    // Every one of these is two UTF-16 units, so a cut by index would land
+    // inside one and leave a lone surrogate on the card.
+    expect(fitTitleToFooter("🗺".repeat(80))).toBe(`${"🗺".repeat(57)}…`);
+  });
+
+  test("takes off the half character the input bound may have left", () => {
+    // cardTitle cuts by UTF-16 unit: 300 is odd against two-unit characters,
+    // so the 150th arrives split.
+    const bounded = cardTitle("🗺".repeat(400));
+
+    expect(Array.from(fitTitleToFooter(bounded))).toHaveLength(58);
   });
 });

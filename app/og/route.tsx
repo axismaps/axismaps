@@ -2,7 +2,9 @@ import { ImageResponse } from "next/og";
 import {
   allowedCardArtworkPath,
   artworkOrigins,
+  cardTitle,
   fetchArtwork,
+  fitTitleToFooter,
   largeCardHeight,
   largeCardWidth,
 } from "../lib/og-artwork";
@@ -16,28 +18,9 @@ const brandBlue = "#4a6ecf";
 const degradedCacheControl = "public, max-age=60, s-maxage=60";
 const cardBackground = "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)";
 
-// Long project titles would otherwise push the wordmark off the card. The
-// character count is the rough cut; the span's own width is what actually
-// holds the line, for a title too wide to measure in characters. Counting
-// code points rather than UTF-16 units keeps the cut off the middle of an
-// emoji or an accented character that happens to land on the limit.
-function truncate(title: string, limit = 58): string {
-  const characters = Array.from(title);
-  return characters.length > limit
-    ? `${characters.slice(0, limit - 1).join("").trimEnd()}…`
-    : title;
-}
-
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  // The parameter is public and unbounded, and satori lays out every character
-  // it is given before anything gets drawn, so the string is cut to a sane
-  // length on the way in rather than at the point it is rendered; truncate's
-  // own cut lands far inside this one.
-  const title = (url.searchParams.get("title") || "Data-Driven Cartography").slice(
-    0,
-    300,
-  );
+  const title = cardTitle(url.searchParams.get("title"));
   const path = allowedCardArtworkPath(url.searchParams.get("image"));
   const artwork = path
     ? await fetchArtwork(artworkOrigins(request.url), path)
@@ -94,7 +77,7 @@ export async function GET(request: Request) {
                 textOverflow: "ellipsis",
               }}
             >
-              {truncate(title)}
+              {fitTitleToFooter(title)}
             </span>
             <div tw="flex items-center">
               <div
