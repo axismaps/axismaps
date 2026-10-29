@@ -1,6 +1,6 @@
 import path from "path";
 import type { Metadata } from "next";
-import { readImageSize } from "./image-size";
+import { readImageSize, type ImageSize } from "./image-size";
 
 export const siteName = "Axis Maps";
 
@@ -95,5 +95,67 @@ export function pageMetadata({
       description: cardDescription,
       images: resolvedImages,
     },
+  };
+}
+
+// The size a large LinkedIn/X card is laid out for. Below it, those networks
+// fall back to the small thumbnail-beside-text treatment.
+export const largeCardWidth = 1200;
+export const largeCardHeight = 630;
+
+// A card is laid out at 1200x630, so anything appreciably taller or wider than
+// that 1.91:1 frame gets centre-cropped to fit. A sixth of the picture is
+// about as much as is worth losing; past that the crop takes the legend off a
+// map or the title block off a poster, so the picture is better letterboxed on
+// a card of our own than cropped in the feed.
+const cardAspect = largeCardWidth / largeCardHeight;
+const maxCropFraction = 1 / 6;
+const minCardAspect = cardAspect * (1 - maxCropFraction);
+const maxCardAspect = cardAspect / (1 - maxCropFraction);
+
+// Whether a picture can carry a large preview on its own, rather than being
+// composited onto a card first: big enough in both directions, and close
+// enough in shape to survive the crop.
+export function fillsLargeCard({ width, height }: ImageSize): boolean {
+  if (width < largeCardWidth || height < largeCardHeight) {
+    return false;
+  }
+  const aspect = width / height;
+  return aspect >= minCardAspect && aspect <= maxCardAspect;
+}
+
+// Site-relative paths under /images/ only. The /og route turns this parameter
+// into a fetch, so an absolute URL, a protocol-relative one or a traversal out
+// of public/ must not get through; a path that fails this is simply ignored by
+// the route, which falls back to its plain titled card.
+export function allowedCardArtworkPath(raw: string | null): string | null {
+  if (!raw || raw.includes("..")) {
+    return null;
+  }
+  return /^\/images\/[\w.-]+(\/[\w.-]+)*\.(png|jpe?g|webp)$/i.test(raw)
+    ? raw
+    : null;
+}
+
+// The card image for a page: the artwork itself where it already fills a large
+// card, and otherwise the same artwork composited onto one at /og. Either way
+// the preview shows the real picture at the size the networks want.
+export function socialCardImage(src: string, title: string): OgImage {
+  const size = readImageSize(path.join(process.cwd(), "public", src));
+
+  // A file we cannot measure is a missing or unrecognised one, and /og would
+  // only fail to fetch it, so the path is named as it stands either way.
+  const needsCard = size !== null && !fillsLargeCard(size);
+
+  if (!needsCard || !allowedCardArtworkPath(src)) {
+    return { url: src, alt: title, ...(size ?? {}) };
+  }
+
+  const params = new URLSearchParams({ image: src, title });
+  return {
+    url: `/og?${params}`,
+    width: largeCardWidth,
+    height: largeCardHeight,
+    alt: title,
   };
 }

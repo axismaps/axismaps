@@ -1,16 +1,108 @@
 import { ImageResponse } from "next/og";
+import { baseUrl } from "../sitemap";
+import {
+  allowedCardArtworkPath,
+  largeCardHeight,
+  largeCardWidth,
+} from "../lib/metadata";
+
+const brandBlue = "#4a6ecf";
+const cardBackground = "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)";
+
+// The host to fetch the artwork from. Satori has no filesystem, and public/
+// images are deliberately left out of the serverless bundle, so the picture
+// comes back over HTTP from the deployment serving this request. VERCEL_URL is
+// set by the platform; the request's own Host header is only trusted for the
+// local dev server, since anywhere else it is the caller's to set and would
+// turn this route into a fetch of someone else's /images/.
+function artworkOrigin(request: Request): string {
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  const { origin, hostname } = new URL(request.url);
+  return hostname === "localhost" || hostname === "127.0.0.1"
+    ? origin
+    : baseUrl;
+}
+
+// Long project titles would otherwise push the wordmark off the card.
+function truncate(title: string, limit = 58): string {
+  return title.length > limit ? `${title.slice(0, limit - 1).trimEnd()}…` : title;
+}
 
 export function GET(request: Request) {
-  let url = new URL(request.url);
-  let title = url.searchParams.get("title") || "Data-Driven Cartography";
+  const url = new URL(request.url);
+  const title = url.searchParams.get("title") || "Data-Driven Cartography";
+  const artwork = allowedCardArtworkPath(url.searchParams.get("image"));
+
+  // With a picture to show, the card becomes a frame for it: the artwork is
+  // letterboxed whole onto a white plate rather than cropped to 1.91:1, which
+  // would cut a 975x305 banner down to a slice and most of a portrait cover
+  // away. Branding drops to a sign-off line under the plate, where it stays
+  // readable at the size a feed shows a card without competing with the map.
+  if (artwork) {
+    return new ImageResponse(
+      (
+        <div
+          tw="flex flex-col w-full h-full"
+          style={{ backgroundImage: cardBackground }}
+        >
+          <div tw="flex flex-1 p-7 pb-3">
+            <div
+              tw="flex w-full h-full bg-white rounded-xl"
+              style={{
+                border: "1px solid rgba(15, 23, 42, 0.08)",
+                boxShadow: "0 10px 30px rgba(15, 23, 42, 0.18)",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${artworkOrigin(request)}${artwork}`}
+                alt=""
+                width={largeCardWidth}
+                height={largeCardHeight}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  borderRadius: "11px",
+                }}
+              />
+            </div>
+          </div>
+
+          <div tw="flex items-center justify-between h-24 px-10 pb-2">
+            <span
+              tw="text-3xl font-semibold text-gray-900"
+              style={{ maxWidth: "820px" }}
+            >
+              {truncate(title)}
+            </span>
+            <div tw="flex items-center">
+              <div
+                tw="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xl"
+                style={{ backgroundColor: brandBlue }}
+              >
+                A
+              </div>
+              <span tw="ml-3 text-2xl text-gray-700">Axis Maps</span>
+            </div>
+          </div>
+        </div>
+      ),
+      {
+        width: largeCardWidth,
+        height: largeCardHeight,
+      },
+    );
+  }
 
   return new ImageResponse(
     (
       <div
         tw="flex flex-col w-full h-full bg-white relative"
         style={{
-          backgroundImage:
-            "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+          backgroundImage: cardBackground,
         }}
       >
         {/* Background Pattern */}
@@ -28,7 +120,7 @@ export function GET(request: Request) {
           <div tw="flex items-center gap-4">
             <div
               tw="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-2xl"
-              style={{ backgroundColor: "#4a6ecf" }}
+              style={{ backgroundColor: brandBlue }}
             >
               A
             </div>
@@ -57,7 +149,7 @@ export function GET(request: Request) {
             <div tw="flex gap-2">
               <div
                 tw="h-2 w-24 rounded-full"
-                style={{ backgroundColor: "#4a6ecf" }}
+                style={{ backgroundColor: brandBlue }}
               />
               <div tw="h-2 w-16 bg-gray-300 rounded-full" />
               <div tw="h-2 w-8 bg-gray-300 rounded-full" />
@@ -67,8 +159,8 @@ export function GET(request: Request) {
       </div>
     ),
     {
-      width: 1200,
-      height: 630,
+      width: largeCardWidth,
+      height: largeCardHeight,
     },
   );
 }

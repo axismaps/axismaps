@@ -1,11 +1,14 @@
 import { describe, test, expect } from "vitest";
 import {
+  allowedCardArtworkPath,
   defaultOgImage,
+  fillsLargeCard,
   pageMetadata,
   publicImage,
   siteDescription,
   siteName,
   siteTitle,
+  socialCardImage,
 } from "./metadata";
 
 describe("publicImage", () => {
@@ -117,6 +120,94 @@ describe("pageMetadata socialDescription", () => {
     });
     expect(metadata.twitter).toMatchObject({
       description: "The short version, written for a card.",
+    });
+  });
+});
+
+describe("fillsLargeCard", () => {
+  test("accepts a picture at or above the 1200x630 card size", () => {
+    expect(fillsLargeCard({ width: 1200, height: 630 })).toBe(true);
+    expect(fillsLargeCard({ width: 1600, height: 1000 })).toBe(true);
+  });
+
+  test("rejects anything short of that in either direction", () => {
+    expect(fillsLargeCard({ width: 1199, height: 900 })).toBe(false);
+    expect(fillsLargeCard({ width: 1600, height: 629 })).toBe(false);
+  });
+
+  test("rejects a shape the card would have to crop hard", () => {
+    // A near-square cover loses close to half its height to a 1.91:1 crop,
+    // and a wide strip the same share of its width.
+    expect(fillsLargeCard({ width: 1590, height: 1514 })).toBe(false);
+    expect(fillsLargeCard({ width: 3200, height: 1000 })).toBe(false);
+  });
+});
+
+describe("allowedCardArtworkPath", () => {
+  test("accepts a site-relative path to an image under /images/", () => {
+    expect(allowedCardArtworkPath("/images/projects/hpi-cover.png")).toBe(
+      "/images/projects/hpi-cover.png",
+    );
+    expect(
+      allowedCardArtworkPath("/images/blog/a-post/cover.JPEG"),
+    ).toBe("/images/blog/a-post/cover.JPEG");
+  });
+
+  test("refuses anything that would fetch from somewhere else", () => {
+    expect(allowedCardArtworkPath(null)).toBeNull();
+    expect(allowedCardArtworkPath("https://example.com/x.png")).toBeNull();
+    expect(allowedCardArtworkPath("//example.com/x.png")).toBeNull();
+    expect(allowedCardArtworkPath("/images/../../secrets/x.png")).toBeNull();
+    expect(allowedCardArtworkPath("/public/x.png")).toBeNull();
+    expect(allowedCardArtworkPath("/images/x.svg")).toBeNull();
+    expect(allowedCardArtworkPath("/images/x.png?w=1")).toBeNull();
+  });
+});
+
+describe("socialCardImage", () => {
+  test("names the file itself when it already fills a large card", () => {
+    expect(
+      socialCardImage(
+        "/images/projects/cpre-on-the-edge/01-national-overview.jpg",
+        "On the Edge",
+      ),
+    ).toEqual({
+      url: "/images/projects/cpre-on-the-edge/01-national-overview.jpg",
+      alt: "On the Edge",
+      width: 1600,
+      height: 1000,
+    });
+  });
+
+  test("composites an undersized banner crop onto a 1200x630 card", () => {
+    expect(
+      socialCardImage("/images/projects/mapc-basemap-cover.png", "MAPC Basemap"),
+    ).toEqual({
+      url: "/og?image=%2Fimages%2Fprojects%2Fmapc-basemap-cover.png&title=MAPC+Basemap",
+      width: 1200,
+      height: 630,
+      alt: "MAPC Basemap",
+    });
+  });
+
+  test("composites a cover that is large but the wrong shape", () => {
+    const image = socialCardImage(
+      "/images/projects/hpi-cover.png",
+      "Healthy Places Index",
+    );
+
+    expect(image.url).toBe(
+      "/og?image=%2Fimages%2Fprojects%2Fhpi-cover.png&title=Healthy+Places+Index",
+    );
+    expect(image).toMatchObject({ width: 1200, height: 630 });
+  });
+
+  test("leaves a file it cannot measure to stand as it is", () => {
+    // An unmeasurable file is a missing or unrecognised one, and /og has
+    // nothing to fetch for it either.
+    expect(socialCardImage("/images/projects/gone.png", "Missing")).toEqual({
+      url: "/images/projects/gone.png",
+      alt: "Missing",
     });
   });
 });
