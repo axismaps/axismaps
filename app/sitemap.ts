@@ -3,9 +3,6 @@ import { getBlogPosts } from "./blog/utils";
 import { getTypographicMaps } from "./typographic-maps/utils";
 import { baseUrl } from "./lib/site";
 
-// Re-exported because the rest of the app has always reached for it here.
-export { baseUrl };
-
 export default async function sitemap() {
   let projects = getProjects().map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,

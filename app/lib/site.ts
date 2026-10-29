@@ -1,4 +1,4 @@
-// The site's own origin, kept apart from the sitemap it used to live in so
-// that a serverless route needing nothing but the hostname does not pull the
-// whole content layer into its bundle.
+// The site's own origin. It used to live in sitemap.ts, which reads every MDX
+// post: a serverless route wanting nothing but the hostname had to bundle the
+// content layer to get it.
 export const baseUrl = "https://www.axismaps.com";

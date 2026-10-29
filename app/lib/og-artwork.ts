@@ -33,6 +33,12 @@ export function cardTitle(raw: string | null): string {
 // middle of an emoji or an accented character, including the half one the
 // bound above may have left. The plain card has room to wrap and keeps its
 // title whole.
+//
+// A count of characters is the wrong unit for a line measured in pixels, and
+// the span's own width is what finally holds it: satori clips there rather
+// than honouring text-overflow, so a title in wide glyphs ends in a clipped
+// one instead of an ellipsis. Untidy, and nowhere near the wordmark, which is
+// what the width is there to protect.
 export function fitTitleToFooter(title: string, limit = 58): string {
   const characters = Array.from(title);
 
