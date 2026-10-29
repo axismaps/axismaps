@@ -1,6 +1,11 @@
 import path from "path";
 import type { Metadata } from "next";
-import { readImageSize } from "./image-size";
+import { readImageSize, type ImageSize } from "./image-size";
+import {
+  allowedCardArtworkPath,
+  largeCardHeight,
+  largeCardWidth,
+} from "./og-artwork";
 
 export const siteName = "Axis Maps";
 
@@ -95,5 +100,56 @@ export function pageMetadata({
       description: cardDescription,
       images: resolvedImages,
     },
+  };
+}
+
+// A card is laid out at 1200x630, so anything appreciably taller or wider than
+// that 1.91:1 frame gets centre-cropped to fit. A sixth of the picture is
+// about as much as is worth losing; past that the crop takes the legend off a
+// map or the title block off a poster, so the picture is better letterboxed on
+// a card of our own than cropped in the feed.
+const cardAspect = largeCardWidth / largeCardHeight;
+const maxCropFraction = 1 / 6;
+const minCardAspect = cardAspect * (1 - maxCropFraction);
+const maxCardAspect = cardAspect / (1 - maxCropFraction);
+
+// Whether a picture can carry a large preview on its own, rather than being
+// composited onto a card first: big enough in both directions, and close
+// enough in shape to survive the crop.
+export function fillsLargeCard({ width, height }: ImageSize): boolean {
+  if (width < largeCardWidth || height < largeCardHeight) {
+    return false;
+  }
+  const aspect = width / height;
+  return aspect >= minCardAspect && aspect <= maxCardAspect;
+}
+
+// The card image for a page: the artwork itself where it already fills a large
+// card, and otherwise the same artwork composited onto one at /og. Either way
+// the preview shows the real picture at the size the networks want.
+//
+// Like publicImage, this measures the file under public/, so it belongs in a
+// generateMetadata that runs at build time. A page rendered from the
+// serverless bundle, which excludes public/images, would measure nothing and
+// quietly name the undersized file instead. A page adopting this wants
+// `export const dynamic = "error"` with it, as app/projects/[slug] has, so
+// that the build says so rather than the card.
+export function socialCardImage(src: string, title: string): OgImage {
+  const size = readImageSize(path.join(process.cwd(), "public", src));
+
+  // A file we cannot measure is a missing or unrecognised one, and /og would
+  // only fail to fetch it, so the path is named as it stands either way.
+  const needsCard = size !== null && !fillsLargeCard(size);
+
+  if (!needsCard || !allowedCardArtworkPath(src)) {
+    return { url: src, alt: title, ...(size ?? {}) };
+  }
+
+  const params = new URLSearchParams({ image: src, title });
+  return {
+    url: `/og?${params}`,
+    width: largeCardWidth,
+    height: largeCardHeight,
+    alt: title,
   };
 }

@@ -1,16 +1,109 @@
 import { ImageResponse } from "next/og";
+import {
+  allowedCardArtworkPath,
+  artworkOrigins,
+  cardTitle,
+  fetchArtwork,
+  fitTitleToFooter,
+  largeCardHeight,
+  largeCardWidth,
+} from "../lib/og-artwork";
 
-export function GET(request: Request) {
-  let url = new URL(request.url);
-  let title = url.searchParams.get("title") || "Data-Driven Cartography";
+const brandBlue = "#4a6ecf";
+
+// A card that came out right is worth caching for as long as the CDN will hold
+// it, which is what next/og asks for by default. A card that lost its artwork
+// to a timeout or an unreachable host is not: without this, one bad minute
+// would pin the artwork-less card at the CDN and in crawler caches for a year.
+const degradedCacheControl = "public, max-age=60, s-maxage=60";
+const cardBackground = "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)";
+
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const title = cardTitle(url.searchParams.get("title"));
+  const path = allowedCardArtworkPath(url.searchParams.get("image"));
+  const artwork = path
+    ? await fetchArtwork(artworkOrigins(request.url), path)
+    : null;
+
+  // With a picture to show, the card becomes a frame for it: the artwork is
+  // letterboxed whole onto a white plate rather than cropped to 1.91:1, which
+  // would cut a 975x305 banner down to a slice and most of a portrait cover
+  // away. Branding drops to a sign-off line under the plate, where it stays
+  // readable at the size a feed shows a card without competing with the map.
+  // Artwork that could not be fetched falls through to the plain titled card
+  // below, which beats the empty plate this would otherwise draw.
+  if (artwork) {
+    return new ImageResponse(
+      (
+        <div
+          tw="flex flex-col w-full h-full"
+          style={{ backgroundImage: cardBackground }}
+        >
+          <div tw="flex flex-1 p-7 pb-3">
+            <div
+              tw="flex w-full h-full bg-white rounded-xl"
+              style={{
+                border: "1px solid rgba(15, 23, 42, 0.08)",
+                boxShadow: "0 10px 30px rgba(15, 23, 42, 0.18)",
+              }}
+            >
+              {/* The width and height below are nominal: the sizing and
+                  object-fit in style are what letterbox the picture, and
+                  satori wants the attributes there as well. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={artwork}
+                alt=""
+                width={largeCardWidth}
+                height={largeCardHeight}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  borderRadius: "11px",
+                }}
+              />
+            </div>
+          </div>
+
+          <div tw="flex items-center justify-between h-24 px-10 pb-2">
+            <span
+              tw="text-3xl font-semibold text-gray-900"
+              style={{
+                maxWidth: "820px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {fitTitleToFooter(title)}
+            </span>
+            <div tw="flex items-center">
+              <div
+                tw="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xl"
+                style={{ backgroundColor: brandBlue }}
+              >
+                A
+              </div>
+              <span tw="ml-3 text-2xl text-gray-700">Axis Maps</span>
+            </div>
+          </div>
+        </div>
+      ),
+      {
+        width: largeCardWidth,
+        height: largeCardHeight,
+      },
+    );
+  }
 
   return new ImageResponse(
     (
       <div
         tw="flex flex-col w-full h-full bg-white relative"
         style={{
-          backgroundImage:
-            "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+          backgroundImage: cardBackground,
         }}
       >
         {/* Background Pattern */}
@@ -25,14 +118,14 @@ export function GET(request: Request) {
         {/* Content Container */}
         <div tw="flex flex-col w-full h-full p-16 justify-between relative">
           {/* Header with Logo */}
-          <div tw="flex items-center gap-4">
+          <div tw="flex items-center">
             <div
               tw="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-2xl"
-              style={{ backgroundColor: "#4a6ecf" }}
+              style={{ backgroundColor: brandBlue }}
             >
               A
             </div>
-            <div tw="flex flex-col">
+            <div tw="flex flex-col ml-4">
               <span tw="text-3xl font-semibold text-gray-900">Axis Maps</span>
               <span tw="text-lg text-gray-600">Data-Driven Cartography</span>
             </div>
@@ -54,21 +147,25 @@ export function GET(request: Request) {
           {/* Footer */}
           <div tw="flex items-center justify-between">
             <div tw="text-lg text-gray-600">axismaps.com</div>
-            <div tw="flex gap-2">
+            <div tw="flex">
               <div
                 tw="h-2 w-24 rounded-full"
-                style={{ backgroundColor: "#4a6ecf" }}
+                style={{ backgroundColor: brandBlue }}
               />
-              <div tw="h-2 w-16 bg-gray-300 rounded-full" />
-              <div tw="h-2 w-8 bg-gray-300 rounded-full" />
+              <div tw="h-2 w-16 bg-gray-300 rounded-full ml-2" />
+              <div tw="h-2 w-8 bg-gray-300 rounded-full ml-2" />
             </div>
           </div>
         </div>
       </div>
     ),
     {
-      width: 1200,
-      height: 630,
+      width: largeCardWidth,
+      height: largeCardHeight,
+      // Only when a usable path was asked for and could not be served. A
+      // rejected one (a WebP, say) renders this card every time and deserves
+      // the long cache next/og asks for by default.
+      ...(path ? { headers: { "cache-control": degradedCacheControl } } : {}),
     },
   );
 }

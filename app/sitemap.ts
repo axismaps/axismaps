@@ -1,8 +1,7 @@
 import { getProjects } from "./projects/utils";
 import { getBlogPosts } from "./blog/utils";
 import { getTypographicMaps } from "./typographic-maps/utils";
-
-export const baseUrl = "https://www.axismaps.com";
+import { baseUrl } from "./lib/site";
 
 export default async function sitemap() {
   let projects = getProjects().map((project) => ({

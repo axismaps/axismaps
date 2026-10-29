@@ -6,9 +6,15 @@ import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import ProseWrapper from "../../components/prose-wrapper";
 import ProjectGallery from "../../components/project-gallery";
-import { pageMetadata, publicImage } from "../../lib/metadata";
+import { pageMetadata, socialCardImage } from "../../lib/metadata";
 
 /* eslint-disable @next/next/no-img-element */
+
+// socialCardImage measures the cover under public/, which only exists at build
+// time: a page rendered on demand would measure nothing and quietly name the
+// undersized file. Every project is known up front, so the build is told to
+// fail rather than let one of these pages become dynamic.
+export const dynamic = "error";
 
 export async function generateStaticParams() {
   const projects = getProjects();
@@ -33,6 +39,9 @@ export async function generateMetadata({
   // The still a visitor meets first makes the best card, so the gallery leads
   // and the index cover stands in for the projects that have no gallery
   // directory. A video-led project has no shareable frame either way.
+  // Most of those covers are legacy Webflow banner crops, far too small and
+  // far too wide to carry a large preview on their own, so socialCardImage
+  // composites them onto a card and leaves the ones that already fit alone.
   const cardImage = getProjectGallery(slug)[0] ?? coverImage;
 
   return pageMetadata({
@@ -41,7 +50,7 @@ export async function generateMetadata({
     path: `/projects/${slug}`,
     type: "article",
     publishedTime: publishedAt,
-    images: cardImage ? [publicImage(cardImage, title)] : undefined,
+    images: cardImage ? [socialCardImage(cardImage, title)] : undefined,
   });
 }
 
