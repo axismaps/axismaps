@@ -1,4 +1,13 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, vi } from "vitest";
+import { readImageSize } from "./image-size";
+
+// Passes through to the real header read, so the tests below still measure
+// the site's own files; one test overrides it to reach a branch no file in
+// public/ currently exercises.
+vi.mock("./image-size", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("./image-size")>();
+  return { ...actual, readImageSize: vi.fn(actual.readImageSize) };
+});
 import {
   allowedCardArtworkPath,
   defaultOgImage,
@@ -160,6 +169,8 @@ describe("allowedCardArtworkPath", () => {
     expect(allowedCardArtworkPath("/images/../../secrets/x.png")).toBeNull();
     expect(allowedCardArtworkPath("/public/x.png")).toBeNull();
     expect(allowedCardArtworkPath("/images/x.svg")).toBeNull();
+    // satori renders neither, and a WebP takes the response down with it.
+    expect(allowedCardArtworkPath("/images/x.webp")).toBeNull();
     expect(allowedCardArtworkPath("/images/x.png?w=1")).toBeNull();
     expect(allowedCardArtworkPath("/images\\..\\x.png")).toBeNull();
     // searchParams hands the route a decoded path, so an encoded traversal
@@ -204,6 +215,20 @@ describe("socialCardImage", () => {
       "/og?image=%2Fimages%2Fprojects%2Fhpi-cover.png&title=Healthy+Places+Index",
     );
     expect(image).toMatchObject({ width: 1200, height: 630 });
+  });
+
+  test("leaves a cover the path guard refuses to stand as it is", () => {
+    // A filename with a space, or a WebP, fails the guard: /og could not
+    // render it anyway, and the real artwork on a small card beats a card
+    // with no artwork on it.
+    vi.mocked(readImageSize).mockReturnValueOnce({ width: 800, height: 600 });
+
+    expect(socialCardImage("/images/projects/a cover.png", "Spaced")).toEqual({
+      url: "/images/projects/a cover.png",
+      alt: "Spaced",
+      width: 800,
+      height: 600,
+    });
   });
 
   test("leaves a file it cannot measure to stand as it is", () => {

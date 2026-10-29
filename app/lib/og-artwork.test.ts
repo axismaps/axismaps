@@ -3,6 +3,9 @@ import { artworkOrigin, fetchArtwork } from "./og-artwork";
 
 const pngBytes = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 
+// Mirrors the module's own cap; a body past it is dropped either way.
+const maxBytesForTest = 8 * 1024 * 1024;
+
 function imageResponse(
   body: Uint8Array = pngBytes,
   init: { status?: number; type?: string; length?: string } = {},
@@ -80,6 +83,37 @@ describe("fetchArtwork", () => {
         imageResponse(pngBytes, { length: String(64 * 1024 * 1024) }),
       ),
     );
+
+    expect(await fetchArtwork("https://example.test/images/huge.png")).toBeNull();
+  });
+
+  test("gives up on a format satori cannot draw, whatever the header says", async () => {
+    // A WebP does not raise an error satori can hand back; it tears the
+    // response down mid-stream, so it must not reach the renderer.
+    const webpBytes = new Uint8Array([
+      0x52, 0x49, 0x46, 0x46, 0x1a, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50,
+    ]);
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(imageResponse(webpBytes, { type: "image/png" })),
+    );
+
+    expect(await fetchArtwork("https://example.test/images/a.png")).toBeNull();
+  });
+
+  test("gives up on an empty body", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(imageResponse(new Uint8Array())),
+    );
+
+    expect(await fetchArtwork("https://example.test/images/a.png")).toBeNull();
+  });
+
+  test("still catches an oversized file that declared no length", async () => {
+    const huge = new Uint8Array(maxBytesForTest + 1);
+    huge.set(pngBytes);
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(imageResponse(huge)));
 
     expect(await fetchArtwork("https://example.test/images/huge.png")).toBeNull();
   });

@@ -128,11 +128,17 @@ export function fillsLargeCard({ width, height }: ImageSize): boolean {
 // into a fetch, so an absolute URL, a protocol-relative one or a traversal out
 // of public/ must not get through; a path that fails this is simply ignored by
 // the route, which falls back to its plain titled card.
+//
+// PNG and JPEG only, although readImageSize can measure a WebP: satori renders
+// neither WebP nor SVG, and handing it one does not raise an error the route
+// can catch — it tears down the response mid-stream, leaving the crawler with
+// nothing at all. A WebP cover keeps its own undersized card instead, which at
+// least still shows the artwork.
 export function allowedCardArtworkPath(raw: string | null): string | null {
   if (!raw || raw.includes("..")) {
     return null;
   }
-  return /^\/images\/[\w.-]+(\/[\w.-]+)*\.(png|jpe?g|webp)$/i.test(raw)
+  return /^\/images\/[\w.-]+(\/[\w.-]+)*\.(png|jpe?g)$/i.test(raw)
     ? raw
     : null;
 }

@@ -8,6 +8,21 @@ const maxArtworkBytes = 8 * 1024 * 1024;
 // og:image a few seconds at most before it gives up on the preview entirely.
 const fetchTimeoutMs = 4000;
 
+// What satori will actually draw. It renders neither WebP nor SVG, and failing
+// that test it tears the response down mid-stream rather than raising anything
+// the route could catch, so the bytes are checked here before they get near it
+// — a content-type header is the server's word for it, this is the file's.
+function isRenderable(bytes: Uint8Array): boolean {
+  const isPng =
+    bytes.length >= 8 &&
+    bytes[0] === 0x89 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x4e &&
+    bytes[3] === 0x47;
+  const isJpeg = bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8;
+  return isPng || isJpeg;
+}
+
 // Where the card's artwork is served from. Satori has no filesystem, and
 // public/images is deliberately left out of the serverless bundle, so the
 // picture comes back over HTTP. VERCEL_URL is this deployment's own hostname,
@@ -49,7 +64,7 @@ export async function fetchArtwork(url: string): Promise<string | null> {
     }
 
     const bytes = new Uint8Array(await response.arrayBuffer());
-    if (bytes.byteLength === 0 || bytes.byteLength > maxArtworkBytes) {
+    if (bytes.byteLength > maxArtworkBytes || !isRenderable(bytes)) {
       return null;
     }
 

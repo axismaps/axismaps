@@ -11,14 +11,25 @@ const cardBackground = "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)";
 
 // Long project titles would otherwise push the wordmark off the card. The
 // character count is the rough cut; the span's own width is what actually
-// holds the line, for a title too wide to measure in characters.
+// holds the line, for a title too wide to measure in characters. Counting
+// code points rather than UTF-16 units keeps the cut off the middle of an
+// emoji or an accented character that happens to land on the limit.
 function truncate(title: string, limit = 58): string {
-  return title.length > limit ? `${title.slice(0, limit - 1).trimEnd()}…` : title;
+  const characters = Array.from(title);
+  return characters.length > limit
+    ? `${characters.slice(0, limit - 1).join("").trimEnd()}…`
+    : title;
 }
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  const title = url.searchParams.get("title") || "Data-Driven Cartography";
+  // The parameter is public and unbounded, and satori lays out every character
+  // it is given before anything gets drawn, so the string is cut to a sane
+  // length on the way in rather than at the point it is rendered.
+  const title = (url.searchParams.get("title") || "Data-Driven Cartography").slice(
+    0,
+    300,
+  );
   const path = allowedCardArtworkPath(url.searchParams.get("image"));
   const artwork = path
     ? await fetchArtwork(`${artworkOrigin(request.url)}${path}`)
