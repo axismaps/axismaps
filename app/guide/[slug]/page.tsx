@@ -129,7 +129,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
               className="group flex items-center gap-3 px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all max-w-[45%]"
             >
               <svg
-                className="h-5 w-5 flex-shrink-0 transition-transform group-hover:-translate-x-1"
+                className="h-5 w-5 shrink-0 transition-transform group-hover:-translate-x-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -164,7 +164,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
                 </div>
               </div>
               <svg
-                className="h-5 w-5 flex-shrink-0 transition-transform group-hover:translate-x-1"
+                className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
