@@ -45,7 +45,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-2">
             <p className="text-lg font-semibold tracking-tight">Axis Maps</p>
             <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              Hewitt, TX | Lichfield, UK
+              Lichfield, England | Hewitt, Texas
             </p>
             <ul className="mt-2 space-y-0">
               <li>
