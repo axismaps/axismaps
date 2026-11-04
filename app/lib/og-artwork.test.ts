@@ -230,8 +230,8 @@ describe("allowedCardArtworkPath", () => {
 
 describe("cardTitle", () => {
   test("falls back to the site's own line when none is given", () => {
-    expect(cardTitle(null)).toBe("Data-Driven Cartography");
-    expect(cardTitle("")).toBe("Data-Driven Cartography");
+    expect(cardTitle(null)).toBe("Interactive maps designed by cartographers");
+    expect(cardTitle("")).toBe("Interactive maps designed by cartographers");
   });
 
   test("bounds a title satori would otherwise lay out in full", () => {

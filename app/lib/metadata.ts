@@ -6,10 +6,11 @@ import {
   largeCardHeight,
   largeCardWidth,
 } from "./og-artwork";
+import { siteTagline } from "./site";
 
 export const siteName = "Axis Maps";
 
-export const siteTitle = "Axis Maps | Interactive maps designed by cartographers";
+export const siteTitle = `${siteName} | ${siteTagline}`;
 
 export const siteDescription =
   "Custom interactive maps, designed and built by Axis Maps since 2006. Offices in Lichfield, England and Hewitt, Texas.";
@@ -34,7 +35,7 @@ export const defaultOgImage: OgImage = {
   url: "/og",
   width: 1200,
   height: 630,
-  alt: `${siteName} — data-driven cartography`,
+  alt: siteTitle,
 };
 
 // Social crawlers never run the image optimizer, so og:image has to name the
