@@ -11,7 +11,7 @@ describe('client logos', () => {
   test('stays in alphabetical order by name', () => {
     const names = clientLogos.map((client) => client.name);
 
-    expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
+    expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b, 'en')));
   });
 
   test.each(clientLogos)('$shortName points at a file under public/', ({ logo }) => {

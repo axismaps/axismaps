@@ -139,7 +139,7 @@ export default function Page() {
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 mb-12">
           {howWeWork.map(({ icon: Icon, lead, body }) => (
             <div key={lead} className="flex gap-4">
-              <div className="flex-shrink-0 mt-0.5">
+              <div className="shrink-0 mt-0.5">
                 <Icon
                   className="w-8 h-8"
                   style={{ color: "var(--axismaps-blue)" }}
