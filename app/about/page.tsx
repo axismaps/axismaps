@@ -20,10 +20,10 @@ export default function AboutPage() {
         />
       </div>
       {/* Values and Vision Section */}
-      <div className="container">
+      <div>
         <h1 className="text-5xl font-bold mb-8">Values and vision</h1>
 
-        <ProseWrapper variant="large">
+        <ProseWrapper>
           <p>
             <strong>Axis Maps</strong> was formed in 2006 and quickly became
             engaged with the rapidly changing field of interactive mapping.

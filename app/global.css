@@ -166,6 +166,23 @@ html {
   @apply text-lg font-bold tracking-tight mt-6 mb-2 text-gray-900;
 }
 
+/* Guide chapters nest their headings, so each level needs its own size. */
+.prose-guide :is(h2, h3, h4) {
+  @apply font-semibold;
+}
+
+.prose-guide h2 {
+  @apply text-2xl mt-10 mb-4;
+}
+
+.prose-guide h3 {
+  @apply text-lg mt-6 mb-3;
+}
+
+.prose-guide h4 {
+  @apply text-base;
+}
+
 .prose strong {
   @apply font-bold;
 }

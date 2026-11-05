@@ -92,7 +92,7 @@ export default async function ProjectPage({
 
   return (
     <section className="pb-24 pt-8">
-      <div className="container">
+      <div>
         <Link
           href="/projects"
           className="inline-flex items-center text-sm text-gray-800 hover:text-gray-900 mb-8"
@@ -190,7 +190,7 @@ export default async function ProjectPage({
             </div>
           ) : null}
 
-          <ProseWrapper variant="large">
+          <ProseWrapper>
             <MDXContent />
           </ProseWrapper>
         </article>

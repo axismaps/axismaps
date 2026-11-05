@@ -76,7 +76,7 @@ export default async function TypographicMapPage({
 
   return (
     <section className="pb-24 pt-8">
-      <div className="container">
+      <div>
         <Link
           href="/typographic-maps"
           className="mb-8 inline-flex items-center text-sm text-gray-800 hover:text-gray-900"
@@ -102,7 +102,7 @@ export default async function TypographicMapPage({
         </article>
       </div>
 
-      <div className="container mb-10">
+      <div className="mb-10">
         {/* Keyed on the slug so the selected edition can't survive a client-side
             navigation between cities. App Router remounts on a param change today,
             but the viewer holds derived state and shouldn't rely on that. */}
@@ -113,8 +113,8 @@ export default async function TypographicMapPage({
         />
       </div>
 
-      <div className="container">
-        <ProseWrapper variant="large">
+      <div>
+        <ProseWrapper>
           <MDXContent />
         </ProseWrapper>
 

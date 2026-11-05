@@ -19,7 +19,7 @@ export default function PageSection({
 
   return (
     <section className={`${variants[variant]} ${className}`}>
-      <div className="container max-w-7xl">
+      <div className="max-w-7xl">
         {children}
       </div>
     </section>
