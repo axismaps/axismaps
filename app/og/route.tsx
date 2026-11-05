@@ -8,6 +8,7 @@ import {
   largeCardHeight,
   largeCardWidth,
 } from "../lib/og-artwork";
+import { siteTagline } from "../lib/site";
 
 const brandBlue = "#4a6ecf";
 
@@ -127,7 +128,7 @@ export async function GET(request: Request) {
             </div>
             <div tw="flex flex-col ml-4">
               <span tw="text-3xl font-semibold text-gray-900">Axis Maps</span>
-              <span tw="text-lg text-gray-600">Data-Driven Cartography</span>
+              <span tw="text-lg text-gray-600">{siteTagline}</span>
             </div>
           </div>
 

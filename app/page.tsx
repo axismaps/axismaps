@@ -4,15 +4,48 @@ import HeroSection from "./components/hero-section";
 import ProjectCard from "./components/project-card";
 import ResourceCard from "./components/resource-card";
 import {
-  FaTools,
-  FaLaptopCode,
-  FaSlidersH,
   FaDatabase,
-  FaChartLine,
+  FaHistory,
+  FaMapMarkedAlt,
+  FaSlidersH,
+  FaUniversalAccess,
+  FaUsers,
 } from "react-icons/fa";
 import { getProjects } from "./projects/utils";
-import { getYearsOfExperience } from "./lib/experience";
 import clientLogos from "./data/client-logos.json";
+
+const howWeWork = [
+  {
+    icon: FaMapMarkedAlt,
+    lead: "Designed by cartographers.",
+    body: "Every decision on the map is made so it reads clearly and the data tells its story.",
+  },
+  {
+    icon: FaSlidersH,
+    lead: "Interfaces that show what's possible.",
+    body: "The controls show what the map can do and what you can ask of it.",
+  },
+  {
+    icon: FaUsers,
+    lead: "Interfaces for every level of expertise.",
+    body: "Whether the map is for a first-time visitor, an analyst who comes back every week, or everyone in between, we design for whoever the project requires.",
+  },
+  {
+    icon: FaUniversalAccess,
+    lead: "Maps that work for everyone.",
+    body: "Keyboard navigation and screen reader support, where the project calls for it.",
+  },
+  {
+    icon: FaDatabase,
+    lead: "Built around your data.",
+    body: "Deep integration with your existing data pipelines and processes, so when the data changes, the map changes with it.",
+  },
+  {
+    icon: FaHistory,
+    lead: "Built to last.",
+    body: "Maps we built years ago are still live and still in use. We use current technology and an architecture each project can sustain.",
+  },
+];
 
 export default function Page() {
   // Get the 6 most recent featured projects
@@ -21,8 +54,6 @@ export default function Page() {
     .filter((p) => p.metadata.featured)
     .slice(0, 6);
 
-  // Calculate years of experience dynamically
-  const yearsOfExperience = getYearsOfExperience();
   return (
     <>
       <HeroSection />
@@ -32,35 +63,13 @@ export default function Page() {
         <h2 className="text-3xl font-bold mb-6">Who we are</h2>
         <div className="space-y-4">
           <p className="text-lg">
-            <strong>
-              Axis Maps is a creative team of Web designers and developers
-            </strong>{" "}
-            that specializes in building{" "}
-            <Link href="#featured-projects" className="link-primary">
-              interactive maps and geospatial problem-solving tools
-            </Link>
-            .
-          </p>
-          <p className="text-lg">
-            We have {yearsOfExperience} years of experience partnering with{" "}
-            <Link href="#clients" className="link-primary">
-              clients
-            </Link>{" "}
-            large and small, in the US, the UK and beyond, from our offices in
-            Hewitt, Texas and Lichfield, England.
-          </p>
-          <p className="text-lg">
-            With a full range of{" "}
-            <Link href="#services" className="link-primary">
-              custom geographic services
-            </Link>
-            , we can help put together an entire project or target specific
-            needs.{" "}
-            <Link href="/contact" className="link-primary">
-              Contact us
-            </Link>{" "}
-            about your spatial data, visual identity, technology set up,
-            message, and audience.
+            Axis Maps is a small team of cartographers and developers in
+            Lichfield, England and Hewitt, Texas. Since 2006 we have designed
+            and built custom interactive maps for public health, the
+            environment, education and history, for clients from national
+            museums to campaigning charities. Every map is designed around the
+            people who will use it, the people who will run it, and the story
+            the data is trying to tell.
           </p>
           <Link href="/about" className="btn-secondary mt-8">
             Learn More
@@ -74,7 +83,7 @@ export default function Page() {
       {/* Client Logos Section */}
       <section id="clients" className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold mb-8">
-          {`We're pleased to have worked with`}
+          {`We're pleased to have partnered with`}
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center">
           {clientLogos.map((client) => (
@@ -101,12 +110,7 @@ export default function Page() {
 
       {/* Recent Projects Section */}
       <section id="featured-projects" className="max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-          <h2 className="text-3xl font-bold">Recent Projects</h2>
-          <Link href="/projects" className="btn-secondary self-start sm:self-auto">
-            View All Projects
-          </Link>
-        </div>
+        <h2 className="text-3xl font-bold mb-8">Recent Projects</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {recentProjects.map((project) => (
@@ -128,94 +132,24 @@ export default function Page() {
       {/* Section Break */}
       <hr className="my-16 border-gray-200" />
 
-      {/* How We Can Help Section */}
+      {/* How We Work Section */}
       <section id="services" className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6">How we can help</h2>
-        <p className="mb-12 text-lg">
-          At Axis Maps, we work hard to provide thoughtful and intuitive
-          interactive designs with every project we undertake. We want your
-          project to look great and work as well as you do. As a small company,
-          we are focused on efficiency, speed, quality control, and reproducible
-          processes.
-        </p>
+        <h2 className="text-3xl font-bold mb-8">How we work</h2>
 
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 mb-12">
-          {/* Service Items - Left Column */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0 mt-0.5">
-              <FaTools
-                className="w-8 h-8"
-                style={{ color: "var(--axismaps-blue)" }}
-              />
+          {howWeWork.map(({ icon: Icon, lead, body }) => (
+            <div key={lead} className="flex gap-4">
+              <div className="shrink-0 mt-0.5">
+                <Icon
+                  className="w-8 h-8"
+                  style={{ color: "var(--axismaps-blue)" }}
+                />
+              </div>
+              <p className="text-base">
+                <strong>{lead}</strong> {body}
+              </p>
             </div>
-            <p className="text-base">
-              We design and deploy second versions of{" "}
-              <strong>popular tools</strong>, modernizing the underlying
-              technology and UI while retaining the features that existing users
-              know.
-            </p>
-          </div>
-
-          {/* Right Column */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0 mt-0.5">
-              <FaLaptopCode
-                className="w-8 h-8"
-                style={{ color: "var(--axismaps-blue)" }}
-              />
-            </div>
-            <p className="text-base">
-              We build maps and applications that work on a wide{" "}
-              <strong>range of devices</strong>, from desktops to tablets and
-              smartphones.
-            </p>
-          </div>
-
-          {/* Left Column */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0 mt-0.5">
-              <FaSlidersH
-                className="w-8 h-8"
-                style={{ color: "var(--axismaps-blue)" }}
-              />
-            </div>
-            <p className="text-base">
-              We design simple and <strong>elegant user-interfaces</strong> for
-              interactive maps.
-            </p>
-          </div>
-
-          {/* Right Column */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0 mt-0.5">
-              <FaDatabase
-                className="w-8 h-8"
-                style={{ color: "var(--axismaps-blue)" }}
-              />
-            </div>
-            <p className="text-base">
-              We design and build systems that{" "}
-              <strong>automate the process</strong> of data updates and data
-              additions.
-            </p>
-          </div>
-
-          {/* Left Column */}
-          <div className="flex gap-4">
-            <div className="flex-shrink-0 mt-0.5">
-              <FaChartLine
-                className="w-8 h-8"
-                style={{ color: "var(--axismaps-blue)" }}
-              />
-            </div>
-            <p className="text-base">
-              We produce <strong>compelling cartographic visuals</strong> that
-              communicate a wide variety of geographic information to end-users.
-            </p>
-          </div>
-
-          {/* Empty cell to maintain grid alignment */}
-          <div></div>
+          ))}
         </div>
       </section>
 
@@ -224,10 +158,7 @@ export default function Page() {
 
       {/* Resources Section */}
       <section id="resources" className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6">Resources by us, for you</h2>
-        <p className="text-lg mb-8" style={{ color: 'var(--color-gray-900)' }}>
-          Explore our collection of tools and guides designed to help you create better maps and visualizations.
-        </p>
+        <h2 className="text-3xl font-bold mb-8">Free tools and resources</h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <ResourceCard
@@ -239,7 +170,7 @@ export default function Page() {
 
           <ResourceCard
             title="Contours"
-            description="Create beautiful contour maps from your data. A modern tool for generating topographic-style visualizations for any numeric dataset."
+            description="Draw a contour map of just about anywhere. Pick your area, choose contour lines or illuminated contours, adjust the interval and colors, and export to GeoJSON, PNG, or SVG."
             imageSrc="/images/resources/contours.jpg"
             href="https://contours.axismaps.com"
             isExternal={true}

@@ -1,4 +1,4 @@
-import { baseUrl } from "./site";
+import { baseUrl, siteTagline } from "./site";
 
 // Everything the /og card needs to know about its artwork: which paths it will
 // accept, where the file is served from, and what satori can be handed. None
@@ -25,7 +25,7 @@ const fetchTimeoutMs = 4000;
 // and could leave half a character at the end; nothing is drawn at this
 // length, and the two cards each shorten it further in their own way.
 export function cardTitle(raw: string | null): string {
-  return (raw || "Data-Driven Cartography").slice(0, 300);
+  return (raw || siteTagline).slice(0, 300);
 }
 
 // The artwork card gives its title one line beside the wordmark, so a long

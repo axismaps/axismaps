@@ -6,13 +6,14 @@ import {
   largeCardHeight,
   largeCardWidth,
 } from "./og-artwork";
+import { siteTagline } from "./site";
 
 export const siteName = "Axis Maps";
 
-export const siteTitle = "Axis Maps - Data-Driven Cartography";
+export const siteTitle = `${siteName} | ${siteTagline}`;
 
 export const siteDescription =
-  "Axis Maps brings cartography to interactive mapping. We design custom maps that combine intuitive user interfaces with great cartographic and interactive design.";
+  "Custom interactive maps, designed and built by Axis Maps since 2006. Offices in Lichfield, England and Hewitt, Texas.";
 
 // Next replaces the whole openGraph block when a page declares one rather than
 // merging it with the root layout's, so the locale pair lives here and travels
@@ -34,7 +35,7 @@ export const defaultOgImage: OgImage = {
   url: "/og",
   width: 1200,
   height: 630,
-  alt: `${siteName} — data-driven cartography`,
+  alt: siteTitle,
 };
 
 // Social crawlers never run the image optimizer, so og:image has to name the
