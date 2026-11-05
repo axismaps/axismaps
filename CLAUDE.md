@@ -133,7 +133,7 @@ Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
 
 Uses Tailwind CSS v4 alpha with PostCSS configuration. Global styles in `app/global.css`. The layout uses Geist font family for both sans and mono text.
 
-This Tailwind alpha doesn't generate `container`, and no typography plugin is installed, so `prose-*` modifiers do nothing. Long-form text is styled by the `.prose` and `.prose-guide` rules in `app/global.css`, which are unlayered and so override utilities on the same elements. If a class seems to have no effect, run `pnpm build` and check for it in the compiled CSS under `.next/static/css`.
+This Tailwind alpha doesn't generate `container`, and no typography plugin is installed, so `prose-*` modifiers do nothing. Long-form text is styled by the `.prose` rules in `app/global.css`, which are unlayered and so override utilities on the same elements. If a class seems to have no effect, run `pnpm build` and check for it in the compiled CSS under `.next/static/css`.
 
 ### Deployment
 

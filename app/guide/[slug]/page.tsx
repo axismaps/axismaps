@@ -117,7 +117,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         </header>
 
         {/* Article Content */}
-        <ProseWrapper variant="guide">
+        <ProseWrapper>
           <MDXContent />
         </ProseWrapper>
 
