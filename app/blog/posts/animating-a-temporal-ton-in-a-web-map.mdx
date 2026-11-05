@@ -34,7 +34,7 @@ We faced a challenge along the above lines earlier this year when we set out to 
 
 First, a brief overview of this map, which is at [https://merck.axismaps.io/](https://merck.axismaps.io/) or in a video demo below. It shows the percent of eligible children receiving a vaccine each week over approximately ten years at state, county, or zip code level. More detailed numbers are found in a chart at the bottom and by poking around the map. And that's about it. Simple, right?
 
-### Prototyping
+## Prototyping
 
 This project involved several prototypes to work through design decisions. Although in the end it became a fairly straightforward choropleth and point map, the client and we wanted to explore some map types that we thought might best show the spatial and temporal patterns. Early on we had a request for the map to appear such that the entire United States, even unpopulated areas, are covered, to avoid suggesting that there are areas that the vaccines hadn't even reached. To this end we tried binning into grid cells, but that comes with a couple of problems.
 
@@ -48,7 +48,7 @@ At one point we experimented with variable cell sizes, where each cell contained
 
 A second problem with binning is that it requires aggregations that depend on actually having the necessary data. In this case, we had vaccination rates already aggregated to geographies like zip codes, but we did not have the actual number of vaccinations and the total number of eligible children. Without those, we weren't able to display actual vaccination rates in a grid. Instead it was something like _"percent of zip codes with rates above 50%,"_ so for example if a cell had 100 zip codes and 40 of them had vaccination rates above 50%, the map would show the cell as 40%. This is a bit too convoluted and may not do a great job at showing real spatial patterns anyway.
 
-### Data overload: time
+## Data overload: time
 
 As previously mentioned, weekly data for thousands of geographies over ten years is a boatload of data, way too much for a simple web map to load up front. The default county map would be well over a million values, and that's one chunky CSV. A more efficient way to handle animated data is to deal with _change_ in values, not values themselves. If a value for a county doesn't change from one frame to the next, there's no need to store data for that frame for that county. By pre-processing all the data with some fancy SQL to pull out changes, we can cut down significantly on the amount of data being sent to the map and improve rendering performance.
 
@@ -69,7 +69,7 @@ Detailed data with actual vaccination rates is loaded on demand through a simple
 
 To further reduce file size and smooth out the animation, we mapped 12-week rolling averages instead of single-week snapshots. The data tends to be unstable and noisy when and where there were lower populations of eligible children, so our hope was that averaging values over time would present a better picture of trends, while also resulting in fewer rows of change in our final CSV.
 
-### Data overload: space
+## Data overload: space
 
 Besides the attribute data load, a national map at the level of something like zip codes means too much geographic data. For one, it's another file size problem; for another, it's a legibility problem.
 
@@ -87,7 +87,7 @@ On the front end, when the user zooms past a scale threshold, the map switches t
 
 ![](/images/blog/animating-a-temporal-ton-in-a-web-map/10.gif)
 
-### Recap
+## Recap
 
 A few things we learned about animating a ton of data over time:
 

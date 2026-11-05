@@ -42,7 +42,7 @@ export default function GuidePage() {
         </div>
 
         {/* Introduction */}
-        <ProseWrapper variant="large" className="mb-12">
+        <ProseWrapper className="mb-12">
           <p>
             In this short guide, we share some
             insights and tips for designing maps. Our goal is to cover

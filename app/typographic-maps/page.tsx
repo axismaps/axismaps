@@ -54,7 +54,7 @@ export default function TypographicMapsPage() {
 
   return (
     <section className="pb-24 pt-8">
-      <div className="container">
+      <div>
         <h1 className="title mb-4 text-4xl font-bold">Typographic Maps</h1>
         <p className="text-xl text-gray-800">
           Twelve cities drawn entirely in type.
@@ -102,7 +102,7 @@ export default function TypographicMapsPage() {
         </div>
       </div>
 
-      <div className="container mt-16">
+      <div className="mt-16">
         <h2 className="mb-6 text-2xl font-bold">The maps</h2>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {maps.map((map) => {
@@ -134,7 +134,7 @@ export default function TypographicMapsPage() {
         </div>
       </div>
 
-      <div className="container mt-20">
+      <div className="mt-20">
         <h2 className="mb-2 text-2xl font-bold">Press</h2>
         <p className="mb-6 text-sm text-gray-700">
           What people wrote about the maps.

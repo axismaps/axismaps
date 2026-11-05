@@ -68,7 +68,7 @@ export default async function BlogPostPage({
 
   return (
     <section className="pb-24 pt-8">
-      <div className="container">
+      <div>
         <Link
           href="/blog"
           className="inline-flex items-center text-sm text-gray-800 hover:text-gray-900 mb-8"
@@ -88,7 +88,7 @@ export default async function BlogPostPage({
             </p>
           </header>
 
-          <ProseWrapper variant="large">
+          <ProseWrapper>
             <MDXContent />
           </ProseWrapper>
         </article>
