@@ -6,7 +6,7 @@ describe('Footer', () => {
   test('lists both office locations', () => {
     render(<Footer />);
 
-    expect(screen.getByText('Hewitt, TX | Lichfield, UK')).toBeInTheDocument();
+    expect(screen.getByText('Lichfield, England | Hewitt, Texas')).toBeInTheDocument();
   });
 
   test('links both the US and UK inboxes', () => {

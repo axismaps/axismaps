@@ -35,7 +35,7 @@ function PressCard({ item }: { item: PressItem }) {
     >
       <p className="text-sm font-semibold">{item.outlet}</p>
       {item.quote && (
-        <p className="mt-3 flex-grow text-base text-gray-900">
+        <p className="mt-3 grow text-base text-gray-900">
           “{item.quote}”
         </p>
       )}
@@ -118,7 +118,7 @@ export default function TypographicMapsPage() {
                   {map.metadata.city}
                 </h3>
                 {map.metadata.teaser && (
-                  <p className="mt-2 flex-grow text-sm text-gray-700">
+                  <p className="mt-2 grow text-sm text-gray-700">
                     {map.metadata.teaser}
                   </p>
                 )}

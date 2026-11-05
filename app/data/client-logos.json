@@ -1,5 +1,10 @@
 [
   {
+    "name": "CPRE, the countryside charity",
+    "shortName": "CPRE",
+    "logo": "/client-logos/cpre.png"
+  },
+  {
     "name": "ESRI",
     "shortName": "ESRI",
     "logo": "/client-logos/esri.png"
@@ -48,11 +53,6 @@
     "name": "The New York Times",
     "shortName": "The New York Times",
     "logo": "/client-logos/the-new-york-times.png"
-  },
-  {
-    "name": "UCLA Center for Health Policy Research",
-    "shortName": "UCLA",
-    "logo": "/client-logos/ucla-center-for-health-policy-research.png"
   },
   {
     "name": "World Bank Group, Global Facility for Disaster Reduction and Recovery",

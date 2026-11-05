@@ -19,6 +19,14 @@ vi.mock("./image-size", async (importOriginal) => {
   return { ...actual, readImageSize: vi.fn(actual.readImageSize) };
 });
 
+describe("defaultOgImage", () => {
+  test("describes the card by the site's title", () => {
+    expect(defaultOgImage.alt).toBe(
+      "Axis Maps | Interactive maps designed by cartographers",
+    );
+  });
+});
+
 describe("publicImage", () => {
   test("keeps the original file path and adds its dimensions", () => {
     // Not a /_next/image URL: social crawlers do not run the optimizer.
