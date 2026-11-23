@@ -44,6 +44,8 @@ export default function ProjectGallery({
   // the element because React versions disagree about the prop: the App
   // Router renders with its own React 19, which wants a boolean and reads ""
   // as false, while the tests run React 18, which drops a boolean.
+  // TODO: pass inert={!showingVideo} on the slide once the project and its
+  // tests are on React 19, and drop this effect.
   useEffect(() => {
     videoSlide.current?.toggleAttribute("inert", !showingVideo);
   }, [showingVideo]);
@@ -149,7 +151,9 @@ export default function ProjectGallery({
           <div
             ref={videoSlide}
             className={`absolute inset-0 transition-opacity duration-300 ${
-              showingVideo ? "opacity-100" : "opacity-0"
+              // pointer-events-none repeats what inert does, for a browser
+              // that predates inert.
+              showingVideo ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
             aria-hidden={!showingVideo}
           >

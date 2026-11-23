@@ -172,16 +172,22 @@ describe('ProjectGallery', () => {
     };
 
     // happy-dom reports each iframe it declines to load as a console error.
+    // Only that message is dropped, so any other error still shows.
+    let consoleError: ReturnType<typeof vi.spyOn>;
+
     beforeEach(() => {
       const original = console.error;
-      vi.spyOn(console, 'error').mockImplementation((...args) => {
-        if (String(args[0]).includes('Iframe page loading is disabled')) return;
-        original(...args);
-      });
+      consoleError = vi
+        .spyOn(console, 'error')
+        .mockImplementation((...args) => {
+          if (String(args[0]).includes('Iframe page loading is disabled'))
+            return;
+          original(...args);
+        });
     });
 
     afterEach(() => {
-      vi.restoreAllMocks();
+      consoleError.mockRestore();
     });
 
     it('shows the video first, with no screenshot visible', () => {
@@ -239,6 +245,9 @@ describe('ProjectGallery', () => {
       expect(videoFrame()).toBeInTheDocument();
       expect(videoFrame().parentElement).toHaveAttribute('inert');
       expect(videoFrame().parentElement).toHaveAttribute('aria-hidden', 'true');
+      expect(videoFrame().parentElement?.className).toContain(
+        'pointer-events-none',
+      );
     });
 
     it('lets the video be used while it is showing', () => {

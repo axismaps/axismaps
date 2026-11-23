@@ -395,6 +395,21 @@ describe('Project Utilities', () => {
       ).toEqual({ kind: 'video', url: 'https://vimeo.com/123', images: [] });
     });
 
+    it('should fall back to the gallery when the video cannot be embedded', () => {
+      expect(
+        resolveProjectHero({ videoUrl: 'https://example.com/clip.mp4' }, gallery)
+      ).toEqual({ kind: 'gallery', images: gallery });
+    });
+
+    it('should fall back to coverImage when the video cannot be embedded', () => {
+      expect(
+        resolveProjectHero(
+          { videoUrl: 'https://vimeo.com/axismaps', coverImage: '/cover.jpg' },
+          []
+        )
+      ).toEqual({ kind: 'image', src: '/cover.jpg' });
+    });
+
     it('should leave a lone gallery image out of a video carousel', () => {
       expect(
         resolveProjectHero({ videoUrl: 'https://vimeo.com/123' }, [gallery[0]])

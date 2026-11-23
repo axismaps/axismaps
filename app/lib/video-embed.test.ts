@@ -1,7 +1,6 @@
-import fs from 'fs';
-import path from 'path';
 import { describe, it, expect } from 'vitest';
 import { videoEmbed } from './video-embed';
+import { getProjects } from '../projects/utils';
 
 const VIMEO_PARAMS = 'title=0&byline=0&portrait=0';
 const vimeoPlayer = (id: string, extra = '') =>
@@ -118,16 +117,12 @@ describe('videoEmbed', () => {
   });
 
   // A project whose videoUrl stopped parsing would quietly lose its video.
+  // The projects are read the way the site reads them, so a value written
+  // in any form the frontmatter parser accepts is checked.
   it('embeds the video of every project that has one', () => {
-    const postsDir = path.join(__dirname, '..', 'projects', 'posts');
-    const urls = fs
-      .readdirSync(postsDir)
-      .filter((file) => file.endsWith('.mdx'))
-      .flatMap((file) => {
-        const text = fs.readFileSync(path.join(postsDir, file), 'utf8');
-        const match = text.match(/^videoUrl:\s*"([^"]+)"/m);
-        return match ? [match[1]] : [];
-      });
+    const urls = getProjects().flatMap((project) =>
+      project.metadata.videoUrl ? [project.metadata.videoUrl] : [],
+    );
 
     expect(urls.length).toBeGreaterThan(0);
     expect(urls.filter((url) => videoEmbed(url) === null)).toEqual([]);

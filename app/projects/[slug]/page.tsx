@@ -161,7 +161,8 @@ export default async function ProjectPage({
             />
           ) : hero.kind === "video" ? (
             // A video alone, including when the gallery holds a single
-            // image: resolveProjectHero leaves a lone still out.
+            // image: resolveProjectHero leaves a lone still out. It only
+            // resolves to a video that embeds, so embed is always set here.
             embed && (
               <div className="aspect-video mb-8">
                 <iframe
