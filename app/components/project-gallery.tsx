@@ -69,6 +69,10 @@ export default function ProjectGallery({
     [show, current, count],
   );
 
+  // Once someone clicks into the video, focus is inside the player's
+  // cross-origin frame and its key presses never reach this handler, so the
+  // arrows drive the player rather than the carousel until focus comes back
+  // out. The on-screen controls work throughout.
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
