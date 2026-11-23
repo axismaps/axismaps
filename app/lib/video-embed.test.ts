@@ -51,6 +51,18 @@ describe('videoEmbed', () => {
     it('returns null when the address has no video id', () => {
       expect(videoEmbed('https://vimeo.com/axismaps?tab=videos')).toBeNull();
     });
+
+    it('does not take a short hex segment for a hash', () => {
+      expect(videoEmbed('https://vimeo.com/164081341/abc')?.src).toBe(
+        vimeoPlayer('164081341'),
+      );
+    });
+
+    it('drops an h parameter that is not a hash', () => {
+      expect(
+        videoEmbed('https://vimeo.com/164081341?h=x%26autoplay%3D1')?.src,
+      ).toBe(vimeoPlayer('164081341'));
+    });
   });
 
   describe('YouTube', () => {
@@ -77,6 +89,12 @@ describe('videoEmbed', () => {
 
     it('returns null when a watch link has no video', () => {
       expect(videoEmbed('https://www.youtube.com/watch?list=PL123')).toBeNull();
+    });
+
+    it('refuses an id that would smuggle extra player parameters', () => {
+      expect(
+        videoEmbed('https://www.youtube.com/watch?v=abc%26autoplay%3D1'),
+      ).toBeNull();
     });
 
     it('pauses with a player command', () => {

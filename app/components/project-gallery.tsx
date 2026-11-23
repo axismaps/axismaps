@@ -56,7 +56,8 @@ export default function ProjectGallery({
       if (count === 0) return;
       // Leaving the video only hides it, so it is paused rather than left
       // playing out of sight. It stays mounted, so coming back to it picks
-      // up where it stopped.
+      // up where it stopped. A player that has not loaded yet ignores the
+      // message, which is fine: it cannot be playing either.
       if (embed && current === 0 && index !== 0) {
         videoFrame.current?.contentWindow?.postMessage(
           embed.pauseMessage,

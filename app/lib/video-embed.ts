@@ -11,6 +11,10 @@ export type VideoEmbed = {
 
 const VIMEO_HOSTS = new Set(["vimeo.com", "player.vimeo.com"]);
 const YOUTUBE_HOSTS = new Set(["youtube.com", "m.youtube.com", "youtu.be"]);
+// Vimeo's privacy hashes run to about ten hex digits; the minimum keeps a
+// short path segment that happens to be hex from being taken for one.
+const VIMEO_HASH = /^[0-9a-f]{6,}$/i;
+const YOUTUBE_ID = /^[\w-]{6,}$/;
 
 export function videoEmbed(url: string): VideoEmbed | null {
   let parsed: URL;
@@ -30,8 +34,8 @@ export function videoEmbed(url: string): VideoEmbed | null {
     const at = segments.findIndex((segment) => /^\d+$/.test(segment));
     if (at === -1) return null;
     const next = segments[at + 1];
-    const hash =
-      next && /^[0-9a-f]+$/i.test(next) ? next : parsed.searchParams.get("h");
+    const query = parsed.searchParams.get("h");
+    const hash = [next, query].find((value) => value && VIMEO_HASH.test(value));
 
     // The title, owner and avatar Vimeo lays over the top-left corner would
     // otherwise cover each film's opening frame. Hiding them in Vimeo's own
@@ -61,7 +65,9 @@ export function videoEmbed(url: string): VideoEmbed | null {
           : segments[0] === "embed" || segments[0] === "shorts"
             ? segments[1]
             : null;
-    if (!id) return null;
+    // The id lands in the player address as it is, so anything beyond the
+    // characters YouTube uses (a decoded "&autoplay=1", say) is refused.
+    if (!id || !YOUTUBE_ID.test(id)) return null;
 
     return {
       // YouTube ignores player commands unless the embed opts in.
