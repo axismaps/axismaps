@@ -88,6 +88,8 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
     - `metadata.ts` - Per-page social tags, and the card-size threshold
     - `image-size.ts` - Image dimensions read from the file header
     - `og-artwork.ts` - Card sizes, the `/og` path guard and the artwork fetch
+    - `video-embed.ts` - Vimeo and YouTube player addresses for a project's
+      `videoUrl`, and the message that pauses each player
   - `/og` - Open Graph image generation route. Renders a plain titled card,
     or, given `?image=/images/...&title=...`, letterboxes that site-relative
     picture onto the 1200x630 card (see `app/lib/og-artwork.ts`)
@@ -125,6 +127,10 @@ Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
 - Content fields: `subtitle`, `teaser`, `coverImage`
 - Relationship fields: `client`, `clientSlug`, `category`, `categorySlug`
 - External links: `videoUrl`, `mapUrl`, `githubUrl`, `launchDate`
+- Detail page hero (`resolveProjectHero`): an embeddable `videoUrl` leads,
+  as the first slide of the gallery carousel when the project has two or more
+  images in `/public/images/projects/{slug}/`; otherwise the gallery, then
+  `coverImage`
 - Projects imported from CSV using `scripts/import-projects.js`
 - Rendered using `@mdx-js/mdx` evaluate function
 - Related metadata stored in `/data/*.json` files

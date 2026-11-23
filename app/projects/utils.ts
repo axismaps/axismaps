@@ -6,9 +6,10 @@ import {
   getContentBySlug,
   getContentByCategory,
   getFeaturedContent,
-  type ContentItem
+  type ContentItem,
 } from "../lib/content";
 import { loadDataFile } from "../lib/data-loader";
+import { videoEmbed } from "../lib/video-embed";
 
 export type ProjectMetadata = {
   title: string;
@@ -102,14 +103,16 @@ export function getProjectGallery(slug: string): string[] {
 }
 
 export type ProjectHero =
-  | { kind: "video"; url: string }
+  | { kind: "video"; url: string; images: string[] }
   | { kind: "gallery"; images: string[] }
   | { kind: "image"; src: string }
   | { kind: "none" };
 
 // Hero precedence for a project detail page, in one place so it is legible
 // and testable rather than buried in a nested ternary:
-//   1. a video, if the project has one
+//   1. a video, if the project has one that can be embedded, leading a
+//      carousel of the gallery once there are enough images to page through;
+//      a video that cannot be embedded is passed over, not left as a blank
 //   2. the gallery, once there are enough images to page through
 //   3. a single still — the lone gallery image if that is all there is,
 //      otherwise coverImage
@@ -119,8 +122,14 @@ export function resolveProjectHero(
   metadata: Pick<ProjectMetadata, "videoUrl" | "coverImage">,
   gallery: string[],
 ): ProjectHero {
-  if (metadata.videoUrl) {
-    return { kind: "video", url: metadata.videoUrl };
+  if (metadata.videoUrl && videoEmbed(metadata.videoUrl)) {
+    // A lone still adds little after a video, so it is left out rather than
+    // turning the video into a two-slide carousel.
+    return {
+      kind: "video",
+      url: metadata.videoUrl,
+      images: gallery.length > 1 ? gallery : [],
+    };
   }
 
   if (gallery.length > 1) {

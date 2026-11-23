@@ -1,37 +1,76 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import { videoEmbed } from "../lib/video-embed";
 
 interface ProjectGalleryProps {
   images: string[];
   title: string;
+  // A video to lead the carousel, ahead of the screenshots.
+  video?: string;
 }
 
 // Distance in px a touch has to travel before it counts as a swipe rather
 // than a tap.
 const SWIPE_THRESHOLD = 50;
 
-export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
+export default function ProjectGallery({
+  images,
+  title,
+  video,
+}: ProjectGalleryProps) {
+  const embed = useMemo(() => (video ? videoEmbed(video) : null), [video]);
+  // The video, when there is one, is slide 0 and the screenshots follow it,
+  // so a screenshot's slide index is one more than its place in `images`.
+  const offset = embed ? 1 : 0;
+  const count = images.length + offset;
   const [current, setCurrent] = useState(0);
   // Slides are mounted as they are reached, plus the one after. Marking an
   // unseen slide `loading="lazy"` would not defer anything, because every
   // slide shares the visible slide's box and so counts as near the viewport
   // — only leaving it unmounted actually avoids the download.
   const [mounted, setMounted] = useState<Set<number>>(
-    () => new Set(images.length > 1 ? [0, 1] : [0]),
+    () => new Set(count > 1 ? [0, 1] : [0]),
   );
   const touchStartX = useRef<number | null>(null);
+  const videoFrame = useRef<HTMLIFrameElement>(null);
+  const videoSlide = useRef<HTMLDivElement>(null);
+  const showingVideo = embed !== null && current === 0;
+
+  // Inert takes the hidden player out of clicks, keyboard focus and the
+  // accessibility tree at once; tabIndex on the iframe would not reliably keep
+  // Tab from reaching the controls inside its cross-origin frame. It is set on
+  // the element because React versions disagree about the prop: the App
+  // Router renders with its own React 19, which wants a boolean and reads ""
+  // as false, while the tests run React 18, which drops a boolean.
+  // The effect runs after paint, which only matters if the video could start
+  // hidden; it cannot, since it is always slide 0 and the carousel opens there.
+  // TODO: pass inert={!showingVideo} on the slide once the project and its
+  // tests are on React 19, and drop this effect.
+  useEffect(() => {
+    videoSlide.current?.toggleAttribute("inert", !showingVideo);
+  }, [showingVideo]);
 
   // Mounting is updated alongside the index rather than in an effect. Doing it
   // after paint meant a jump to an unmounted slide — wrapping backwards, or a
   // distant dot — rendered one empty frame before the image appeared.
   const show = useCallback(
     (index: number) => {
-      if (images.length === 0) return;
+      if (count === 0) return;
+      // Leaving the video only hides it, so it is paused rather than left
+      // playing out of sight. It stays mounted, so coming back to it picks
+      // up where it stopped. A player that has not loaded yet ignores the
+      // message, which is fine: it cannot be playing either.
+      if (embed && current === 0 && index !== 0) {
+        videoFrame.current?.contentWindow?.postMessage(
+          embed.pauseMessage,
+          embed.origin,
+        );
+      }
       setCurrent(index);
       setMounted((previous) => {
-        const upcoming = (index + 1) % images.length;
+        const upcoming = (index + 1) % count;
         if (previous.has(index) && previous.has(upcoming)) return previous;
         const next = new Set(previous);
         next.add(index);
@@ -39,15 +78,18 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
         return next;
       });
     },
-    [images.length],
+    [count, current, embed],
   );
 
   const go = useCallback(
-    (delta: number) =>
-      show((current + delta + images.length) % images.length),
-    [show, current, images.length],
+    (delta: number) => show((current + delta + count) % count),
+    [show, current, count],
   );
 
+  // Once someone clicks into the video, focus is inside the player's
+  // cross-origin frame and its key presses never reach this handler, so the
+  // arrows drive the player rather than the carousel until focus comes back
+  // out. The on-screen controls work throughout.
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
@@ -76,7 +118,9 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
 
   // The detail page only renders this with two or more images, but the
   // component should not depend on its caller repeating that check.
-  if (images.length === 0) return null;
+  if (count === 0) return null;
+
+  const noun = embed ? "slide" : "image";
 
   return (
     // tabIndex makes the arrow keys work once the gallery is focused, rather
@@ -85,25 +129,54 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
       className="mb-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-lg"
       role="group"
       aria-roledescription="carousel"
-      aria-label={`${title} screenshots`}
+      aria-label={
+        embed ? `${title} video and screenshots` : `${title} screenshots`
+      }
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
       <div
         // Screenshots are captured at 16:10, so the frame matches them exactly
         // and object-contain only letterboxes for images of other proportions.
-        className="relative w-full aspect-[16/10] max-h-[640px] rounded-lg overflow-hidden bg-gray-100"
+        // A video takes its own 16:9 instead: the screenshots then letterbox
+        // a little, which is less jarring than the frame changing shape
+        // between slides.
+        className={`relative w-full ${
+          embed ? "aspect-video" : "aspect-[16/10]"
+        } max-h-[640px] rounded-lg overflow-hidden bg-gray-100`}
         onTouchStart={(event) => {
           touchStartX.current = event.touches[0].clientX;
         }}
         onTouchEnd={handleTouchEnd}
       >
-        {images.map((src, index) =>
-          mounted.has(index) ? (
+        {embed && (
+          <div
+            ref={videoSlide}
+            className={`absolute inset-0 transition-opacity duration-300 ${
+              // pointer-events-none repeats what inert does, for a browser
+              // that predates inert.
+              showingVideo ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+            aria-hidden={!showingVideo}
+          >
+            <iframe
+              ref={videoFrame}
+              src={embed.src}
+              title={`${title} video`}
+              className="w-full h-full"
+              allow={embed.allow}
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
+
+        {images.map((src, position) => {
+          const index = position + offset;
+          return mounted.has(index) ? (
             <Image
               key={src}
               src={src}
-              alt={`${title} — screenshot ${index + 1} of ${images.length}`}
+              alt={`${title} — screenshot ${position + 1} of ${images.length}`}
               fill
               sizes="(max-width: 1024px) 100vw, 1024px"
               quality={85}
@@ -117,15 +190,15 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
               }`}
               aria-hidden={index !== current}
             />
-          ) : null,
-        )}
+          ) : null;
+        })}
 
         <button
           type="button"
           onClick={() => go(-1)}
           onTouchStart={stopTouch}
           onTouchEnd={stopTouch}
-          aria-label="Previous image"
+          aria-label={`Previous ${noun}`}
           className="absolute left-2 top-1/2 -translate-y-1/2 grid place-items-center h-9 w-9 rounded-full bg-white/90 text-gray-700 shadow hover:bg-white hover:text-gray-900 transition-colors"
         >
           <span aria-hidden="true">←</span>
@@ -136,7 +209,7 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
           onClick={() => go(1)}
           onTouchStart={stopTouch}
           onTouchEnd={stopTouch}
-          aria-label="Next image"
+          aria-label={`Next ${noun}`}
           className="absolute right-2 top-1/2 -translate-y-1/2 grid place-items-center h-9 w-9 rounded-full bg-white/90 text-gray-700 shadow hover:bg-white hover:text-gray-900 transition-colors"
         >
           <span aria-hidden="true">→</span>
@@ -144,12 +217,16 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
       </div>
 
       <div className="mt-3 flex items-center justify-center gap-2">
-        {images.map((src, index) => (
+        {Array.from({ length: count }, (_, index) => (
           <button
-            key={src}
+            key={index}
             type="button"
             onClick={() => show(index)}
-            aria-label={`Go to image ${index + 1}`}
+            aria-label={
+              index < offset
+                ? "Go to video"
+                : `Go to image ${index - offset + 1}`
+            }
             aria-current={index === current}
             className={`h-2 rounded-full transition-all ${
               index === current
@@ -161,7 +238,12 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
       </div>
 
       <p className="sr-only" aria-live="polite">
-        Image {current + 1} of {images.length}
+        {showingVideo
+          ? "Video"
+          : `Image ${current - offset + 1} of ${images.length}`}
+        {/* With a video in the carousel, the screenshot count alone does not
+            say where a slide sits among all of them. */}
+        {embed && `, slide ${current + 1} of ${count}`}
       </p>
     </div>
   );

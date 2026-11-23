@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ProjectGallery from './project-gallery';
@@ -146,5 +146,144 @@ describe('ProjectGallery', () => {
       'aria-label',
       'Demo Project screenshots',
     );
+  });
+
+  describe('led by a video', () => {
+    const renderWithVideo = () =>
+      render(
+        <ProjectGallery
+          video="https://vimeo.com/123"
+          images={images}
+          title="Demo Project"
+        />,
+      );
+
+    const videoFrame = () =>
+      screen.getByTitle('Demo Project video') as HTMLIFrameElement;
+
+    // The test environment never loads an iframe's page, so the player has
+    // no window of its own: stand one in to catch the messages sent to it.
+    const stubPlayer = () => {
+      const postMessage = vi.fn();
+      Object.defineProperty(videoFrame(), 'contentWindow', {
+        value: { postMessage },
+      });
+      return postMessage;
+    };
+
+    // happy-dom reports each iframe it declines to load as a console error.
+    // Only that message is dropped, so any other error still shows.
+    let consoleError: ReturnType<typeof vi.spyOn>;
+
+    beforeEach(() => {
+      const original = console.error;
+      consoleError = vi
+        .spyOn(console, 'error')
+        .mockImplementation((...args) => {
+          if (String(args[0]).includes('Iframe page loading is disabled'))
+            return;
+          original(...args);
+        });
+    });
+
+    afterEach(() => {
+      consoleError.mockRestore();
+    });
+
+    it('shows the video first, with no screenshot visible', () => {
+      renderWithVideo();
+      expect(videoFrame()).toHaveAttribute(
+        'src',
+        'https://player.vimeo.com/video/123?title=0&byline=0&portrait=0',
+      );
+      expect(screen.getByText('Video, slide 1 of 4')).toBeInTheDocument();
+      expect(visibleIndex()).toBe(-1);
+    });
+
+    it('moves on to the first screenshot', async () => {
+      const user = userEvent.setup();
+      renderWithVideo();
+      await user.click(screen.getByLabelText('Next slide'));
+      expect(visibleIndex()).toBe(0);
+      expect(
+        screen.getByText('Image 1 of 3, slide 2 of 4'),
+      ).toBeInTheDocument();
+    });
+
+    it('wraps backwards from the video to the last screenshot', async () => {
+      const user = userEvent.setup();
+      renderWithVideo();
+      await user.click(screen.getByLabelText('Previous slide'));
+      expect(visibleIndex()).toBe(2);
+    });
+
+    it('pauses the video when it is left', async () => {
+      const user = userEvent.setup();
+      renderWithVideo();
+      const post = stubPlayer();
+      await user.click(screen.getByLabelText('Go to image 2'));
+      expect(post).toHaveBeenCalledWith(
+        '{"method":"pause"}',
+        'https://player.vimeo.com',
+      );
+    });
+
+    it('does not message the video when moving between screenshots', async () => {
+      const user = userEvent.setup();
+      renderWithVideo();
+      await user.click(screen.getByLabelText('Next slide'));
+      const post = stubPlayer();
+      await user.click(screen.getByLabelText('Next slide'));
+      expect(post).not.toHaveBeenCalled();
+    });
+
+    it('keeps the hidden video mounted but out of reach', async () => {
+      const user = userEvent.setup();
+      renderWithVideo();
+      await user.click(screen.getByLabelText('Next slide'));
+      // Unmounting would lose the viewer's place in the video.
+      expect(videoFrame()).toBeInTheDocument();
+      expect(videoFrame().parentElement).toHaveAttribute('inert');
+      expect(videoFrame().parentElement).toHaveAttribute('aria-hidden', 'true');
+      expect(videoFrame().parentElement?.className).toContain(
+        'pointer-events-none',
+      );
+    });
+
+    it('lets the video be used while it is showing', () => {
+      renderWithVideo();
+      expect(videoFrame().parentElement).not.toHaveAttribute('inert');
+      expect(videoFrame().parentElement).toHaveAttribute('aria-hidden', 'false');
+    });
+
+    it('gives the video its own indicator ahead of the screenshots', () => {
+      renderWithVideo();
+      expect(screen.getByLabelText('Go to video')).toHaveAttribute(
+        'aria-current',
+        'true',
+      );
+      expect(screen.getByLabelText('Go to image 3')).toBeInTheDocument();
+      expect(screen.queryByLabelText('Go to image 4')).not.toBeInTheDocument();
+    });
+
+    it('labels the carousel as holding both', () => {
+      renderWithVideo();
+      expect(screen.getByRole('group')).toHaveAttribute(
+        'aria-label',
+        'Demo Project video and screenshots',
+      );
+    });
+
+    it('falls back to screenshots alone for a video it cannot embed', () => {
+      render(
+        <ProjectGallery
+          video="https://example.com/clip.mp4"
+          images={images}
+          title="Demo Project"
+        />,
+      );
+      expect(screen.queryByTitle('Demo Project video')).not.toBeInTheDocument();
+      expect(visibleIndex()).toBe(0);
+    });
   });
 });
