@@ -235,6 +235,9 @@ export default function ProjectGallery({
         {showingVideo
           ? "Video"
           : `Image ${current - offset + 1} of ${images.length}`}
+        {/* With a video in the carousel, the screenshot count alone does not
+            say where a slide sits among all of them. */}
+        {embed && `, slide ${current + 1} of ${count}`}
       </p>
     </div>
   );

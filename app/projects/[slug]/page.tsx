@@ -160,6 +160,8 @@ export default async function ProjectPage({
               title={project.metadata.title}
             />
           ) : hero.kind === "video" ? (
+            // A video alone, including when the gallery holds a single
+            // image: resolveProjectHero leaves a lone still out.
             embed && (
               <div className="aspect-video mb-8">
                 <iframe

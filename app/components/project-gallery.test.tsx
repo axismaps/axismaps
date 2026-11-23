@@ -190,7 +190,7 @@ describe('ProjectGallery', () => {
         'src',
         'https://player.vimeo.com/video/123?title=0&byline=0&portrait=0',
       );
-      expect(screen.getByText('Video')).toBeInTheDocument();
+      expect(screen.getByText('Video, slide 1 of 4')).toBeInTheDocument();
       expect(visibleIndex()).toBe(-1);
     });
 
@@ -199,7 +199,9 @@ describe('ProjectGallery', () => {
       renderWithVideo();
       await user.click(screen.getByLabelText('Next slide'));
       expect(visibleIndex()).toBe(0);
-      expect(screen.getByText('Image 1 of 3')).toBeInTheDocument();
+      expect(
+        screen.getByText('Image 1 of 3, slide 2 of 4'),
+      ).toBeInTheDocument();
     });
 
     it('wraps backwards from the video to the last screenshot', async () => {
