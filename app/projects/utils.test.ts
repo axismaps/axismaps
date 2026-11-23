@@ -377,13 +377,28 @@ describe('Project Utilities', () => {
   describe('resolveProjectHero', () => {
     const gallery = ['/images/projects/demo/01.jpg', '/images/projects/demo/02.jpg'];
 
-    it('should prefer a video over everything else', () => {
+    it('should lead with a video and keep the gallery after it', () => {
       expect(
         resolveProjectHero(
           { videoUrl: 'https://vimeo.com/123', coverImage: '/cover.jpg' },
           gallery
         )
-      ).toEqual({ kind: 'video', url: 'https://vimeo.com/123' });
+      ).toEqual({ kind: 'video', url: 'https://vimeo.com/123', images: gallery });
+    });
+
+    it('should show a video alone when there is no gallery', () => {
+      expect(
+        resolveProjectHero(
+          { videoUrl: 'https://vimeo.com/123', coverImage: '/cover.jpg' },
+          []
+        )
+      ).toEqual({ kind: 'video', url: 'https://vimeo.com/123', images: [] });
+    });
+
+    it('should leave a lone gallery image out of a video carousel', () => {
+      expect(
+        resolveProjectHero({ videoUrl: 'https://vimeo.com/123' }, [gallery[0]])
+      ).toEqual({ kind: 'video', url: 'https://vimeo.com/123', images: [] });
     });
 
     it('should prefer the gallery over coverImage', () => {

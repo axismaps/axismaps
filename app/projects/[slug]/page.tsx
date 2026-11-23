@@ -7,6 +7,7 @@ import * as runtime from "react/jsx-runtime";
 import ProseWrapper from "../../components/prose-wrapper";
 import ProjectGallery from "../../components/project-gallery";
 import { pageMetadata, socialCardImage } from "../../lib/metadata";
+import { videoEmbed } from "../../lib/video-embed";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -78,10 +79,9 @@ export default async function ProjectPage({
         .slice(0, 3)
     : [];
 
-  // The directory read is skipped entirely when a video leads, so a video-led
-  // project does not pay for a result that would be discarded.
-  const gallery = project.metadata.videoUrl ? [] : getProjectGallery(slug);
+  const gallery = getProjectGallery(slug);
   const hero = resolveProjectHero(project.metadata, gallery);
+  const embed = hero.kind === "video" ? videoEmbed(hero.url) : null;
 
   // Evaluate MDX content to get React component
   const { default: MDXContent } = await evaluate(project.content, {
@@ -150,28 +150,27 @@ export default async function ProjectPage({
             </div>
           </header>
 
-          {hero.kind === "video" ? (
-            <div className="aspect-video mb-8">
-              {hero.url.includes("vimeo") ? (
+          {hero.kind === "video" && hero.images.length > 0 ? (
+            // One carousel, the video first and the screenshots after it,
+            // rather than two stacked frames each with its own controls.
+            <ProjectGallery
+              key={slug}
+              video={hero.url}
+              images={hero.images}
+              title={project.metadata.title}
+            />
+          ) : hero.kind === "video" ? (
+            embed && (
+              <div className="aspect-video mb-8">
                 <iframe
-                  src={`https://player.vimeo.com/video/${hero.url.match(/vimeo\.com\/(\d+)/)?.[1] || hero.url.split("/").pop()}`}
+                  src={embed.src}
+                  title={`${project.metadata.title} video`}
                   className="w-full h-full rounded-lg"
-                  allow="autoplay; fullscreen; picture-in-picture"
+                  allow={embed.allow}
                   allowFullScreen
                 ></iframe>
-              ) : hero.url.includes("youtube.com") || hero.url.includes("youtu.be") ? (
-                <iframe
-                  src={`https://www.youtube.com/embed/${
-                    hero.url.includes("youtube.com")
-                      ? hero.url.split("v=")[1]?.split("&")[0]
-                      : hero.url.split("/").pop()?.split("?")[0]
-                  }`}
-                  className="w-full h-full rounded-lg"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              ) : null}
-            </div>
+              </div>
+            )
           ) : hero.kind === "gallery" ? (
             // Keyed so carousel state cannot survive a client-side move
             // between two projects, whatever the router does with the subtree.

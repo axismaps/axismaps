@@ -6,6 +6,11 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'happy-dom',
+    // happy-dom fetches an iframe's page by default, which would send the
+    // video embeds' player requests out to Vimeo and YouTube from the tests.
+    environmentOptions: {
+      happyDOM: { settings: { disableIframePageLoading: true } },
+    },
     globals: true,
     setupFiles: ['./test/setup.ts'],
     coverage: {
