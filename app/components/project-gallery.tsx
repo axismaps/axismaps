@@ -44,6 +44,8 @@ export default function ProjectGallery({
   // the element because React versions disagree about the prop: the App
   // Router renders with its own React 19, which wants a boolean and reads ""
   // as false, while the tests run React 18, which drops a boolean.
+  // The effect runs after paint, which only matters if the video could start
+  // hidden; it cannot, since it is always slide 0 and the carousel opens there.
   // TODO: pass inert={!showingVideo} on the slide once the project and its
   // tests are on React 19, and drop this effect.
   useEffect(() => {

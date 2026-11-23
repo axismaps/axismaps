@@ -51,7 +51,9 @@ export function videoEmbed(url: string): VideoEmbed | null {
       src: `https://player.vimeo.com/video/${segments[at]}?${params}`,
       allow: "autoplay; fullscreen; picture-in-picture",
       origin: "https://player.vimeo.com",
-      // Vimeo's player listens for these without any opt-in.
+      // Vimeo's player listens for these without any opt-in. It is the same
+      // postMessage protocol the official player.js library speaks
+      // (github.com/vimeo/player.js), sent directly to avoid loading it.
       pauseMessage: JSON.stringify({ method: "pause" }),
     };
   }

@@ -127,6 +127,10 @@ Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
 - Content fields: `subtitle`, `teaser`, `coverImage`
 - Relationship fields: `client`, `clientSlug`, `category`, `categorySlug`
 - External links: `videoUrl`, `mapUrl`, `githubUrl`, `launchDate`
+- Detail page hero (`resolveProjectHero`): an embeddable `videoUrl` leads,
+  as the first slide of the gallery carousel when the project has two or more
+  images in `/public/images/projects/{slug}/`; otherwise the gallery, then
+  `coverImage`
 - Projects imported from CSV using `scripts/import-projects.js`
 - Rendered using `@mdx-js/mdx` evaluate function
 - Related metadata stored in `/data/*.json` files
