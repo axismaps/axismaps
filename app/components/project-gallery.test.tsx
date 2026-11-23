@@ -234,11 +234,15 @@ describe('ProjectGallery', () => {
       renderWithVideo();
       await user.click(screen.getByLabelText('Next slide'));
       // Unmounting would lose the viewer's place in the video.
-      expect(videoFrame()).toHaveAttribute('tabindex', '-1');
+      expect(videoFrame()).toBeInTheDocument();
+      expect(videoFrame().parentElement).toHaveAttribute('inert');
       expect(videoFrame().parentElement).toHaveAttribute('aria-hidden', 'true');
-      expect(videoFrame().parentElement?.className).toContain(
-        'pointer-events-none',
-      );
+    });
+
+    it('lets the video be used while it is showing', () => {
+      renderWithVideo();
+      expect(videoFrame().parentElement).not.toHaveAttribute('inert');
+      expect(videoFrame().parentElement).toHaveAttribute('aria-hidden', 'false');
     });
 
     it('gives the video its own indicator ahead of the screenshots', () => {

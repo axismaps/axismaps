@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { videoEmbed } from "../lib/video-embed";
 
@@ -35,6 +35,18 @@ export default function ProjectGallery({
   );
   const touchStartX = useRef<number | null>(null);
   const videoFrame = useRef<HTMLIFrameElement>(null);
+  const videoSlide = useRef<HTMLDivElement>(null);
+  const showingVideo = embed !== null && current === 0;
+
+  // Inert takes the hidden player out of clicks, keyboard focus and the
+  // accessibility tree at once; tabIndex on the iframe would not reliably keep
+  // Tab from reaching the controls inside its cross-origin frame. It is set on
+  // the element because React versions disagree about the prop: the App
+  // Router renders with its own React 19, which wants a boolean and reads ""
+  // as false, while the tests run React 18, which drops a boolean.
+  useEffect(() => {
+    videoSlide.current?.toggleAttribute("inert", !showingVideo);
+  }, [showingVideo]);
 
   // Mounting is updated alongside the index rather than in an effect. Doing it
   // after paint meant a jump to an unmounted slide — wrapping backwards, or a
@@ -104,7 +116,6 @@ export default function ProjectGallery({
   if (count === 0) return null;
 
   const noun = embed ? "slide" : "image";
-  const showingVideo = embed !== null && current === 0;
 
   return (
     // tabIndex makes the arrow keys work once the gallery is focused, rather
@@ -135,8 +146,9 @@ export default function ProjectGallery({
       >
         {embed && (
           <div
+            ref={videoSlide}
             className={`absolute inset-0 transition-opacity duration-300 ${
-              showingVideo ? "opacity-100" : "opacity-0 pointer-events-none"
+              showingVideo ? "opacity-100" : "opacity-0"
             }`}
             aria-hidden={!showingVideo}
           >
@@ -147,7 +159,6 @@ export default function ProjectGallery({
               className="w-full h-full"
               allow={embed.allow}
               allowFullScreen
-              tabIndex={showingVideo ? undefined : -1}
             ></iframe>
           </div>
         )}
