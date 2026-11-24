@@ -286,6 +286,11 @@ describe('ProjectGallery', () => {
       expect(videoFrame().getAttribute('src')).toContain('muted=1');
     });
 
+    it('plays a video with sound when it is not flagged', () => {
+      renderWithVideo();
+      expect(videoFrame().getAttribute('src')).not.toContain('muted');
+    });
+
     it('falls back to screenshots alone for a video it cannot embed', () => {
       render(
         <ProjectGallery

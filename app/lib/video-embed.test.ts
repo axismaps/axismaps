@@ -57,6 +57,13 @@ describe('videoEmbed', () => {
       ).toBe(vimeoPlayer('1249619261', '&muted=1'));
     });
 
+    it('keeps both the hash and muted on an unlisted video', () => {
+      expect(
+        videoEmbed('https://vimeo.com/468729910/1b02976866', { muted: true })
+          ?.src,
+      ).toBe(vimeoPlayer('468729910', '&h=1b02976866&muted=1'));
+    });
+
     it('plays with sound unless asked otherwise', () => {
       expect(videoEmbed('https://vimeo.com/1249325610')?.src).not.toContain(
         'muted',
