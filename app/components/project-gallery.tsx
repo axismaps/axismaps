@@ -9,6 +9,8 @@ interface ProjectGalleryProps {
   title: string;
   // A video to lead the carousel, ahead of the screenshots.
   video?: string;
+  // Start the video with its sound off (a soundtrack-only film).
+  videoMuted?: boolean;
 }
 
 // Distance in px a touch has to travel before it counts as a swipe rather
@@ -19,8 +21,12 @@ export default function ProjectGallery({
   images,
   title,
   video,
+  videoMuted = false,
 }: ProjectGalleryProps) {
-  const embed = useMemo(() => (video ? videoEmbed(video) : null), [video]);
+  const embed = useMemo(
+    () => (video ? videoEmbed(video, { muted: videoMuted }) : null),
+    [video, videoMuted],
+  );
   // The video, when there is one, is slide 0 and the screenshots follow it,
   // so a screenshot's slide index is one more than its place in `images`.
   const offset = embed ? 1 : 0;

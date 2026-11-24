@@ -81,7 +81,10 @@ export default async function ProjectPage({
 
   const gallery = getProjectGallery(slug);
   const hero = resolveProjectHero(project.metadata, gallery);
-  const embed = hero.kind === "video" ? videoEmbed(hero.url) : null;
+  const embed =
+    hero.kind === "video"
+      ? videoEmbed(hero.url, { muted: project.metadata.videoMuted })
+      : null;
 
   // Evaluate MDX content to get React component
   const { default: MDXContent } = await evaluate(project.content, {
@@ -156,6 +159,7 @@ export default async function ProjectPage({
             <ProjectGallery
               key={slug}
               video={hero.url}
+              videoMuted={project.metadata.videoMuted}
               images={hero.images}
               title={project.metadata.title}
             />

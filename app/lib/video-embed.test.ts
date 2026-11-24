@@ -51,6 +51,18 @@ describe('videoEmbed', () => {
       expect(videoEmbed('https://vimeo.com/axismaps?tab=videos')).toBeNull();
     });
 
+    it('starts muted when asked', () => {
+      expect(
+        videoEmbed('https://vimeo.com/1249619261', { muted: true })?.src,
+      ).toBe(vimeoPlayer('1249619261', '&muted=1'));
+    });
+
+    it('plays with sound unless asked otherwise', () => {
+      expect(videoEmbed('https://vimeo.com/1249325610')?.src).not.toContain(
+        'muted',
+      );
+    });
+
     it('does not take a short hex segment for a hash', () => {
       expect(videoEmbed('https://vimeo.com/164081341/abc')?.src).toBe(
         vimeoPlayer('164081341'),
@@ -94,6 +106,12 @@ describe('videoEmbed', () => {
       expect(
         videoEmbed('https://www.youtube.com/watch?v=abc%26autoplay%3D1'),
       ).toBeNull();
+    });
+
+    it('starts muted when asked', () => {
+      expect(
+        videoEmbed('https://youtu.be/UdpiWfwJ5nA', { muted: true })?.src,
+      ).toBe('https://www.youtube.com/embed/UdpiWfwJ5nA?enablejsapi=1&mute=1');
     });
 
     it('pauses with a player command', () => {

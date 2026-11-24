@@ -16,7 +16,16 @@ const YOUTUBE_HOSTS = new Set(["youtube.com", "m.youtube.com", "youtu.be"]);
 const VIMEO_HASH = /^[0-9a-f]{6,}$/i;
 const YOUTUBE_ID = /^[\w-]{6,}$/;
 
-export function videoEmbed(url: string): VideoEmbed | null {
+export type VideoEmbedOptions = {
+  // Start with the sound off, for a film whose audio is only a music
+  // soundtrack. The viewer can still unmute it from the player.
+  muted?: boolean;
+};
+
+export function videoEmbed(
+  url: string,
+  { muted = false }: VideoEmbedOptions = {},
+): VideoEmbed | null {
   let parsed: URL;
   try {
     parsed = new URL(url);
@@ -46,6 +55,7 @@ export function videoEmbed(url: string): VideoEmbed | null {
       portrait: "0",
     });
     if (hash) params.set("h", hash);
+    if (muted) params.set("muted", "1");
 
     return {
       src: `https://player.vimeo.com/video/${segments[at]}?${params}`,
@@ -71,9 +81,12 @@ export function videoEmbed(url: string): VideoEmbed | null {
     // characters YouTube uses (a decoded "&autoplay=1", say) is refused.
     if (!id || !YOUTUBE_ID.test(id)) return null;
 
+    // YouTube ignores player commands unless the embed opts in.
+    const params = new URLSearchParams({ enablejsapi: "1" });
+    if (muted) params.set("mute", "1");
+
     return {
-      // YouTube ignores player commands unless the embed opts in.
-      src: `https://www.youtube.com/embed/${id}?enablejsapi=1`,
+      src: `https://www.youtube.com/embed/${id}?${params}`,
       allow:
         "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
       origin: "https://www.youtube.com",

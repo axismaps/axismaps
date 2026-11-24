@@ -24,6 +24,9 @@ export type ProjectMetadata = {
   categorySlug?: string;
   coverImage?: string;
   videoUrl?: string;
+  // true when the video's audio is only a music soundtrack, so it starts
+  // muted; a narrated video leaves this out and plays with sound
+  videoMuted?: boolean;
   mapUrl?: string;
   githubUrl?: string;
   launchDate?: string;
