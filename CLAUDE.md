@@ -127,6 +127,9 @@ Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
 - Content fields: `subtitle`, `teaser`, `coverImage`
 - Relationship fields: `client`, `clientSlug`, `category`, `categorySlug`
 - External links: `videoUrl`, `mapUrl`, `githubUrl`, `launchDate`
+- `videoMuted: true` starts the video with its sound off. Set it when the
+  audio is only a music soundtrack; a narrated video leaves it out and plays
+  with sound
 - Detail page hero (`resolveProjectHero`): an embeddable `videoUrl` leads,
   as the first slide of the gallery carousel when the project has two or more
   images in `/public/images/projects/{slug}/`; otherwise the gallery, then
