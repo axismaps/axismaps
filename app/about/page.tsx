@@ -48,7 +48,7 @@ export default function AboutPage() {
             <strong>Ben Sheesley.</strong> Co-founder and design lead. Ben leads
             the cartography and interface design on every project. How a map
             looks, how it reads and how it feels to use start with him. He also
-            runs the company's operations. Based in Hewitt, Texas.
+            runs the company&apos;s operations. Based in Hewitt, Texas.
           </p>
 
           <p>
