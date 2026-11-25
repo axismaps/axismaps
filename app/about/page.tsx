@@ -1,11 +1,12 @@
 import Link from "next/link";
-import Image from "next/image";
 import ProseWrapper from "../components/prose-wrapper";
-import { pageMetadata } from "../lib/metadata";
+import { pageMetadata, siteDescription } from "../lib/metadata";
 
 export const metadata = pageMetadata({
   title: "About",
-  description: "Learn about Axis Maps and our values and vision",
+  description:
+    "Axis Maps has designed custom interactive maps since 2006. Meet the co-founders and find out how we work with clients in the UK, Europe and the US.",
+  socialDescription: siteDescription,
   path: "/about",
 });
 
@@ -19,45 +20,42 @@ export default function AboutPage() {
           style={{ backgroundImage: "url(/madison.jpg)" }}
         />
       </div>
-      {/* Values and Vision Section */}
+      {/* Our Story Section */}
       <div>
-        <h1 className="text-5xl font-bold mb-8">Values and vision</h1>
+        <h1 className="text-5xl font-bold mb-8">Our story</h1>
 
         <ProseWrapper>
           <p>
-            <strong>Axis Maps</strong> was formed in 2006 and quickly became
-            engaged with the rapidly changing field of interactive mapping.
-            Google Maps had launched the previous spring.{" "}
-            <strong>
-              We were surprised to see that the cartographic fundamentals and
-              traditions we studied in grad school were falling by the wayside.
-            </strong>{" "}
-            Many new maps focused on the technical aspects of delivering
-            geographic content over the web rather than clear communication
-            through cartographic design.
+            Axis Maps was formed in 2006. Interactive mapping was growing fast
+            and most of the attention was on the technology of delivering maps
+            over the web. The cartography, the part that makes a map clear, was
+            being left behind. We started Axis Maps to bring cartography to
+            what was becoming a purely technical field. While other companies
+            built software for the broadest possible market, we designed each
+            map for its client, its data and its audience.
+          </p>
+
+          <h2>Co-founders</h2>
+
+          <p>
+            <strong>David Heyman.</strong> Co-founder and technical lead. David
+            works closely with clients throughout a project and builds the maps
+            and the systems behind them: the data pipelines, the interfaces and
+            the infrastructure they run on. Based in Lichfield, England.
           </p>
 
           <p>
-            We formed Axis Maps to bring Cartography to what was becoming a
-            technical field. While other companies focused on algorithms, we
-            developed intuitive user-interfaces.{" "}
-            <strong>
-              When they built software to reach the broadest market possible, we
-              designed custom maps to make sure each map was right for our
-              client.
-            </strong>{" "}
-            We believe new map technologies should be used not only for
-            efficiency and delivery, but also for great cartographic and
-            interactive design.
+            <strong>Ben Sheesley.</strong> Co-founder and design lead. Ben leads
+            the cartography and interface design on every project. How a map
+            looks, how it reads and how it feels to use start with him. He also
+            runs the company's operations. Based in Hewitt, Texas.
           </p>
 
           <p>
-            Today we work from two offices, in Hewitt, Texas and Lichfield,
-            England. US clients contract in dollars.{" "}
-            <strong>
-              UK clients contract with Axis Maps Limited, registered in England
-              and Wales, in pounds sterling.
-            </strong>
+            We work from Lichfield, England and Hewitt, Texas. UK and European
+            clients contract with Axis Maps Limited, registered in England and
+            Wales, in pounds sterling. US clients contract with Axis Maps LLC, a
+            Texas company, in dollars.
           </p>
         </ProseWrapper>
 
