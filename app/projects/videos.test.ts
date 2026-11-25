@@ -34,6 +34,20 @@ describe('video sidecars', () => {
     expect(isReadyMuxAsset(asset)).toBe(true);
   });
 
+  // getHomepageFilms takes the newer of two flagged projects without a word,
+  // so a second flag added by mistake is caught here.
+  it('flags at most one project to lead the homepage films', () => {
+    const flagged = fs
+      .readdirSync(postsDir)
+      .filter((file) => file.endsWith('.mdx'))
+      .filter((file) =>
+        /^homepageVideo:\s*true\s*$/m.test(
+          fs.readFileSync(path.join(postsDir, file), 'utf-8').split(/^---\s*$/m)[1] ?? '',
+        ),
+      );
+    expect(flagged.length).toBeLessThanOrEqual(1);
+  });
+
   it('holds at most one sidecar per project', () => {
     const slugs = sidecars.map((file) => file.match(SIDECAR)?.[1]);
     expect(new Set(slugs).size).toBe(slugs.length);

@@ -33,6 +33,8 @@ export type ProjectMetadata = {
   // true when the video's audio is only a music soundtrack, so it starts
   // muted; a narrated video leaves this out and plays with sound
   videoMuted?: boolean;
+  // true on the one project whose film leads the homepage's film block
+  homepageVideo?: boolean;
   mapUrl?: string;
   githubUrl?: string;
   launchDate?: string;
@@ -152,6 +154,55 @@ export function getProjectVideoAsset(slug: string): VideoAsset | null {
   }
 
   return null;
+}
+
+export type HomepageFilm = {
+  slug: string;
+  title: string;
+  muted: boolean;
+  // The film showing when the page loads. Exactly one film has it.
+  lead: boolean;
+  asset: VideoAsset;
+};
+
+// The films in the homepage's films section, newest first: the featured
+// projects with a ready film, up to `limit` of them. The one showing first is
+// the project flagged `homepageVideo: true`, or, with no flag (or a flagged
+// project whose film is not ready), the newest. A flagged project too old to
+// make the cut, or not featured, takes the last place, so the flag always
+// wins; were two projects flagged, the newer would be taken. `projects` is
+// expected newest first, as getProjects returns it; the asset lookup is
+// passed in so this stays a pure function of what it is given.
+export function getHomepageFilms(
+  projects: Project[],
+  limit = 5,
+  findAsset: (slug: string) => VideoAsset | null = getProjectVideoAsset,
+): HomepageFilm[] {
+  if (limit < 1) return [];
+
+  const withFilm = projects.flatMap((project) => {
+    const asset = findAsset(project.slug);
+    return asset ? [{ project, asset }] : [];
+  });
+
+  const flagged = withFilm.find((f) => f.project.metadata.homepageVideo === true);
+  const chosen = withFilm
+    .filter((f) => f.project.metadata.featured || f === flagged)
+    .slice(0, limit);
+  if (flagged && !chosen.includes(flagged)) {
+    // Past the cut, so it is older than everything kept: the end is its
+    // place in date order too.
+    chosen[chosen.length - 1] = flagged;
+  }
+  const lead = flagged ?? chosen[0];
+
+  return chosen.map(({ project, asset }) => ({
+    slug: project.slug,
+    title: project.metadata.title,
+    muted: project.metadata.videoMuted === true,
+    lead: project.slug === lead?.project.slug,
+    asset,
+  }));
 }
 
 export type ProjectHero =
