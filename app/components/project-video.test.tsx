@@ -9,14 +9,17 @@ import ProjectVideo, { MuxPoster, isPlayable, type ProjectVideoHandle } from './
 vi.mock('next-video', async () => {
   const { forwardRef } = await import('react');
   return {
-    default: forwardRef(({ src, muted }: any, ref: any) => (
-      <video
-        ref={ref}
-        data-testid="mux-video"
-        data-playback-id={src?.providerMetadata?.mux?.playbackId}
-        data-muted={String(Boolean(muted))}
-      />
-    )),
+    default: forwardRef(
+      ({ src, muted, 'metadata-video-title': videoTitle }: any, ref: any) => (
+        <video
+          ref={ref}
+          data-testid="mux-video"
+          data-playback-id={src?.providerMetadata?.mux?.playbackId}
+          data-muted={String(Boolean(muted))}
+          metadata-video-title={videoTitle}
+        />
+      ),
+    ),
   };
 });
 
@@ -38,6 +41,14 @@ describe('ProjectVideo', () => {
         'play-1',
       );
       expect(screen.getByRole('group', { name: 'Demo video' })).toBeInTheDocument();
+    });
+
+    it('names the film for Mux Data with the project title', async () => {
+      render(<ProjectVideo video={{ source: 'mux', asset }} title="Demo" />);
+      expect(await screen.findByTestId('mux-video')).toHaveAttribute(
+        'metadata-video-title',
+        'Demo',
+      );
     });
 
     it('starts muted only when asked', async () => {

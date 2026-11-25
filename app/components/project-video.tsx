@@ -137,6 +137,13 @@ const ProjectVideo = forwardRef<ProjectVideoHandle, ProjectVideoProps>(
               muted={muted}
               playsInline
               className="h-full"
+              // Names the film in Mux Data, whose views otherwise all show
+              // as "[No Value]" under Video Title. next-video passes the
+              // attribute down to mux-video, which reads it when it loads the
+              // film. That load waits a microtask, so the attribute, set when
+              // the element is created, is already there. Video ID is left to
+              // mux-video, which fills it with the playback ID.
+              metadata-video-title={title}
             />
           </Suspense>
         </div>

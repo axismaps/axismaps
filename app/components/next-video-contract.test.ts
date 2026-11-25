@@ -30,4 +30,14 @@ describe("next-video's reading of a ready asset", () => {
     const props = getVideoProps({ src, transform } as any, { asset: src });
     expect(props.poster).toBe('https://image.mux.com/play-1/thumbnail.webp?time=3.5');
   });
+
+  // ProjectVideo names the film for Mux Data with this attribute, which only
+  // reaches mux-video if next-video hands its unknown props to the player.
+  it('passes the Mux Data title through to the player', () => {
+    const props = getVideoProps(
+      { src, transform, 'metadata-video-title': 'Demo' } as any,
+      { asset: src },
+    );
+    expect(props['metadata-video-title']).toBe('Demo');
+  });
 });
