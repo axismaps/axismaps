@@ -58,6 +58,9 @@ export default function HomepageFilms({ films }: { films: HomepageFilm[] }) {
             <button
               type="button"
               onClick={() => setPlaying(true)}
+              // A tap has no hover before it, so the fetch also starts on the
+              // press itself, a moment ahead of the click.
+              onPointerDown={preloadPlayer}
               onPointerEnter={preloadPlayer}
               onFocus={preloadPlayer}
               aria-label={`Play ${film.title} video`}

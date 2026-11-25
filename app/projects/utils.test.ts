@@ -544,7 +544,7 @@ describe('Project Utilities', () => {
 
     it('carries the title, mute flag and asset', () => {
       const [film] = getHomepageFilms(
-        [project('a', { title: 'A film', teaser: 'About A', videoMuted: true })],
+        [project('a', { title: 'A film', videoMuted: true })],
         5,
         findAsset(),
       );
