@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/merck.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "9k00HSeVI1NK9JYHYd6FtdHz2g7YECRiD2P2qHCb00HPw",
+      "assetId": "SbJyjLIPw00TTsm7aK2bYcmI2gx016lQwC5RSqKu6fuy8",
+      "playbackId": "cPGd004THRDpWp3DFyyO00N02VKF2XaYdN8XX3avQm2wPw"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608139166,
+  "size": 25671739,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/cPGd004THRDpWp3DFyyO00N02VKF2XaYdN8XX3avQm2wPw.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/cPGd004THRDpWp3DFyyO00N02VKF2XaYdN8XX3avQm2wPw/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADQAQCdASoQAAkAAQAcJZQCdAEMw3en2AD+/pmbX4UgarM8LGUsMcw3mF2/iW4ul/hvz6CyqXb9XmD/HKiT9qfsDS6LziDcFM48Rcfg6sljZf+991UYpMzAsG/PSAwbsquAO7gA"
+}

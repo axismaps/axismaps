@@ -123,6 +123,11 @@ mapUrl: "https://..."
 ---
 ```
 
+A project's own film is hosted on Mux and found by its file name,
+`videos/{slug}.mp4.json`, rather than set in frontmatter. `videoUrl` is only
+for a film on someone else's YouTube or Vimeo account. See the Projects
+System section of `CLAUDE.md` for the upload steps.
+
 ### Guide Articles
 
 Guide articles are in `/app/guide/posts/` and are indexed for full-text search. The search index is built automatically during the production build process.

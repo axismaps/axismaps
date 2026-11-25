@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/imaginerio-narratives.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "P5R026mxxhp02cvxszNydkJmDgid3cCHHWqebVP9MaTso",
+      "assetId": "pFvy3iEZA01PK2XogwhgFRMal2tljfzS4vaGQFJfXq4k",
+      "playbackId": "RnXJFQPZGs01xzbsWSyXRzSZIdAnGtXdUIApqvzkJw2w"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608130136,
+  "size": 12602652,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/RnXJFQPZGs01xzbsWSyXRzSZIdAnGtXdUIApqvzkJw2w.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/RnXJFQPZGs01xzbsWSyXRzSZIdAnGtXdUIApqvzkJw2w/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAADwAQCdASoQAAsAAQAcJZQCdAEO97ds4vgA/vmpv/6/H+9UuLV1XrqcbgRjlfQyqx6X64iTbCKzMXc/5nOstZD27PC+7rp/+xRSIZNbO2+qNQs9wgte9wUQTmrLsmQUY8KB1osGNxEChMAA"
+}

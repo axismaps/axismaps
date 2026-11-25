@@ -14,7 +14,9 @@
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
     "test:run": "vitest run",
-    "import-blogs": "node scripts/import-blogs.js"
+    "import-blogs": "node scripts/import-blogs.js",
+    "videos:sync": "next-video sync",
+    "videos:captions": "node --env-file=.env.local scripts/mux-captions.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -30,6 +32,7 @@
     "gray-matter": "^4.0.3",
     "minisearch": "^7.2.0",
     "next": "15.5.7",
+    "next-video": "2.8.3",
     "openseadragon": "^6.0.2",
     "postcss": "^8.4.35",
     "react": "18.2.0",

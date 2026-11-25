@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/eshhad.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "1exSvhRGfxXNyUTEgMUbDPMp1eLaPwOdU68diVlCMr00",
+      "assetId": "qvfyw1UyUkagQOIPTGs4i9X2hDd01zLwYQHkPKVO5RZo",
+      "playbackId": "fJfGBgH9yeZw01xfdw8sBkc8v1sjBNnd006EG400gDvQq8"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608106187,
+  "size": 4120330,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/fJfGBgH9yeZw01xfdw8sBkc8v1sjBNnd006EG400gDvQq8.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/fJfGBgH9yeZw01xfdw8sBkc8v1sjBNnd006EG400gDvQq8/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoQAAkAAQAcJZQCw7EUqqHpXxAA/vdYf9sON95//OAO88wVvlh7KlUoJ9u1Z0LnG2zGQtJLrAJDVwDaj3zZ5X9fBUC2keahKMDKAd/gAAA="
+}

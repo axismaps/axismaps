@@ -10,6 +10,12 @@ import {
 } from "../lib/content";
 import { loadDataFile } from "../lib/data-loader";
 import { videoEmbed } from "../lib/video-embed";
+import {
+  isReadyMuxAsset,
+  toVideoAsset,
+  type HeroVideo,
+  type VideoAsset,
+} from "../lib/video-asset";
 
 export type ProjectMetadata = {
   title: string;
@@ -105,32 +111,89 @@ export function getProjectGallery(slug: string): string[] {
   }
 }
 
+// Original extensions a sidecar may carry. Mux reads all of them, so an
+// original keeps its own format rather than being re-encoded first.
+const VIDEO_EXTENSIONS = ["mp4", "mov", "m4v", "webm"];
+
+// A project's Mux film, found by convention: the sidecar that
+// `pnpm videos:sync` writes at videos/{slug}.{ext}.json once the original at
+// videos/{slug}.{ext} is uploaded. Returns null when there is no ready
+// sidecar, so a project keeps its videoUrl embed (if any) until its upload has
+// finished processing. A sidecar that is unreadable or not ready yet is passed
+// over for the next extension; videos.test.ts fails CI on either, and on a
+// project with more than one.
+export function getProjectVideoAsset(slug: string): VideoAsset | null {
+  const videoRoot = path.resolve(process.cwd(), "videos");
+
+  for (const extension of VIDEO_EXTENSIONS) {
+    const sidecar = path.resolve(videoRoot, `${slug}.${extension}.json`);
+
+    // As with the gallery: slugs come from MDX filenames, but this should not
+    // read outside the videos directory on any caller's behalf.
+    if (!sidecar.startsWith(videoRoot + path.sep)) {
+      return null;
+    }
+
+    if (!fs.existsSync(sidecar)) {
+      continue;
+    }
+
+    try {
+      const asset = toVideoAsset(JSON.parse(fs.readFileSync(sidecar, "utf-8")));
+      if (asset) return asset;
+      // Said out loud, since a Vercel build doesn't run videos.test.ts: a
+      // committed sidecar that isn't ready leaves its project with no film.
+      console.warn(
+        `Video sidecar ${sidecar} is not a ready Mux upload; run \`pnpm videos:sync\`.`,
+      );
+    } catch (error) {
+      console.error(`Error reading video sidecar ${sidecar}:`, error);
+    }
+  }
+
+  return null;
+}
+
 export type ProjectHero =
-  | { kind: "video"; url: string; images: string[] }
+  | { kind: "video"; video: HeroVideo; images: string[] }
   | { kind: "gallery"; images: string[] }
   | { kind: "image"; src: string }
   | { kind: "none" };
 
 // Hero precedence for a project detail page, in one place so it is legible
 // and testable rather than buried in a nested ternary:
-//   1. a video, if the project has one that can be embedded, leading a
-//      carousel of the gallery once there are enough images to page through;
-//      a video that cannot be embedded is passed over, not left as a blank
+//   1. a video, leading a carousel of the gallery once there are enough
+//      images to page through: the project's Mux film if its upload is ready,
+//      otherwise a videoUrl that can be embedded. A videoUrl that cannot be
+//      embedded is passed over, not left as a blank
 //   2. the gallery, once there are enough images to page through
 //   3. a single still — the lone gallery image if that is all there is,
 //      otherwise coverImage
 // coverImage therefore no longer reaches the hero on a project with a
 // gallery, though it still drives the index and related-project cards.
+// The Mux asset is passed in (see getProjectVideoAsset) so that this stays a
+// pure function of what it is given.
 export function resolveProjectHero(
   metadata: Pick<ProjectMetadata, "videoUrl" | "coverImage">,
   gallery: string[],
+  asset: VideoAsset | null = null,
 ): ProjectHero {
-  if (metadata.videoUrl && videoEmbed(metadata.videoUrl)) {
+  // getProjectVideoAsset only returns ready assets, but this function is
+  // public (the homepage may hand it assets from elsewhere), so it checks
+  // readiness itself rather than trusting the type.
+  const video: HeroVideo | null =
+    asset && isReadyMuxAsset(asset)
+      ? { source: "mux", asset }
+      : metadata.videoUrl && videoEmbed(metadata.videoUrl)
+        ? { source: "embed", url: metadata.videoUrl }
+        : null;
+
+  if (video) {
     // A lone still adds little after a video, so it is left out rather than
     // turning the video into a two-slide carousel.
     return {
       kind: "video",
-      url: metadata.videoUrl,
+      video,
       images: gallery.length > 1 ? gallery : [],
     };
   }

@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/chis.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "UOVbAwFXYrhfdoUZznVYCpXma6ZYKFy232imrAl01A700",
+      "assetId": "zPMGGwC2kM1pwMt6Ly5K01EtkSCcsTkchxBVFRHz8nps",
+      "playbackId": "aUYxbD2L01PiYhNdTDsuTGrzz4hoV9LEcoBRCmyHUppc"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608127991,
+  "size": 24124627,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/aUYxbD2L01PiYhNdTDsuTGrzz4hoV9LEcoBRCmyHUppc.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/aUYxbD2L01PiYhNdTDsuTGrzz4hoV9LEcoBRCmyHUppc/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAABwAgCdASoQAAkAAQAcJQBOj+DE1Ra6+UereJ1wAP7/B39hqd452J/+pnLgfutgzvkfS9/I/hPPWGW0dqko3nFW9uqKc3eAHJeNklypV7DEY1z+jAn2SmC7XztaK9aDvrlNAF3mXAbcNR+0F4T2VAnh7+d8/Vw78aAxM9YpIz8QJgAA"
+}

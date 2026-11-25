@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/revolt.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "ybGzIiZkw35mfNvuxpit00ymeFzKH1j9M4pyXHGzoRzI",
+      "assetId": "KHxGXY01brUOvpciVDqY6OpekygrvEbraMt33VphTl4w",
+      "playbackId": "wbGO3lihnEeVKz2pQOC8bUPhKNkE4ps8g5Z00R8KxNbQ"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608144773,
+  "size": 40432250,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/wbGO3lihnEeVKz2pQOC8bUPhKNkE4ps8g5Z00R8KxNbQ.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/wbGO3lihnEeVKz2pQOC8bUPhKNkE4ps8g5Z00R8KxNbQ/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAwAgCdASoQAAkAAQAcJQBOgCPtpfCRtv0tAAD+/jOngAlsNRZnFNUYqaSdJlzpvXFNZMKfHju2Gzc9z3jzMxMnX+i2Qbi/MffmYUrDNY3rn94QXrLPo9DtJaEF4AAA"
+}

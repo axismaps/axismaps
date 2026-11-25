@@ -1,7 +1,24 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ProjectGallery from './project-gallery';
+
+// next-video's player is custom elements (Media Chrome, mux-video) that the
+// test environment does not run, so a plain <video> stands in for it. React
+// sets `muted` as a property rather than an attribute, hence data-muted.
+vi.mock('next-video', async () => {
+  const { forwardRef } = await import('react');
+  return {
+    default: forwardRef(({ src, muted }: any, ref: any) => (
+      <video
+        ref={ref}
+        data-testid="mux-video"
+        data-playback-id={src?.providerMetadata?.mux?.playbackId}
+        data-muted={String(Boolean(muted))}
+      />
+    )),
+  };
+});
 
 // Mock Next.js Image component
 vi.mock('next/image', () => ({
@@ -152,7 +169,7 @@ describe('ProjectGallery', () => {
     const renderWithVideo = () =>
       render(
         <ProjectGallery
-          video="https://vimeo.com/123"
+          video={{ source: 'embed', url: 'https://vimeo.com/123' }}
           images={images}
           title="Demo Project"
         />,
@@ -277,7 +294,7 @@ describe('ProjectGallery', () => {
     it('starts a soundtrack-only video muted', () => {
       render(
         <ProjectGallery
-          video="https://vimeo.com/123"
+          video={{ source: 'embed', url: 'https://vimeo.com/123' }}
           videoMuted
           images={images}
           title="Demo Project"
@@ -294,13 +311,134 @@ describe('ProjectGallery', () => {
     it('falls back to screenshots alone for a video it cannot embed', () => {
       render(
         <ProjectGallery
-          video="https://example.com/clip.mp4"
+          video={{ source: 'embed', url: 'https://example.com/clip.mp4' }}
           images={images}
           title="Demo Project"
         />,
       );
       expect(screen.queryByTitle('Demo Project video')).not.toBeInTheDocument();
       expect(visibleIndex()).toBe(0);
+    });
+  });
+  describe('led by a Mux film', () => {
+    const asset = {
+      status: 'ready' as const,
+      originalFilePath: 'videos/demo.mp4',
+      provider: 'mux',
+      providerMetadata: { mux: { assetId: 'asset-1', playbackId: 'play-1' } },
+      createdAt: 0,
+      updatedAt: 0,
+    };
+
+    // The player is loaded lazily, so wait for it to arrive.
+    const renderWithMux = async (videoMuted = false) => {
+      render(
+        <ProjectGallery
+          video={{ source: 'mux', asset }}
+          videoMuted={videoMuted}
+          images={images}
+          title="Demo Project"
+        />,
+      );
+      await screen.findByTestId('mux-video');
+    };
+
+    const film = () => screen.getByTestId('mux-video') as HTMLVideoElement;
+    const filmSlide = () =>
+      screen.getByRole('group', { name: 'Demo Project video', hidden: true })
+        .parentElement as HTMLElement;
+
+    it('shows the film first, from its Mux playback id', async () => {
+      await renderWithMux();
+      expect(film()).toHaveAttribute('data-playback-id', 'play-1');
+      expect(screen.getByText('Video, slide 1 of 4')).toBeInTheDocument();
+      expect(visibleIndex()).toBe(-1);
+    });
+
+    it('pauses the film when it is left', async () => {
+      const user = userEvent.setup();
+      await renderWithMux();
+      const pause = vi.fn();
+      film().pause = pause;
+      await user.click(screen.getByLabelText('Go to image 2'));
+      expect(pause).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not pause the film when moving between screenshots', async () => {
+      const user = userEvent.setup();
+      await renderWithMux();
+      await user.click(screen.getByLabelText('Next slide'));
+      const pause = vi.fn();
+      film().pause = pause;
+      await user.click(screen.getByLabelText('Next slide'));
+      expect(pause).not.toHaveBeenCalled();
+    });
+
+    it('leaves the arrow keys to the player while it has focus', async () => {
+      await renderWithMux();
+      // The player seeks with the arrows; changing slides as well would
+      // pull the film away mid-seek.
+      fireEvent.keyDown(film(), { key: 'ArrowRight' });
+      expect(screen.getByText('Video, slide 1 of 4')).toBeInTheDocument();
+      fireEvent.keyDown(
+        screen.getByRole('group', { name: 'Demo Project video and screenshots' }),
+        { key: 'ArrowRight' },
+      );
+      expect(visibleIndex()).toBe(0);
+    });
+
+    it('lets the keyboard reach the carousel controls from the player', async () => {
+      const user = userEvent.setup();
+      await renderWithMux();
+      // The arrows seek inside the player, so Tab is the way out: the next
+      // stop after the player is the carousel's own previous button.
+      film().tabIndex = 0;
+      film().focus();
+      await user.tab();
+      expect(screen.getByLabelText('Previous slide')).toHaveFocus();
+    });
+
+    it('treats a drag across the player as a seek, not a swipe', async () => {
+      await renderWithMux();
+      fireEvent.touchStart(film(), { touches: [{ clientX: 300 }] });
+      fireEvent.touchEnd(film(), { changedTouches: [{ clientX: 100 }] });
+      expect(screen.getByText('Video, slide 1 of 4')).toBeInTheDocument();
+    });
+
+    it('still swipes between screenshots', async () => {
+      const user = userEvent.setup();
+      await renderWithMux();
+      await user.click(screen.getByLabelText('Next slide'));
+      const shot = slides().find((img) => img.className.includes('opacity-100'))!;
+      fireEvent.touchStart(shot, { touches: [{ clientX: 300 }] });
+      fireEvent.touchEnd(shot, { changedTouches: [{ clientX: 100 }] });
+      expect(visibleIndex()).toBe(1);
+    });
+
+    it('keeps the hidden film mounted but out of reach', async () => {
+      const user = userEvent.setup();
+      await renderWithMux();
+      await user.click(screen.getByLabelText('Next slide'));
+      // Unmounting would lose the viewer's place in the film.
+      expect(film()).toBeInTheDocument();
+      expect(filmSlide()).toHaveAttribute('inert');
+      expect(filmSlide()).toHaveAttribute('aria-hidden', 'true');
+    });
+
+    it('lets the film be used while it is showing', async () => {
+      await renderWithMux();
+      expect(filmSlide()).not.toHaveAttribute('inert');
+      expect(filmSlide()).toHaveAttribute('aria-hidden', 'false');
+    });
+
+    it('starts a soundtrack-only film muted', async () => {
+      await renderWithMux(true);
+      expect(film()).toHaveAttribute('data-muted', 'true');
+    });
+
+    it('plays a film with sound when it is not flagged', async () => {
+      await renderWithMux();
+      expect(film()).toHaveAttribute('data-muted', 'false');
     });
   });
 });

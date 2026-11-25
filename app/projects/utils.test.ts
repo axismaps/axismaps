@@ -6,6 +6,7 @@ import {
   getProjectsByClient,
   getFeaturedProjects,
   getProjectGallery,
+  getProjectVideoAsset,
   resolveProjectHero,
   getClients,
   getCategories,
@@ -14,11 +15,13 @@ import {
   type ProjectMetadata,
 } from './utils';
 
-// getProjectGallery reads the gallery directory off disk
+// getProjectGallery reads the gallery directory off disk, and
+// getProjectVideoAsset reads the video sidecars
 vi.mock('fs', () => ({
   default: {
     existsSync: vi.fn(),
     readdirSync: vi.fn(),
+    readFileSync: vi.fn(),
   },
 }));
 
@@ -374,8 +377,139 @@ describe('Project Utilities', () => {
     });
   });
 
+  describe('getProjectVideoAsset', () => {
+    const ready = {
+      status: 'ready',
+      originalFilePath: 'videos/demo.mp4',
+      provider: 'mux',
+      providerMetadata: {
+        mux: { uploadId: 'upload-1', assetId: 'asset-1', playbackId: 'play-1', thumbnailTime: 3.5 },
+      },
+      blurDataURL: 'data:image/webp;base64,AAAA',
+      size: 1234,
+      createdAt: 0,
+      updatedAt: 0,
+    };
+    // What reaches the page: only the fields playback reads
+    const playable = {
+      status: 'ready',
+      provider: 'mux',
+      providerMetadata: { mux: { playbackId: 'play-1', thumbnailTime: 3.5 } },
+      blurDataURL: 'data:image/webp;base64,AAAA',
+    };
+
+    // Only the named sidecar exists on disk
+    const sidecarAt = (name: string, contents: string) => {
+      vi.mocked(fs.existsSync).mockImplementation((file) =>
+        String(file).endsWith(`/videos/${name}`)
+      );
+      vi.mocked(fs.readFileSync).mockReturnValue(contents);
+    };
+
+    it('should return the playable part of videos/{slug}.mp4.json', () => {
+      sidecarAt('demo.mp4.json', JSON.stringify(ready));
+      // Upload and asset ids, size and the original's path stay server-side
+      expect(getProjectVideoAsset('demo')).toEqual(playable);
+    });
+
+    it('should find a sidecar for an original kept in another format', () => {
+      sidecarAt('demo.mov.json', JSON.stringify(ready));
+      expect(getProjectVideoAsset('demo')).toEqual(playable);
+    });
+
+    it('should pass over a stale sidecar for a ready one in another format', () => {
+      vi.spyOn(console, 'warn').mockImplementation(() => {});
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readFileSync).mockImplementation((file) =>
+        String(file).endsWith('/videos/demo.mp4.json')
+          ? JSON.stringify({ ...ready, status: 'errored' })
+          : JSON.stringify(ready)
+      );
+      expect(getProjectVideoAsset('demo')).toEqual(playable);
+    });
+
+    it('should return null when the project has no sidecar', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(false);
+      expect(getProjectVideoAsset('demo')).toBeNull();
+      expect(fs.readFileSync).not.toHaveBeenCalled();
+    });
+
+    it('should pass over an upload that is still processing, and say so', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      // next-video would fall back to the original, which is never deployed
+      sidecarAt('demo.mp4.json', JSON.stringify({ ...ready, status: 'processing' }));
+      expect(getProjectVideoAsset('demo')).toBeNull();
+      // A Vercel build runs no tests, so the build log is where this shows
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('demo.mp4.json'));
+      warn.mockRestore();
+    });
+
+    it('should pass over a sidecar without a playback id', () => {
+      vi.spyOn(console, 'warn').mockImplementation(() => {});
+      sidecarAt(
+        'demo.mp4.json',
+        JSON.stringify({ ...ready, providerMetadata: { mux: { assetId: 'asset-1' } } })
+      );
+      expect(getProjectVideoAsset('demo')).toBeNull();
+    });
+
+    it('should return null and log when the sidecar is not valid JSON', () => {
+      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+      sidecarAt('demo.mp4.json', '{ not json');
+      expect(getProjectVideoAsset('demo')).toBeNull();
+      expect(consoleError).toHaveBeenCalled();
+      consoleError.mockRestore();
+    });
+
+    it('should not read outside the videos directory', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      expect(getProjectVideoAsset('../secrets')).toBeNull();
+      expect(fs.existsSync).not.toHaveBeenCalled();
+    });
+  });
+
   describe('resolveProjectHero', () => {
     const gallery = ['/images/projects/demo/01.jpg', '/images/projects/demo/02.jpg'];
+    const asset = {
+      status: 'ready' as const,
+      originalFilePath: 'videos/demo.mp4',
+      provider: 'mux',
+      providerMetadata: { mux: { assetId: 'asset-1', playbackId: 'play-1' } },
+      createdAt: 0,
+      updatedAt: 0,
+    };
+
+    it('should lead with the Mux film ahead of the videoUrl', () => {
+      expect(
+        resolveProjectHero(
+          { videoUrl: 'https://vimeo.com/123', coverImage: '/cover.jpg' },
+          gallery,
+          asset
+        )
+      ).toEqual({ kind: 'video', video: { source: 'mux', asset }, images: gallery });
+    });
+
+    it('should show a Mux film alone when the gallery has one image', () => {
+      expect(resolveProjectHero({ coverImage: '/cover.jpg' }, [gallery[0]], asset)).toEqual({
+        kind: 'video',
+        video: { source: 'mux', asset },
+        images: [],
+      });
+    });
+
+    it('should keep the videoUrl while the Mux upload is not ready', () => {
+      expect(
+        resolveProjectHero(
+          { videoUrl: 'https://vimeo.com/123' },
+          [],
+          { ...asset, status: 'processing' }
+        )
+      ).toEqual({
+        kind: 'video',
+        video: { source: 'embed', url: 'https://vimeo.com/123' },
+        images: [],
+      });
+    });
 
     it('should lead with a video and keep the gallery after it', () => {
       expect(
@@ -383,7 +517,11 @@ describe('Project Utilities', () => {
           { videoUrl: 'https://vimeo.com/123', coverImage: '/cover.jpg' },
           gallery
         )
-      ).toEqual({ kind: 'video', url: 'https://vimeo.com/123', images: gallery });
+      ).toEqual({
+        kind: 'video',
+        video: { source: 'embed', url: 'https://vimeo.com/123' },
+        images: gallery,
+      });
     });
 
     it('should show a video alone when there is no gallery', () => {
@@ -392,7 +530,11 @@ describe('Project Utilities', () => {
           { videoUrl: 'https://vimeo.com/123', coverImage: '/cover.jpg' },
           []
         )
-      ).toEqual({ kind: 'video', url: 'https://vimeo.com/123', images: [] });
+      ).toEqual({
+        kind: 'video',
+        video: { source: 'embed', url: 'https://vimeo.com/123' },
+        images: [],
+      });
     });
 
     it('should fall back to the gallery when the video cannot be embedded', () => {
@@ -413,7 +555,11 @@ describe('Project Utilities', () => {
     it('should leave a lone gallery image out of a video carousel', () => {
       expect(
         resolveProjectHero({ videoUrl: 'https://vimeo.com/123' }, [gallery[0]])
-      ).toEqual({ kind: 'video', url: 'https://vimeo.com/123', images: [] });
+      ).toEqual({
+        kind: 'video',
+        video: { source: 'embed', url: 'https://vimeo.com/123' },
+        images: [],
+      });
     });
 
     it('should prefer the gallery over coverImage', () => {
