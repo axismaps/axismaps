@@ -88,8 +88,8 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
     - `metadata.ts` - Per-page social tags, and the card-size threshold
     - `image-size.ts` - Image dimensions read from the file header
     - `og-artwork.ts` - Card sizes, the `/og` path guard and the artwork fetch
-    - `video-asset.ts` - The Mux sidecar type, and the check that an upload
-      is ready to play
+    - `video-asset.ts` - The Mux sidecar check (ready to play), its trim to
+      the fields playback reads, and the poster frame's address
     - `video-embed.ts` - Vimeo and YouTube player addresses for a project's
       `videoUrl` (films on accounts we don't own), and the message that
       pauses each player

@@ -57,7 +57,10 @@ export function toVideoAsset(value: unknown): VideoAsset | null {
           : {}),
       },
     },
-    ...(typeof sidecar.blurDataURL === "string"
+    // Only an inline image: the poster puts it in a style attribute, so a
+    // hand-edited sidecar shouldn't get arbitrary text in there.
+    ...(typeof sidecar.blurDataURL === "string" &&
+    sidecar.blurDataURL.startsWith("data:image/")
       ? { blurDataURL: sidecar.blurDataURL }
       : {}),
   };
