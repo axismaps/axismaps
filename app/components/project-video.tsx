@@ -7,9 +7,16 @@ import {
   useImperativeHandle,
   useMemo,
   useRef,
+  type ComponentProps,
 } from "react";
+// A type-only import: it is erased, so the player itself still loads lazily.
+import type NextVideo from "next-video";
 import { videoEmbed } from "../lib/video-embed";
-import type { HeroVideo } from "../lib/video-asset";
+import {
+  muxPosterSrcSet,
+  type HeroVideo,
+  type VideoAsset,
+} from "../lib/video-asset";
 
 export type ProjectVideoHandle = {
   // Stop playback, for a carousel moving off the video's slide: the slide is
@@ -29,6 +36,49 @@ interface ProjectVideoProps {
 // project page carries this component, film or not. Loading them lazily keeps
 // them off the pages that have only screenshots or a YouTube embed.
 const Video = lazy(() => import("next-video"));
+
+type NextVideoAsset = Exclude<
+  NonNullable<ComponentProps<typeof NextVideo>["src"]>,
+  string
+>;
+
+// next-video's Asset also carries the original's path and timestamps, which
+// it reads only for an upload that is not ready yet. A VideoAsset is always
+// ready, so they are filled with blanks rather than shipped to the page.
+function toNextVideoAsset(asset: VideoAsset): NextVideoAsset {
+  return { ...asset, originalFilePath: "", createdAt: 0, updatedAt: 0 };
+}
+
+// The film's poster frame, held in place while the player's code loads, so
+// the hero shows its picture at once rather than an empty box. It asks for the
+// same images the player will, so the player finds them already cached.
+export function MuxPoster({ asset }: { asset: VideoAsset }) {
+  return (
+    // A plain img: the frame comes from Mux's image service, which already
+    // serves each width, and next/image would only proxy it.
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={`https://image.mux.com/${asset.providerMetadata.mux.playbackId}/thumbnail.webp${
+        asset.providerMetadata.mux.thumbnailTime != null
+          ? `?time=${asset.providerMetadata.mux.thumbnailTime}`
+          : ""
+      }`}
+      srcSet={muxPosterSrcSet(asset)}
+      sizes="(max-width: 1024px) 100vw, 1024px"
+      alt=""
+      aria-hidden="true"
+      className="h-full w-full object-contain"
+      style={
+        asset.blurDataURL
+          ? {
+              backgroundImage: `url("${asset.blurDataURL}")`,
+              backgroundSize: "cover",
+            }
+          : undefined
+      }
+    />
+  );
+}
 
 // Whether a hero video will render anything: a Mux asset always does, and a
 // videoUrl only when it is an address the embed knows how to play.
@@ -79,10 +129,10 @@ const ProjectVideo = forwardRef<ProjectVideoHandle, ProjectVideoProps>(
           aria-label={`${title} video`}
           className="h-full w-full"
         >
-          <Suspense fallback={null}>
+          <Suspense fallback={<MuxPoster asset={video.asset} />}>
             <Video
               ref={media}
-              src={video.asset}
+              src={toNextVideoAsset(video.asset)}
               muted={muted}
               playsInline
               className="h-full"

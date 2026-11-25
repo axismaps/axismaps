@@ -12,6 +12,7 @@ import { loadDataFile } from "../lib/data-loader";
 import { videoEmbed } from "../lib/video-embed";
 import {
   isReadyMuxAsset,
+  toVideoAsset,
   type HeroVideo,
   type VideoAsset,
 } from "../lib/video-asset";
@@ -116,9 +117,11 @@ const VIDEO_EXTENSIONS = ["mp4", "mov", "m4v", "webm"];
 
 // A project's Mux film, found by convention: the sidecar that
 // `pnpm videos:sync` writes at videos/{slug}.{ext}.json once the original at
-// videos/{slug}.{ext} is uploaded. Returns null when there is no sidecar, or
-// when it is not ready yet, so a project keeps its videoUrl embed (if any)
-// until its upload has finished processing.
+// videos/{slug}.{ext} is uploaded. Returns null when there is no ready
+// sidecar, so a project keeps its videoUrl embed (if any) until its upload has
+// finished processing. A sidecar that is unreadable or not ready yet is passed
+// over for the next extension; videos.test.ts fails CI on either, and on a
+// project with more than one.
 export function getProjectVideoAsset(slug: string): VideoAsset | null {
   const videoRoot = path.join(process.cwd(), "videos");
 
@@ -136,11 +139,10 @@ export function getProjectVideoAsset(slug: string): VideoAsset | null {
     }
 
     try {
-      const asset: unknown = JSON.parse(fs.readFileSync(sidecar, "utf-8"));
-      return isReadyMuxAsset(asset) ? asset : null;
+      const asset = toVideoAsset(JSON.parse(fs.readFileSync(sidecar, "utf-8")));
+      if (asset) return asset;
     } catch (error) {
       console.error(`Error reading video sidecar ${sidecar}:`, error);
-      return null;
     }
   }
 

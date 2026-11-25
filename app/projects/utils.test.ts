@@ -382,9 +382,20 @@ describe('Project Utilities', () => {
       status: 'ready',
       originalFilePath: 'videos/demo.mp4',
       provider: 'mux',
-      providerMetadata: { mux: { assetId: 'asset-1', playbackId: 'play-1' } },
+      providerMetadata: {
+        mux: { uploadId: 'upload-1', assetId: 'asset-1', playbackId: 'play-1', thumbnailTime: 3.5 },
+      },
+      blurDataURL: 'data:image/webp;base64,AAAA',
+      size: 1234,
       createdAt: 0,
       updatedAt: 0,
+    };
+    // What reaches the page: only the fields playback reads
+    const playable = {
+      status: 'ready',
+      provider: 'mux',
+      providerMetadata: { mux: { playbackId: 'play-1', thumbnailTime: 3.5 } },
+      blurDataURL: 'data:image/webp;base64,AAAA',
     };
 
     // Only the named sidecar exists on disk
@@ -395,14 +406,25 @@ describe('Project Utilities', () => {
       vi.mocked(fs.readFileSync).mockReturnValue(contents);
     };
 
-    it('should return a ready Mux asset from videos/{slug}.mp4.json', () => {
+    it('should return the playable part of videos/{slug}.mp4.json', () => {
       sidecarAt('demo.mp4.json', JSON.stringify(ready));
-      expect(getProjectVideoAsset('demo')).toEqual(ready);
+      // Upload and asset ids, size and the original's path stay server-side
+      expect(getProjectVideoAsset('demo')).toEqual(playable);
     });
 
     it('should find a sidecar for an original kept in another format', () => {
       sidecarAt('demo.mov.json', JSON.stringify(ready));
-      expect(getProjectVideoAsset('demo')).toEqual(ready);
+      expect(getProjectVideoAsset('demo')).toEqual(playable);
+    });
+
+    it('should pass over a stale sidecar for a ready one in another format', () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.readFileSync).mockImplementation((file) =>
+        String(file).endsWith('/videos/demo.mp4.json')
+          ? JSON.stringify({ ...ready, status: 'errored' })
+          : JSON.stringify(ready)
+      );
+      expect(getProjectVideoAsset('demo')).toEqual(playable);
     });
 
     it('should return null when the project has no sidecar', () => {

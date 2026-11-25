@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
-import ProjectVideo, { isPlayable, type ProjectVideoHandle } from './project-video';
+import ProjectVideo, { MuxPoster, isPlayable, type ProjectVideoHandle } from './project-video';
 
 // next-video's player is custom elements (Media Chrome, mux-video) that the
 // test environment does not run, so a plain <video> stands in for it. React
@@ -56,6 +56,29 @@ describe('ProjectVideo', () => {
       ((await screen.findByTestId('mux-video')) as HTMLVideoElement).pause = pause;
       ref.current?.pause();
       expect(pause).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('the poster held while the player loads', () => {
+    it('shows the poster frame, with the blur behind it', () => {
+      const { container } = render(
+        <MuxPoster
+          asset={{
+            status: 'ready',
+            provider: 'mux',
+            providerMetadata: { mux: { playbackId: 'play-1', thumbnailTime: 3.5 } },
+            blurDataURL: 'data:image/webp;base64,AAAA',
+          }}
+        />,
+      );
+      const img = container.querySelector('img')!;
+      expect(img).toHaveAttribute(
+        'src',
+        'https://image.mux.com/play-1/thumbnail.webp?time=3.5',
+      );
+      expect(img.getAttribute('srcset')).toContain('?time=3.5&width=960 960w');
+      expect(img).toHaveAttribute('aria-hidden', 'true');
+      expect(img.style.backgroundImage).toContain('data:image/webp;base64,AAAA');
     });
   });
 
