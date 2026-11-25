@@ -22,7 +22,6 @@ vi.mock('next-video', async () => {
 const film = (slug: string, title: string, { muted = false, lead = false } = {}) => ({
   slug,
   title,
-  teaser: `${title} teaser`,
   muted,
   lead,
   asset: {

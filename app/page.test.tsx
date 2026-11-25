@@ -5,7 +5,6 @@ import Page from './page';
 const film = (slug: string, title: string, lead = false) => ({
   slug,
   title,
-  teaser: `${title} teaser`,
   muted: false,
   lead,
   asset: {

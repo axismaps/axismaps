@@ -542,7 +542,7 @@ describe('Project Utilities', () => {
       expect(summary(films)).toEqual(['a*', 'c']);
     });
 
-    it('carries the title, teaser, mute flag and asset', () => {
+    it('carries the title, mute flag and asset', () => {
       const [film] = getHomepageFilms(
         [project('a', { title: 'A film', teaser: 'About A', videoMuted: true })],
         5,
@@ -551,11 +551,14 @@ describe('Project Utilities', () => {
       expect(film).toEqual({
         slug: 'a',
         title: 'A film',
-        teaser: 'About A',
         muted: true,
         lead: true,
         asset: asset('play-a'),
       });
+    });
+
+    it('is empty for a limit below one, flag or no flag', () => {
+      expect(getHomepageFilms([project('a', { homepageVideo: true })], 0, findAsset())).toEqual([]);
     });
 
     it('is empty when no featured project has a film', () => {

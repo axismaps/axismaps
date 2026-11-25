@@ -159,7 +159,6 @@ export function getProjectVideoAsset(slug: string): VideoAsset | null {
 export type HomepageFilm = {
   slug: string;
   title: string;
-  teaser?: string;
   muted: boolean;
   // The film showing when the page loads. Exactly one film has it.
   lead: boolean;
@@ -178,6 +177,8 @@ export function getHomepageFilms(
   limit = 5,
   findAsset: (slug: string) => VideoAsset | null = getProjectVideoAsset,
 ): HomepageFilm[] {
+  if (limit < 1) return [];
+
   const withFilm = projects.flatMap((project) => {
     const asset = findAsset(project.slug);
     return asset ? [{ project, asset }] : [];
@@ -197,7 +198,6 @@ export function getHomepageFilms(
   return chosen.map(({ project, asset }) => ({
     slug: project.slug,
     title: project.metadata.title,
-    ...(project.metadata.teaser ? { teaser: project.metadata.teaser } : {}),
     muted: project.metadata.videoMuted === true,
     lead: project.slug === lead.project.slug,
     asset,

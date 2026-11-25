@@ -7,11 +7,12 @@ import { muxPosterUrl } from "../lib/video-asset";
 import type { HomepageFilm } from "../projects/utils";
 
 // The homepage's film block: one large poster with a play button, and under
-// it a picker of the films, which also names the one showing. Nothing of the player loads until play is
-// pressed (ProjectVideo imports next-video lazily, and is only rendered
-// then), so a visitor who never plays one pays for a few poster images and
-// no more. Picking another film swaps the poster rather than starting it:
-// a narrated film should only make sound when play is pressed.
+// it a picker of the films, which also names the one showing. Nothing of the
+// player loads until play is pressed (ProjectVideo imports next-video lazily,
+// and is only rendered then), so a visitor who never plays one pays for a few
+// poster images and no more. Picking another film swaps the poster rather
+// than starting it: a narrated film should only make sound when play is
+// pressed.
 export default function HomepageFilms({ films }: { films: HomepageFilm[] }) {
   // The picker stays in date order, so the lead film is wherever its date
   // puts it rather than first.
@@ -45,7 +46,6 @@ export default function HomepageFilms({ films }: { films: HomepageFilm[] }) {
             className="h-full w-full focus:outline-none"
           >
             <ProjectVideo
-              key={film.slug}
               video={{ source: "mux", asset: film.asset }}
               title={film.title}
               muted={film.muted}
