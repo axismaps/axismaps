@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { HeroVideo } from "../lib/video-asset";
 import ProjectVideo, { isPlayable, type ProjectVideoHandle } from "./project-video";
@@ -24,7 +24,7 @@ export default function ProjectGallery({
   video,
   videoMuted = false,
 }: ProjectGalleryProps) {
-  const hasVideo = useMemo(() => isPlayable(video), [video]);
+  const hasVideo = isPlayable(video);
   // The video, when there is one, is slide 0 and the screenshots follow it,
   // so a screenshot's slide index is one more than its place in `images`.
   const offset = hasVideo ? 1 : 0;
@@ -159,7 +159,7 @@ export default function ProjectGallery({
         }}
         onTouchEnd={handleTouchEnd}
       >
-        {video && hasVideo && (
+        {hasVideo && (
           <div
             ref={videoSlide}
             className={`absolute inset-0 transition-opacity duration-300 ${

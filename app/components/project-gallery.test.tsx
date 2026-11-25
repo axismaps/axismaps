@@ -387,6 +387,17 @@ describe('ProjectGallery', () => {
       expect(visibleIndex()).toBe(0);
     });
 
+    it('lets the keyboard reach the carousel controls from the player', async () => {
+      const user = userEvent.setup();
+      await renderWithMux();
+      // The arrows seek inside the player, so Tab is the way out: the next
+      // stop after the player is the carousel's own previous button.
+      film().tabIndex = 0;
+      film().focus();
+      await user.tab();
+      expect(screen.getByLabelText('Previous slide')).toHaveFocus();
+    });
+
     it('treats a drag across the player as a seek, not a swipe', async () => {
       await renderWithMux();
       fireEvent.touchStart(film(), { touches: [{ clientX: 300 }] });

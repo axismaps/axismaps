@@ -82,7 +82,9 @@ export function MuxPoster({ asset }: { asset: VideoAsset }) {
 
 // Whether a hero video will render anything: a Mux asset always does, and a
 // videoUrl only when it is an address the embed knows how to play.
-export function isPlayable(video: HeroVideo | null | undefined): boolean {
+export function isPlayable(
+  video: HeroVideo | null | undefined,
+): video is HeroVideo {
   if (!video) return false;
   return video.source === "mux" || videoEmbed(video.url) !== null;
 }
