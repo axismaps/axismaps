@@ -31,6 +31,9 @@ interface ProjectVideoProps {
   // Start with the sound off, for a film whose audio is only a music
   // soundtrack. The viewer can still unmute it from the player.
   muted?: boolean;
+  // Start playing as soon as the player mounts, for a film mounted by the
+  // viewer pressing play on its poster. Mux films only.
+  autoPlay?: boolean;
 }
 
 // The player and its theme are most of this component's weight, and every
@@ -92,7 +95,10 @@ export function isPlayable(
 // next-video's player, or a YouTube embed. Both are paused the same way, so a
 // carousel need not know which it holds.
 const ProjectVideo = forwardRef<ProjectVideoHandle, ProjectVideoProps>(
-  function ProjectVideo({ video, title, muted = false }, ref) {
+  function ProjectVideo(
+    { video, title, muted = false, autoPlay = false },
+    ref,
+  ) {
     const media = useRef<HTMLVideoElement>(null);
     const frame = useRef<HTMLIFrameElement>(null);
     const embedUrl = video.source === "embed" ? video.url : null;
@@ -135,6 +141,7 @@ const ProjectVideo = forwardRef<ProjectVideoHandle, ProjectVideoProps>(
               ref={media}
               src={toNextVideoAsset(video.asset)}
               muted={muted}
+              autoPlay={autoPlay}
               playsInline
               className="h-full"
             />

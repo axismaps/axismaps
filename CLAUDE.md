@@ -153,6 +153,11 @@ Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
   `videos:captions` from captioning it. Set it when the audio is only a music
   soundtrack (`videos:captions` reports "captions skipped" when Mux finds no
   speech); a narrated video leaves it out and plays with sound
+- Homepage films section (`getHomepageFilms`, `app/components/homepage-films.tsx`):
+  the five newest `featured` projects with a ready Mux film, newest first, as
+  one poster with a play button over a picker of thumbnails. The newest shows
+  on load; `homepageVideo: true` on one project makes that film show first
+  instead. The player loads only when play is pressed
 - Detail page hero (`resolveProjectHero`): a ready Mux film leads, else an
   embeddable `videoUrl`; either one is the first slide of the gallery
   carousel when the project has two or more images in
