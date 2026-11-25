@@ -88,6 +88,8 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
     - `metadata.ts` - Per-page social tags, and the card-size threshold
     - `image-size.ts` - Image dimensions read from the file header
     - `og-artwork.ts` - Card sizes, the `/og` path guard and the artwork fetch
+    - `video-asset.ts` - The Mux sidecar type, and the check that an upload
+      is ready to play
     - `video-embed.ts` - Vimeo and YouTube player addresses for a project's
       `videoUrl`, and the message that pauses each player
   - `/og` - Open Graph image generation route. Renders a plain titled card,
@@ -97,11 +99,16 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
 - `/data` - JSON data files
   - `clients.json` - Client metadata
   - `categories.json` - Category metadata
+- `/videos` - Project films for Mux. `{slug}.{ext}` originals stay local
+  (gitignored); the `{slug}.{ext}.json` sidecars `pnpm videos:sync` writes are
+  committed, and are all a build needs
 - `/public/images/projects` - Project cover images
 - `/public/images/blog` - Blog cover and inline images (per-post subfolders)
 - `/scripts` - Utility scripts
   - `import-projects.js` - Projects CSV to MDX converter
   - `import-blogs.js` - Blog CSV to MDX converter (also localizes images)
+  - `mux-captions.js` - `pnpm videos:captions`: asks Mux for generated English
+    captions on each film that plays with sound
 - `/webflow-cms` - Source CSV data from Webflow export
 
 ### Content Systems
@@ -127,13 +134,23 @@ Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
 - Content fields: `subtitle`, `teaser`, `coverImage`
 - Relationship fields: `client`, `clientSlug`, `category`, `categorySlug`
 - External links: `videoUrl`, `mapUrl`, `githubUrl`, `launchDate`
-- `videoMuted: true` starts the video with its sound off. Set it when the
-  audio is only a music soundtrack; a narrated video leaves it out and plays
-  with sound
-- Detail page hero (`resolveProjectHero`): an embeddable `videoUrl` leads,
-  as the first slide of the gallery carousel when the project has two or more
-  images in `/public/images/projects/{slug}/`; otherwise the gallery, then
-  `coverImage`
+- Films are hosted on Mux and found by convention, not frontmatter: save the
+  original as `videos/{slug}.{ext}` (mp4, mov, m4v or webm), run
+  `pnpm videos:sync` (needs `MUX_TOKEN_ID`/`MUX_TOKEN_SECRET` from
+  `vercel env pull .env.local`), then `pnpm videos:captions`, and commit
+  `videos/{slug}.{ext}.json` once it reports `"status": "ready"`
+  (`app/projects/videos.test.ts` fails on any other). For a better poster
+  frame, add `"thumbnailTime": <seconds>` under `providerMetadata.mux` in the
+  sidecar
+- `videoMuted: true` starts the video with its sound off, and keeps
+  `videos:captions` from captioning it. Set it when the audio is only a music
+  soundtrack; a narrated video leaves it out and plays with sound
+- Detail page hero (`resolveProjectHero`): a ready Mux film leads, else an
+  embeddable `videoUrl`; either one is the first slide of the gallery
+  carousel when the project has two or more images in
+  `/public/images/projects/{slug}/`. Otherwise the gallery, then `coverImage`
+- `ProjectVideo` plays either kind and pauses it the same way. next-video is
+  loaded lazily there, so pages without a Mux film don't carry the player
 - Projects imported from CSV using `scripts/import-projects.js`
 - Rendered using `@mdx-js/mdx` evaluate function
 - Related metadata stored in `/data/*.json` files

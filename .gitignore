@@ -50,3 +50,9 @@ guide-page-after.png
 
 # local-only symlink for verifying the deep-zoom viewer against tiles-build/
 /public/tiles-local/
+
+# next-video: video originals stay local; only the JSON sidecars that
+# `pnpm videos:sync` writes are committed. The symlink is dev-only.
+/videos/*
+!/videos/*.json
+/public/_next-video

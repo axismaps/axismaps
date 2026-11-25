@@ -1,13 +1,18 @@
 import { notFound } from "next/navigation";
-import { getProjects, getProjectGallery, resolveProjectHero } from "../utils";
+import {
+  getProjects,
+  getProjectGallery,
+  getProjectVideoAsset,
+  resolveProjectHero,
+} from "../utils";
 import Link from "next/link";
 import Image from "next/image";
 import { evaluate } from "@mdx-js/mdx";
 import * as runtime from "react/jsx-runtime";
 import ProseWrapper from "../../components/prose-wrapper";
 import ProjectGallery from "../../components/project-gallery";
+import ProjectVideo from "../../components/project-video";
 import { pageMetadata, socialCardImage } from "../../lib/metadata";
-import { videoEmbed } from "../../lib/video-embed";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -80,11 +85,11 @@ export default async function ProjectPage({
     : [];
 
   const gallery = getProjectGallery(slug);
-  const hero = resolveProjectHero(project.metadata, gallery);
-  const embed =
-    hero.kind === "video"
-      ? videoEmbed(hero.url, { muted: project.metadata.videoMuted })
-      : null;
+  const hero = resolveProjectHero(
+    project.metadata,
+    gallery,
+    getProjectVideoAsset(slug),
+  );
 
   // Evaluate MDX content to get React component
   const { default: MDXContent } = await evaluate(project.content, {
@@ -158,26 +163,21 @@ export default async function ProjectPage({
             // rather than two stacked frames each with its own controls.
             <ProjectGallery
               key={slug}
-              video={hero.url}
+              video={hero.video}
               videoMuted={project.metadata.videoMuted}
               images={hero.images}
               title={project.metadata.title}
             />
           ) : hero.kind === "video" ? (
             // A video alone, including when the gallery holds a single
-            // image: resolveProjectHero leaves a lone still out. It only
-            // resolves to a video that embeds, so embed is always set here.
-            embed && (
-              <div className="aspect-video mb-8">
-                <iframe
-                  src={embed.src}
-                  title={`${project.metadata.title} video`}
-                  className="w-full h-full rounded-lg"
-                  allow={embed.allow}
-                  allowFullScreen
-                ></iframe>
-              </div>
-            )
+            // image: resolveProjectHero leaves a lone still out.
+            <div className="aspect-video mb-8 rounded-lg overflow-hidden">
+              <ProjectVideo
+                video={hero.video}
+                title={project.metadata.title}
+                muted={project.metadata.videoMuted}
+              />
+            </div>
           ) : hero.kind === "gallery" ? (
             // Keyed so carousel state cannot survive a client-side move
             // between two projects, whatever the router does with the subtree.

@@ -2,13 +2,14 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { videoEmbed } from "../lib/video-embed";
+import type { HeroVideo } from "../lib/video-asset";
+import ProjectVideo, { isPlayable, type ProjectVideoHandle } from "./project-video";
 
 interface ProjectGalleryProps {
   images: string[];
   title: string;
   // A video to lead the carousel, ahead of the screenshots.
-  video?: string;
+  video?: HeroVideo;
   // Start the video with its sound off (a soundtrack-only film).
   videoMuted?: boolean;
 }
@@ -23,13 +24,10 @@ export default function ProjectGallery({
   video,
   videoMuted = false,
 }: ProjectGalleryProps) {
-  const embed = useMemo(
-    () => (video ? videoEmbed(video, { muted: videoMuted }) : null),
-    [video, videoMuted],
-  );
+  const hasVideo = useMemo(() => isPlayable(video), [video]);
   // The video, when there is one, is slide 0 and the screenshots follow it,
   // so a screenshot's slide index is one more than its place in `images`.
-  const offset = embed ? 1 : 0;
+  const offset = hasVideo ? 1 : 0;
   const count = images.length + offset;
   const [current, setCurrent] = useState(0);
   // Slides are mounted as they are reached, plus the one after. Marking an
@@ -40,16 +38,17 @@ export default function ProjectGallery({
     () => new Set(count > 1 ? [0, 1] : [0]),
   );
   const touchStartX = useRef<number | null>(null);
-  const videoFrame = useRef<HTMLIFrameElement>(null);
+  const player = useRef<ProjectVideoHandle>(null);
   const videoSlide = useRef<HTMLDivElement>(null);
-  const showingVideo = embed !== null && current === 0;
+  const showingVideo = hasVideo && current === 0;
 
   // Inert takes the hidden player out of clicks, keyboard focus and the
-  // accessibility tree at once; tabIndex on the iframe would not reliably keep
-  // Tab from reaching the controls inside its cross-origin frame. It is set on
-  // the element because React versions disagree about the prop: the App
-  // Router renders with its own React 19, which wants a boolean and reads ""
-  // as false, while the tests run React 18, which drops a boolean.
+  // accessibility tree at once; tabIndex alone would not reliably keep Tab
+  // from reaching its controls, least of all inside an embed's cross-origin
+  // frame. It is set on the element because React versions disagree about
+  // the prop: the App Router renders with its own React 19, which wants a
+  // boolean and reads "" as false, while the tests run React 18, which drops
+  // a boolean.
   // The effect runs after paint, which only matters if the video could start
   // hidden; it cannot, since it is always slide 0 and the carousel opens there.
   // TODO: pass inert={!showingVideo} on the slide once the project and its
@@ -66,13 +65,9 @@ export default function ProjectGallery({
       if (count === 0) return;
       // Leaving the video only hides it, so it is paused rather than left
       // playing out of sight. It stays mounted, so coming back to it picks
-      // up where it stopped. A player that has not loaded yet ignores the
-      // message, which is fine: it cannot be playing either.
-      if (embed && current === 0 && index !== 0) {
-        videoFrame.current?.contentWindow?.postMessage(
-          embed.pauseMessage,
-          embed.origin,
-        );
+      // up where it stopped.
+      if (hasVideo && current === 0 && index !== 0) {
+        player.current?.pause();
       }
       setCurrent(index);
       setMounted((previous) => {
@@ -84,7 +79,7 @@ export default function ProjectGallery({
         return next;
       });
     },
-    [count, current, embed],
+    [count, current, hasVideo],
   );
 
   const go = useCallback(
@@ -92,11 +87,14 @@ export default function ProjectGallery({
     [show, current, count],
   );
 
-  // Once someone clicks into the video, focus is inside the player's
-  // cross-origin frame and its key presses never reach this handler, so the
-  // arrows drive the player rather than the carousel until focus comes back
-  // out. The on-screen controls work throughout.
+  // Inside the video slide the arrows belong to the player: next-video's
+  // player seeks with them, and its key presses bubble up to here, so they
+  // are left alone rather than also changing slides. (An embed's presses
+  // never arrive at all, from inside its cross-origin frame.) The arrows
+  // drive the carousel again once focus is back out of the player, and the
+  // on-screen controls work throughout.
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    if (videoSlide.current?.contains(event.target as Node)) return;
     if (event.key === "ArrowLeft") {
       event.preventDefault();
       go(-1);
@@ -126,7 +124,7 @@ export default function ProjectGallery({
   // component should not depend on its caller repeating that check.
   if (count === 0) return null;
 
-  const noun = embed ? "slide" : "image";
+  const noun = hasVideo ? "slide" : "image";
 
   return (
     // tabIndex makes the arrow keys work once the gallery is focused, rather
@@ -136,7 +134,7 @@ export default function ProjectGallery({
       role="group"
       aria-roledescription="carousel"
       aria-label={
-        embed ? `${title} video and screenshots` : `${title} screenshots`
+        hasVideo ? `${title} video and screenshots` : `${title} screenshots`
       }
       tabIndex={0}
       onKeyDown={handleKeyDown}
@@ -148,14 +146,20 @@ export default function ProjectGallery({
         // a little, which is less jarring than the frame changing shape
         // between slides.
         className={`relative w-full ${
-          embed ? "aspect-video" : "aspect-[16/10]"
+          hasVideo ? "aspect-video" : "aspect-[16/10]"
         } max-h-[640px] rounded-lg overflow-hidden bg-gray-100`}
         onTouchStart={(event) => {
-          touchStartX.current = event.touches[0].clientX;
+          // A drag along the player's timeline is a seek, not a swipe. An
+          // embed's touches never arrive here, so this matches it too.
+          touchStartX.current = videoSlide.current?.contains(
+            event.target as Node,
+          )
+            ? null
+            : event.touches[0].clientX;
         }}
         onTouchEnd={handleTouchEnd}
       >
-        {embed && (
+        {video && hasVideo && (
           <div
             ref={videoSlide}
             className={`absolute inset-0 transition-opacity duration-300 ${
@@ -165,14 +169,12 @@ export default function ProjectGallery({
             }`}
             aria-hidden={!showingVideo}
           >
-            <iframe
-              ref={videoFrame}
-              src={embed.src}
-              title={`${title} video`}
-              className="w-full h-full"
-              allow={embed.allow}
-              allowFullScreen
-            ></iframe>
+            <ProjectVideo
+              ref={player}
+              video={video}
+              title={title}
+              muted={videoMuted}
+            />
           </div>
         )}
 
@@ -249,7 +251,7 @@ export default function ProjectGallery({
           : `Image ${current - offset + 1} of ${images.length}`}
         {/* With a video in the carousel, the screenshot count alone does not
             say where a slide sits among all of them. */}
-        {embed && `, slide ${current + 1} of ${count}`}
+        {hasVideo && `, slide ${current + 1} of ${count}`}
       </p>
     </div>
   );
