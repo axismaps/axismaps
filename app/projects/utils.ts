@@ -200,7 +200,7 @@ export function getHomepageFilms(
     slug: project.slug,
     title: project.metadata.title,
     muted: project.metadata.videoMuted === true,
-    lead: project.slug === lead.project.slug,
+    lead: project.slug === lead?.project.slug,
     asset,
   }));
 }
