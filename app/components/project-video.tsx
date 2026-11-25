@@ -147,12 +147,24 @@ const ProjectVideo = forwardRef<ProjectVideoHandle, ProjectVideoProps>(
         >
           <Suspense fallback={<MuxPoster asset={video.asset} />}>
             <Video
+              // A fresh player for each film. mux-video keeps the Mux Data
+              // metadata of the film it last loaded, and that wins over the
+              // attribute below, so a player handed a second film would file
+              // its views under the first one's title and video ID.
+              key={video.asset.providerMetadata.mux.playbackId}
               ref={media}
               src={toNextVideoAsset(video.asset)}
               muted={muted}
               autoPlay={autoPlay}
               playsInline
               className="h-full"
+              // Names the film in Mux Data, whose views otherwise all show
+              // as "[No Value]" under Video Title. next-video passes the
+              // attribute down to mux-video, which reads it when it loads the
+              // film. That load waits a microtask, so the attribute, set when
+              // the element is created, is already there. Video ID is left to
+              // mux-video, which fills it with the playback ID.
+              metadata-video-title={title}
             />
           </Suspense>
         </div>
