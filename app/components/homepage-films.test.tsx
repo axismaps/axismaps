@@ -73,6 +73,15 @@ describe('HomepageFilms', () => {
     expect(document.activeElement).toContainElement(video);
   });
 
+  it('does not mount the player on hover or focus, only on play', async () => {
+    const user = userEvent.setup();
+    render(<HomepageFilms films={films} />);
+
+    await user.hover(screen.getByRole('button', { name: 'Play On the Edge video' }));
+    await user.tab();
+    expect(screen.queryByTestId('mux-video')).not.toBeInTheDocument();
+  });
+
   it('plays from the keyboard', async () => {
     const user = userEvent.setup();
     render(<HomepageFilms films={films} />);

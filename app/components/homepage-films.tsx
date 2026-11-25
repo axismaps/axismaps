@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FaPlay } from "react-icons/fa";
-import ProjectVideo, { MuxPoster } from "./project-video";
+import ProjectVideo, { MuxPoster, preloadPlayer } from "./project-video";
 import { muxPosterUrl } from "../lib/video-asset";
 import type { HomepageFilm } from "../projects/utils";
 
@@ -58,6 +58,8 @@ export default function HomepageFilms({ films }: { films: HomepageFilm[] }) {
             <button
               type="button"
               onClick={() => setPlaying(true)}
+              onPointerEnter={preloadPlayer}
+              onFocus={preloadPlayer}
               aria-label={`Play ${film.title} video`}
               className="group absolute inset-0 grid place-items-center focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-blue-500"
             >

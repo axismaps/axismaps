@@ -170,8 +170,9 @@ export type HomepageFilm = {
 // the project flagged `homepageVideo: true`, or, with no flag (or a flagged
 // project whose film is not ready), the newest. A flagged project too old to
 // make the cut, or not featured, takes the last place, so the flag always
-// wins. `projects` is expected newest first, as getProjects returns it; the
-// asset lookup is passed in so this stays a pure function of what it is given.
+// wins; were two projects flagged, the newer would be taken. `projects` is
+// expected newest first, as getProjects returns it; the asset lookup is
+// passed in so this stays a pure function of what it is given.
 export function getHomepageFilms(
   projects: Project[],
   limit = 5,

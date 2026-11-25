@@ -41,6 +41,15 @@ interface ProjectVideoProps {
 // them off the pages that have only screenshots or a YouTube embed.
 const Video = lazy(() => import("next-video"));
 
+// Start fetching the player ahead of need, for a play button that mounts it
+// on press: called when the pointer or focus reaches the button, so the
+// player is usually there by the click, and a film with sound starts while
+// the browser still counts the click as the viewer's doing. The module
+// system fetches it once, however often this is called.
+export function preloadPlayer(): void {
+  void import("next-video").catch(() => {});
+}
+
 type NextVideoAsset = Exclude<
   NonNullable<ComponentProps<typeof NextVideo>["src"]>,
   string
