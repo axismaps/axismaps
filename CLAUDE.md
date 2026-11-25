@@ -91,7 +91,8 @@ This is a Next.js 14+ portfolio and blog starter template using the App Router a
     - `video-asset.ts` - The Mux sidecar type, and the check that an upload
       is ready to play
     - `video-embed.ts` - Vimeo and YouTube player addresses for a project's
-      `videoUrl`, and the message that pauses each player
+      `videoUrl` (films on accounts we don't own), and the message that
+      pauses each player
   - `/og` - Open Graph image generation route. Renders a plain titled card,
     or, given `?image=/images/...&title=...`, letterboxes that site-relative
     picture onto the 1200x630 card (see `app/lib/og-artwork.ts`)
@@ -133,18 +134,24 @@ Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
 - Core fields: `title`, `slug`, `publishedAt`, `featured`
 - Content fields: `subtitle`, `teaser`, `coverImage`
 - Relationship fields: `client`, `clientSlug`, `category`, `categorySlug`
-- External links: `videoUrl`, `mapUrl`, `githubUrl`, `launchDate`
+- External links: `videoUrl`, `mapUrl`, `githubUrl`, `launchDate`. `videoUrl`
+  is only for a film on someone else's account: CalSHARE's YouTube video, and
+  imagineRio and pilotPlan on FeD's Projects Vimeo. Our own films go on Mux
 - Films are hosted on Mux and found by convention, not frontmatter: save the
   original as `videos/{slug}.{ext}` (mp4, mov, m4v or webm), run
-  `pnpm videos:sync` (needs `MUX_TOKEN_ID`/`MUX_TOKEN_SECRET` from
-  `vercel env pull .env.local`), then `pnpm videos:captions`, and commit
+  `pnpm videos:sync`, then `pnpm videos:captions`, and commit
   `videos/{slug}.{ext}.json` once it reports `"status": "ready"`
   (`app/projects/videos.test.ts` fails on any other). For a better poster
   frame, add `"thumbnailTime": <seconds>` under `providerMetadata.mux` in the
-  sidecar
+  sidecar. Both scripts need `MUX_TOKEN_ID`/`MUX_TOKEN_SECRET` in
+  `.env.local`. `vercel env pull` cannot supply them: the Mux integration
+  stores its own as sensitive, Preview and Production only. Generate a token
+  (Mux Video read + write) in the Mux dashboard, opened from Vercel →
+  Integrations → Mux, so usage stays on the Vercel invoice
 - `videoMuted: true` starts the video with its sound off, and keeps
   `videos:captions` from captioning it. Set it when the audio is only a music
-  soundtrack; a narrated video leaves it out and plays with sound
+  soundtrack (`videos:captions` reports "captions skipped" when Mux finds no
+  speech); a narrated video leaves it out and plays with sound
 - Detail page hero (`resolveProjectHero`): a ready Mux film leads, else an
   embeddable `videoUrl`; either one is the first slide of the gallery
   carousel when the project has two or more images in

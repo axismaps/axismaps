@@ -13,8 +13,8 @@
 // "captions skipped" means Mux found no speech: the audio is a soundtrack, so
 // set `videoMuted: true` on the project.
 //
-// Needs MUX_TOKEN_ID and MUX_TOKEN_SECRET (from `vercel env pull .env.local`),
-// which the package script loads with --env-file.
+// Needs MUX_TOKEN_ID and MUX_TOKEN_SECRET in .env.local, which the package
+// script loads with --env-file (see .env.local.example for making a token).
 
 const fs = require("fs");
 const path = require("path");
@@ -32,7 +32,7 @@ const NOT_ENGLISH = new Set(["musqueam"]);
 const { MUX_TOKEN_ID, MUX_TOKEN_SECRET } = process.env;
 if (!MUX_TOKEN_ID || !MUX_TOKEN_SECRET) {
   console.error(
-    "MUX_TOKEN_ID and MUX_TOKEN_SECRET are not set. Pull them with `vercel env pull .env.local`.",
+    "MUX_TOKEN_ID and MUX_TOKEN_SECRET are not set in .env.local. See .env.local.example.",
   );
   process.exit(1);
 }

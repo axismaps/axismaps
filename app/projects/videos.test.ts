@@ -39,3 +39,14 @@ describe('video sidecars', () => {
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 });
+
+describe('projects with a Mux film', () => {
+  // The sidecar leads the hero, so a videoUrl left beside it would never
+  // play: it is a stale Vimeo or YouTube address waiting to mislead.
+  const slugs = sidecars.map((file) => file.match(SIDECAR)?.[1]);
+
+  it.each(slugs)('%s has no videoUrl beside its sidecar', (slug) => {
+    const post = fs.readFileSync(path.join(postsDir, `${slug}.mdx`), 'utf-8');
+    expect(post).not.toMatch(/^videoUrl:/m);
+  });
+});
