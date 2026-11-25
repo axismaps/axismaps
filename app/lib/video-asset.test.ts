@@ -48,9 +48,14 @@ describe('toVideoAsset', () => {
     expect(toVideoAsset(timed)?.providerMetadata.mux.thumbnailTime).toBe(3.5);
   });
 
-  it('drops a blur placeholder that is not an inline image', () => {
-    const odd = { ...sidecar, blurDataURL: 'x"); background: url(https://example.com/' };
-    expect(toVideoAsset(odd)).not.toHaveProperty('blurDataURL');
+  it('drops a blur placeholder that is not a base64 inline image', () => {
+    for (const blurDataURL of [
+      'x"); background: url(https://example.com/',
+      'data:image/png;base64,AAAA"); background: url(https://example.com/',
+      'data:image/svg+xml,<svg/>',
+    ]) {
+      expect(toVideoAsset({ ...sidecar, blurDataURL })).not.toHaveProperty('blurDataURL');
+    }
   });
 
   it('returns null for anything that cannot play', () => {

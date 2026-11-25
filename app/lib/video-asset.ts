@@ -21,6 +21,8 @@ export type HeroVideo =
   | { source: "mux"; asset: VideoAsset }
   | { source: "embed"; url: string };
 
+const BLUR_DATA_URL = /^data:image\/[a-z0-9.+-]+;base64,[A-Za-z0-9+/=]+$/i;
+
 type SidecarFields = {
   status?: unknown;
   provider?: unknown;
@@ -57,10 +59,10 @@ export function toVideoAsset(value: unknown): VideoAsset | null {
           : {}),
       },
     },
-    // Only an inline image: the poster puts it in a style attribute, so a
-    // hand-edited sidecar shouldn't get arbitrary text in there.
+    // Only a base64 inline image: the poster puts it inside url("…") in a
+    // style attribute, so nothing that could close the quote gets through.
     ...(typeof sidecar.blurDataURL === "string" &&
-    sidecar.blurDataURL.startsWith("data:image/")
+    BLUR_DATA_URL.test(sidecar.blurDataURL)
       ? { blurDataURL: sidecar.blurDataURL }
       : {}),
   };

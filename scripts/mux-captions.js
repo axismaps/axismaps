@@ -29,19 +29,14 @@ const CAPTIONS = { language_code: "en", name: "English (generated)" };
 // Musqueam film's spoken words are hən̓q̓əmin̓əm̓ place names.
 const NOT_ENGLISH = new Set(["musqueam"]);
 
-const { MUX_TOKEN_ID, MUX_TOKEN_SECRET } = process.env;
-if (!MUX_TOKEN_ID || !MUX_TOKEN_SECRET) {
-  console.error(
-    "MUX_TOKEN_ID and MUX_TOKEN_SECRET are not set in .env.local. See .env.local.example.",
-  );
-  process.exit(1);
-}
-const AUTH = `Basic ${Buffer.from(`${MUX_TOKEN_ID}:${MUX_TOKEN_SECRET}`).toString("base64")}`;
+// Set by main() once the credentials are checked, so requiring this file
+// reads nothing and exits nothing.
+let auth;
 
 async function mux(method, endpoint, body) {
   const response = await fetch(`${API}${endpoint}`, {
     method,
-    headers: { Authorization: AUTH, "Content-Type": "application/json" },
+    headers: { Authorization: auth, "Content-Type": "application/json" },
     body: body ? JSON.stringify(body) : undefined,
   });
   if (!response.ok) {
@@ -117,6 +112,16 @@ async function caption({ slug, file }) {
 }
 
 async function main() {
+  const { MUX_TOKEN_ID, MUX_TOKEN_SECRET } = process.env;
+  if (!MUX_TOKEN_ID || !MUX_TOKEN_SECRET) {
+    console.error(
+      "MUX_TOKEN_ID and MUX_TOKEN_SECRET are not set in .env.local. See .env.local.example.",
+    );
+    process.exitCode = 1;
+    return;
+  }
+  auth = `Basic ${Buffer.from(`${MUX_TOKEN_ID}:${MUX_TOKEN_SECRET}`).toString("base64")}`;
+
   const wanted = process.argv.slice(2);
   const all = sidecars();
   const films = wanted.length ? all.filter(({ slug }) => wanted.includes(slug)) : all;
@@ -139,4 +144,8 @@ async function main() {
   if (failed) process.exitCode = 1;
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+module.exports = { isMuted, sidecars };

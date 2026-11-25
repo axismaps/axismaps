@@ -123,7 +123,7 @@ const VIDEO_EXTENSIONS = ["mp4", "mov", "m4v", "webm"];
 // over for the next extension; videos.test.ts fails CI on either, and on a
 // project with more than one.
 export function getProjectVideoAsset(slug: string): VideoAsset | null {
-  const videoRoot = path.join(process.cwd(), "videos");
+  const videoRoot = path.resolve(process.cwd(), "videos");
 
   for (const extension of VIDEO_EXTENSIONS) {
     const sidecar = path.resolve(videoRoot, `${slug}.${extension}.json`);
@@ -178,6 +178,9 @@ export function resolveProjectHero(
   gallery: string[],
   asset: VideoAsset | null = null,
 ): ProjectHero {
+  // getProjectVideoAsset only returns ready assets, but this function is
+  // public (the homepage may hand it assets from elsewhere), so it checks
+  // readiness itself rather than trusting the type.
   const video: HeroVideo | null =
     asset && isReadyMuxAsset(asset)
       ? { source: "mux", asset }
