@@ -7,6 +7,7 @@ import {
   getFeaturedProjects,
   getProjectGallery,
   getProjectVideoAsset,
+  getHomepageFilms,
   resolveProjectHero,
   getClients,
   getCategories,
@@ -465,6 +466,103 @@ describe('Project Utilities', () => {
       vi.mocked(fs.existsSync).mockReturnValue(true);
       expect(getProjectVideoAsset('../secrets')).toBeNull();
       expect(fs.existsSync).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('getHomepageFilms', () => {
+    const asset = (id: string) => ({
+      status: 'ready' as const,
+      provider: 'mux' as const,
+      providerMetadata: { mux: { playbackId: id } },
+    });
+    const project = (slug: string, metadata: Record<string, unknown> = {}) =>
+      ({
+        slug,
+        content: '',
+        metadata: { title: slug.toUpperCase(), slug, publishedAt: '2024-01-01', featured: true, ...metadata },
+      }) as any;
+    // Every project has a film except the ones named here.
+    const findAsset = (without: string[] = []) => (slug: string) =>
+      without.includes(slug) ? null : asset(`play-${slug}`);
+
+    const summary = (films: ReturnType<typeof getHomepageFilms>) =>
+      films.map((f) => (f.lead ? `${f.slug}*` : f.slug));
+
+    it('lists featured projects with a film newest first, the newest leading', () => {
+      const films = getHomepageFilms(
+        [project('a'), project('b'), project('c')],
+        5,
+        findAsset(['a']),
+      );
+      expect(summary(films)).toEqual(['b*', 'c']);
+    });
+
+    it('lets the flag pick the lead without moving it out of date order', () => {
+      const films = getHomepageFilms(
+        [project('a'), project('b'), project('c', { homepageVideo: true })],
+        5,
+        findAsset(),
+      );
+      expect(summary(films)).toEqual(['a', 'b', 'c*']);
+    });
+
+    it('lets the flag pick a project that is not featured', () => {
+      const films = getHomepageFilms(
+        [project('a'), project('b', { featured: false, homepageVideo: true })],
+        5,
+        findAsset(),
+      );
+      expect(summary(films)).toEqual(['a', 'b*']);
+    });
+
+    it('gives a flagged project past the cut the last place', () => {
+      const films = getHomepageFilms(
+        [project('a'), project('b'), project('c'), project('d', { homepageVideo: true })],
+        2,
+        findAsset(),
+      );
+      expect(summary(films)).toEqual(['a', 'd*']);
+    });
+
+    it('falls back to the newest when the flagged project has no ready film', () => {
+      const films = getHomepageFilms(
+        [project('a'), project('b', { homepageVideo: true })],
+        5,
+        findAsset(['b']),
+      );
+      expect(summary(films)).toEqual(['a*']);
+    });
+
+    it('leaves out projects that are not featured, and stops at the limit', () => {
+      const films = getHomepageFilms(
+        [project('a'), project('b', { featured: false }), project('c'), project('d')],
+        2,
+        findAsset(),
+      );
+      expect(summary(films)).toEqual(['a*', 'c']);
+    });
+
+    it('carries the title, mute flag and asset', () => {
+      const [film] = getHomepageFilms(
+        [project('a', { title: 'A film', videoMuted: true })],
+        5,
+        findAsset(),
+      );
+      expect(film).toEqual({
+        slug: 'a',
+        title: 'A film',
+        muted: true,
+        lead: true,
+        asset: asset('play-a'),
+      });
+    });
+
+    it('is empty for a limit below one, flag or no flag', () => {
+      expect(getHomepageFilms([project('a', { homepageVideo: true })], 0, findAsset())).toEqual([]);
+    });
+
+    it('is empty when no featured project has a film', () => {
+      expect(getHomepageFilms([project('a')], 5, () => null)).toEqual([]);
     });
   });
 

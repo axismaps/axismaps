@@ -10,12 +10,16 @@ vi.mock('next-video', async () => {
   const { forwardRef } = await import('react');
   return {
     default: forwardRef(
-      ({ src, muted, 'metadata-video-title': videoTitle }: any, ref: any) => (
+      (
+        { src, muted, autoPlay, 'metadata-video-title': videoTitle }: any,
+        ref: any,
+      ) => (
         <video
           ref={ref}
           data-testid="mux-video"
           data-playback-id={src?.providerMetadata?.mux?.playbackId}
           data-muted={String(Boolean(muted))}
+          data-autoplay={String(Boolean(autoPlay))}
           metadata-video-title={videoTitle}
         />
       ),
@@ -58,6 +62,15 @@ describe('ProjectVideo', () => {
       expect(await screen.findByTestId('mux-video')).toHaveAttribute('data-muted', 'false');
       rerender(<ProjectVideo video={{ source: 'mux', asset }} title="Demo" muted />);
       expect(screen.getByTestId('mux-video')).toHaveAttribute('data-muted', 'true');
+    });
+
+    it('starts playing on mount only when asked', async () => {
+      const { rerender } = render(
+        <ProjectVideo video={{ source: 'mux', asset }} title="Demo" />,
+      );
+      expect(await screen.findByTestId('mux-video')).toHaveAttribute('data-autoplay', 'false');
+      rerender(<ProjectVideo video={{ source: 'mux', asset }} title="Demo" autoPlay />);
+      expect(screen.getByTestId('mux-video')).toHaveAttribute('data-autoplay', 'true');
     });
 
     it('pauses the player element', async () => {

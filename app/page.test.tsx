@@ -2,7 +2,20 @@ import { describe, test, expect, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import Page from './page';
 
+const film = (slug: string, title: string, lead = false) => ({
+  slug,
+  title,
+  muted: false,
+  lead,
+  asset: {
+    status: 'ready' as const,
+    provider: 'mux' as const,
+    providerMetadata: { mux: { playbackId: `play-${slug}` } },
+  },
+});
+
 vi.mock('./projects/utils', () => ({
+  getHomepageFilms: () => [film('edge', 'On the Edge', true), film('atlas', 'MapMaster 3')],
   getProjects: () => [
     {
       slug: 'test-project',
@@ -69,6 +82,19 @@ describe('Home Page', () => {
 
     expect(within(section).getByRole('link', { name: 'Explore All Projects' })).toHaveAttribute('href', '/projects');
     expect(within(section).queryByRole('link', { name: 'View All Projects' })).not.toBeInTheDocument();
+  });
+
+  test('puts a film to play in its own section, ahead of Recent Projects', () => {
+    render(<Page />);
+    const films = sectionOf('Watch our work');
+    const recent = sectionOf('Recent Projects');
+
+    expect(within(films).getByRole('button', { name: 'Play On the Edge video' })).toBeInTheDocument();
+    expect(films.compareDocumentPosition(recent) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    // The cards stay where they were, and no player loads until play is pressed.
+    expect(within(recent).getByRole('link', { name: /Test Project/ })).toBeInTheDocument();
+    expect(within(recent).queryByRole('button', { name: /^Play / })).not.toBeInTheDocument();
+    expect(films.querySelector('video')).toBeNull();
   });
 
   test('lists the six How we work points, bold lead-in then body', () => {

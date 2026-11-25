@@ -31,12 +31,24 @@ interface ProjectVideoProps {
   // Start with the sound off, for a film whose audio is only a music
   // soundtrack. The viewer can still unmute it from the player.
   muted?: boolean;
+  // Start playing as soon as the player mounts, for a film mounted by the
+  // viewer pressing play on its poster. Mux films only.
+  autoPlay?: boolean;
 }
 
 // The player and its theme are most of this component's weight, and every
 // project page carries this component, film or not. Loading them lazily keeps
 // them off the pages that have only screenshots or a YouTube embed.
 const Video = lazy(() => import("next-video"));
+
+// Start fetching the player ahead of need, for a play button that mounts it
+// on press: called when the pointer or focus reaches the button, so the
+// player is usually there by the click, and a film with sound starts while
+// the browser still counts the click as the viewer's doing. The module
+// system fetches it once, however often this is called.
+export function preloadPlayer(): void {
+  void import("next-video").catch(() => {});
+}
 
 type NextVideoAsset = Exclude<
   NonNullable<ComponentProps<typeof NextVideo>["src"]>,
@@ -92,7 +104,10 @@ export function isPlayable(
 // next-video's player, or a YouTube embed. Both are paused the same way, so a
 // carousel need not know which it holds.
 const ProjectVideo = forwardRef<ProjectVideoHandle, ProjectVideoProps>(
-  function ProjectVideo({ video, title, muted = false }, ref) {
+  function ProjectVideo(
+    { video, title, muted = false, autoPlay = false },
+    ref,
+  ) {
     const media = useRef<HTMLVideoElement>(null);
     const frame = useRef<HTMLIFrameElement>(null);
     const embedUrl = video.source === "embed" ? video.url : null;
@@ -135,6 +150,7 @@ const ProjectVideo = forwardRef<ProjectVideoHandle, ProjectVideoProps>(
               ref={media}
               src={toNextVideoAsset(video.asset)}
               muted={muted}
+              autoPlay={autoPlay}
               playsInline
               className="h-full"
               // Names the film in Mux Data, whose views otherwise all show

@@ -11,7 +11,8 @@ import {
   FaUniversalAccess,
   FaUsers,
 } from "react-icons/fa";
-import { getProjects } from "./projects/utils";
+import HomepageFilms from "./components/homepage-films";
+import { getHomepageFilms, getProjects } from "./projects/utils";
 import clientLogos from "./data/client-logos.json";
 
 const howWeWork = [
@@ -53,6 +54,9 @@ export default function Page() {
   const recentProjects = projects
     .filter((p) => p.metadata.featured)
     .slice(0, 6);
+  // The films section above the cards. The six cards stay as they are: the
+  // films are for watching, the cards for browsing.
+  const films = getHomepageFilms(projects);
 
   return (
     <>
@@ -107,6 +111,19 @@ export default function Page() {
 
       {/* Section Break */}
       <hr className="my-16 border-gray-200" />
+
+      {/* Films Section: its own section, so the picker's thumbnails are not
+          read as the first row of project cards. */}
+      {films.length > 0 && (
+        <>
+          <section id="films" className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8">Watch our work</h2>
+            <HomepageFilms films={films} />
+          </section>
+
+          <hr className="my-16 border-gray-200" />
+        </>
+      )}
 
       {/* Recent Projects Section */}
       <section id="featured-projects" className="max-w-4xl mx-auto">
