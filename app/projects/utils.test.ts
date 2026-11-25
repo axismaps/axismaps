@@ -418,6 +418,7 @@ describe('Project Utilities', () => {
     });
 
     it('should pass over a stale sidecar for a ready one in another format', () => {
+      vi.spyOn(console, 'warn').mockImplementation(() => {});
       vi.mocked(fs.existsSync).mockReturnValue(true);
       vi.mocked(fs.readFileSync).mockImplementation((file) =>
         String(file).endsWith('/videos/demo.mp4.json')
@@ -433,13 +434,18 @@ describe('Project Utilities', () => {
       expect(fs.readFileSync).not.toHaveBeenCalled();
     });
 
-    it('should pass over an upload that is still processing', () => {
+    it('should pass over an upload that is still processing, and say so', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
       // next-video would fall back to the original, which is never deployed
       sidecarAt('demo.mp4.json', JSON.stringify({ ...ready, status: 'processing' }));
       expect(getProjectVideoAsset('demo')).toBeNull();
+      // A Vercel build runs no tests, so the build log is where this shows
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('demo.mp4.json'));
+      warn.mockRestore();
     });
 
     it('should pass over a sidecar without a playback id', () => {
+      vi.spyOn(console, 'warn').mockImplementation(() => {});
       sidecarAt(
         'demo.mp4.json',
         JSON.stringify({ ...ready, providerMetadata: { mux: { assetId: 'asset-1' } } })

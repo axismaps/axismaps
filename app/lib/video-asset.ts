@@ -63,20 +63,22 @@ export function toVideoAsset(value: unknown): VideoAsset | null {
   };
 }
 
-// The poster frame at the widths next-video's player asks for, built the same
-// way so a poster shown before the player loads is the image the player then
-// reuses from the browser cache rather than a second download.
-export function muxPosterSrcSet(asset: VideoAsset): string {
+// The film's poster frame, built the way next-video's player builds it (time,
+// then width), so a poster shown before the player loads is the image the
+// player then reuses from the browser cache rather than a second download.
+export function muxPosterUrl(asset: VideoAsset, width?: number): string {
   const { playbackId, thumbnailTime } = asset.providerMetadata.mux;
-  const url = (width?: number) => {
-    const query = new URLSearchParams();
-    if (thumbnailTime != null) query.set("time", String(thumbnailTime));
-    if (width) query.set("width", String(width));
-    const search = query.toString();
-    return `https://image.mux.com/${playbackId}/thumbnail.webp${search ? `?${search}` : ""}`;
-  };
+  const query = new URLSearchParams();
+  if (thumbnailTime != null) query.set("time", String(thumbnailTime));
+  if (width) query.set("width", String(width));
+  const search = query.toString();
+  return `https://image.mux.com/${playbackId}/thumbnail.webp${search ? `?${search}` : ""}`;
+}
+
+// The poster at the widths next-video's player asks for.
+export function muxPosterSrcSet(asset: VideoAsset): string {
   return [480, 640, 960, 1280, 1600]
-    .map((width) => `${url(width)} ${width}w`)
-    .concat(`${url()} 1920w`)
+    .map((width) => `${muxPosterUrl(asset, width)} ${width}w`)
+    .concat(`${muxPosterUrl(asset)} 1920w`)
     .join(",");
 }

@@ -14,6 +14,7 @@ import type NextVideo from "next-video";
 import { videoEmbed } from "../lib/video-embed";
 import {
   muxPosterSrcSet,
+  muxPosterUrl,
   type HeroVideo,
   type VideoAsset,
 } from "../lib/video-asset";
@@ -45,7 +46,9 @@ type NextVideoAsset = Exclude<
 // next-video's Asset also carries the original's path and timestamps, which
 // it reads only for an upload that is not ready yet. A VideoAsset is always
 // ready, so they are filled with blanks rather than shipped to the page.
-function toNextVideoAsset(asset: VideoAsset): NextVideoAsset {
+// project-video.test.tsx runs the result through next-video's own
+// getVideoProps, so an upgrade that starts reading them fails there.
+export function toNextVideoAsset(asset: VideoAsset): NextVideoAsset {
   return { ...asset, originalFilePath: "", createdAt: 0, updatedAt: 0 };
 }
 
@@ -58,11 +61,7 @@ export function MuxPoster({ asset }: { asset: VideoAsset }) {
     // serves each width, and next/image would only proxy it.
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={`https://image.mux.com/${asset.providerMetadata.mux.playbackId}/thumbnail.webp${
-        asset.providerMetadata.mux.thumbnailTime != null
-          ? `?time=${asset.providerMetadata.mux.thumbnailTime}`
-          : ""
-      }`}
+      src={muxPosterUrl(asset)}
       srcSet={muxPosterSrcSet(asset)}
       sizes="(max-width: 1024px) 100vw, 1024px"
       alt=""

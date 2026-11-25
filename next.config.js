@@ -38,10 +38,13 @@ const nextConfig = {
       'node_modules/.pnpm-store/**',
       // Exclude source files not needed for runtime
       'axismaps.webflow/**',
-      // Video originals waiting for `pnpm videos:sync`. They can run to
-      // gigabytes and nothing reads them at runtime: pages read only the
-      // JSON sidecars, and only at build.
-      'videos/**',
+      // Video originals waiting for `pnpm videos:sync`: they can run to
+      // gigabytes and nothing reads them at runtime. The JSON sidecars beside
+      // them stay traceable, for any page that reads them on demand.
+      'videos/*.mp4',
+      'videos/*.mov',
+      'videos/*.m4v',
+      'videos/*.webm',
       'webflow-cms/**',
       'scripts/**',
       'test/**',

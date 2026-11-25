@@ -141,6 +141,11 @@ export function getProjectVideoAsset(slug: string): VideoAsset | null {
     try {
       const asset = toVideoAsset(JSON.parse(fs.readFileSync(sidecar, "utf-8")));
       if (asset) return asset;
+      // Said out loud, since a Vercel build doesn't run videos.test.ts: a
+      // committed sidecar that isn't ready leaves its project with no film.
+      console.warn(
+        `Video sidecar ${sidecar} is not a ready Mux upload; run \`pnpm videos:sync\`.`,
+      );
     } catch (error) {
       console.error(`Error reading video sidecar ${sidecar}:`, error);
     }
