@@ -147,6 +147,11 @@ const ProjectVideo = forwardRef<ProjectVideoHandle, ProjectVideoProps>(
         >
           <Suspense fallback={<MuxPoster asset={video.asset} />}>
             <Video
+              // A fresh player for each film. mux-video keeps the Mux Data
+              // metadata of the film it last loaded, and that wins over the
+              // attribute below, so a player handed a second film would file
+              // its views under the first one's title and video ID.
+              key={video.asset.providerMetadata.mux.playbackId}
               ref={media}
               src={toNextVideoAsset(video.asset)}
               muted={muted}
