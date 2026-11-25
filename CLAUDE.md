@@ -137,7 +137,8 @@ Projects are MDX files in `/app/projects/posts/` with comprehensive frontmatter:
 - External links: `videoUrl`, `mapUrl`, `githubUrl`, `launchDate`. `videoUrl`
   is only for a film on someone else's account: CalSHARE's YouTube video, and
   imagineRio and pilotPlan on FeD's Projects Vimeo. Our own films go on Mux
-- Films are hosted on Mux and found by convention, not frontmatter: save the
+- Films are hosted on Mux and found by convention, not frontmatter
+  (`getProjectVideoAsset` in `app/projects/utils.ts`): save the
   original as `videos/{slug}.{ext}` (mp4, mov, m4v or webm), run
   `pnpm videos:sync`, then `pnpm videos:captions`, and commit
   `videos/{slug}.{ext}.json` once it reports `"status": "ready"`

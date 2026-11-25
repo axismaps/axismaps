@@ -64,7 +64,8 @@ function sidecars() {
 function isMuted(slug) {
   const post = path.join(POSTS_DIR, `${slug}.mdx`);
   if (!fs.existsSync(post)) return false;
-  const frontmatter = fs.readFileSync(post, "utf-8").match(/---\s*([\s\S]*?)\s*---/);
+  // Anchored to the start, so a horizontal rule in the body can't pass for it.
+  const frontmatter = fs.readFileSync(post, "utf-8").match(/^---\s*([\s\S]*?)\s*---/);
   return /^videoMuted:\s*true\s*$/m.test(frontmatter?.[1] ?? "");
 }
 
