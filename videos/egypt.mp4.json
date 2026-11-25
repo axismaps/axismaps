@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/egypt.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "ioIGAn6R3foGcSurSjEl5af5A88kpJHHah31TNiIEfQ",
+      "assetId": "01JqwhdFcBMn7WTPuryZWjwdlqfigZuQD7yVM9gDZi01s",
+      "playbackId": "tdDetEsSdQQ5015wusDRVh00DGvapwogibwlTbEbY1aRg"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608106575,
+  "size": 4643564,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/tdDetEsSdQQ5015wusDRVh00DGvapwogibwlTbEbY1aRg.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/tdDetEsSdQQ5015wusDRVh00DGvapwogibwlTbEbY1aRg/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADwAQCdASoQAAkAAQAcJZQCdAEPAXZHlYAA/v8oknhQcT3514y9QEO2H80xXmt5cvtNRUSpHH+SHoNOTeGsa/+is7qOg1NG1dbximVZJlBFllr4YvLiCsjw3FWDAAAA"
+}

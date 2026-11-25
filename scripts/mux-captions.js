@@ -10,16 +10,14 @@
 // a music soundtrack, with nothing to caption. The script is safe to re-run.
 // It asks only for films that have no generated captions yet, and for the
 // rest it reports how far generation has got and the transcript's opening.
-// If a transcript is nothing but "[Music]", that film's audio is a soundtrack
-// after all: set `videoMuted: true` on the project and delete its text track
-// in the Mux dashboard.
+// "captions skipped" means Mux found no speech: the audio is a soundtrack, so
+// set `videoMuted: true` on the project.
 //
 // Needs MUX_TOKEN_ID and MUX_TOKEN_SECRET (from `vercel env pull .env.local`),
 // which the package script loads with --env-file.
 
 const fs = require("fs");
 const path = require("path");
-const matter = require("gray-matter");
 
 const ROOT = path.join(__dirname, "..");
 const VIDEO_DIR = path.join(ROOT, "videos");
@@ -27,6 +25,9 @@ const POSTS_DIR = path.join(ROOT, "app", "projects", "posts");
 const SIDECAR = /^(.+)\.(mp4|mov|m4v|webm)\.json$/;
 const API = "https://api.mux.com/video/v1";
 const CAPTIONS = { language_code: "en", name: "English (generated)" };
+// Films whose speech is not English, which English captioning garbles. The
+// Musqueam film's spoken words are hən̓q̓əmin̓əm̓ place names.
+const NOT_ENGLISH = new Set(["musqueam"]);
 
 const { MUX_TOKEN_ID, MUX_TOKEN_SECRET } = process.env;
 if (!MUX_TOKEN_ID || !MUX_TOKEN_SECRET) {
@@ -58,10 +59,13 @@ function sidecars() {
     .map(({ file, match }) => ({ slug: match[1], file: path.join(VIDEO_DIR, file) }));
 }
 
+// Read line by line, as app/lib/mdx.ts does: a YAML parser would reject
+// some of the projects' frontmatter (unescaped quotes inside a value).
 function isMuted(slug) {
   const post = path.join(POSTS_DIR, `${slug}.mdx`);
   if (!fs.existsSync(post)) return false;
-  return matter(fs.readFileSync(post, "utf-8")).data.videoMuted === true;
+  const frontmatter = fs.readFileSync(post, "utf-8").match(/---\s*([\s\S]*?)\s*---/);
+  return /^videoMuted:\s*true\s*$/m.test(frontmatter?.[1] ?? "");
 }
 
 async function transcriptOpening(playbackId, trackId) {
@@ -74,6 +78,9 @@ async function transcriptOpening(playbackId, trackId) {
 async function caption({ slug, file }) {
   if (isMuted(slug)) {
     return `${slug}: skipped, videoMuted`;
+  }
+  if (NOT_ENGLISH.has(slug)) {
+    return `${slug}: skipped, speech is not in English`;
   }
 
   const sidecar = JSON.parse(fs.readFileSync(file, "utf-8"));

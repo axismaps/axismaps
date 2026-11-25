@@ -1,1 +1,24 @@
-{"status":"ready","originalFilePath":"videos/mapmaster-3.mp4","provider":"mux","providerMetadata":{"mux":{"uploadId":"jipyJsC4JZrcp02J4DOyY8wU7uc01HFanFUUkSowi018Tc","assetId":"XyjMZgwhlzX028mBNlWX01WOOrVQ9bHM9a500FbyXUqOPM","playbackId":"tlWDS7VfbQw6CjzGg1Ik2TK4UqnZ7ssNQ4CxJ4mPVrA"}},"createdAt":1795604917063,"updatedAt":1795605108829,"size":304897501,"sources":[{"src":"https://stream.mux.com/tlWDS7VfbQw6CjzGg1Ik2TK4UqnZ7ssNQ4CxJ4mPVrA.m3u8","type":"application/x-mpegURL"}],"poster":"https://image.mux.com/tlWDS7VfbQw6CjzGg1Ik2TK4UqnZ7ssNQ4CxJ4mPVrA/thumbnail.webp","blurDataURL":"data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADQAQCdASoQAAkAAQAcJaQAAudXRPl9gAD+/20Xlu6cDclmjWmaTfk4X3+TuojEU4gAAA=="}
+{
+  "status": "ready",
+  "originalFilePath": "videos/mapmaster-3.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "jipyJsC4JZrcp02J4DOyY8wU7uc01HFanFUUkSowi018Tc",
+      "assetId": "XyjMZgwhlzX028mBNlWX01WOOrVQ9bHM9a500FbyXUqOPM",
+      "playbackId": "tlWDS7VfbQw6CjzGg1Ik2TK4UqnZ7ssNQ4CxJ4mPVrA",
+      "thumbnailTime": 2.5
+    }
+  },
+  "createdAt": 1795604917063,
+  "updatedAt": 1795605108829,
+  "size": 304897501,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/tlWDS7VfbQw6CjzGg1Ik2TK4UqnZ7ssNQ4CxJ4mPVrA.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/tlWDS7VfbQw6CjzGg1Ik2TK4UqnZ7ssNQ4CxJ4mPVrA/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADQAQCdASoQAAkAAQAcJaQAAudXRPl9gAD+/20Xlu6cDclmjWmaTfk4X3+TuojEU4gAAA=="
+}

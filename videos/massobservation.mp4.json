@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/massobservation.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "yY00ZME7KLndyqmqVhudiGzil7BxQUchkkvFPaQ7p6fI",
+      "assetId": "htan00xhOT63Ur00OhXrxigv5F4mSjzGRi8cBJJpk01EFY",
+      "playbackId": "NWFA1rAcUGNYxZcKDVfId17fNGtqym57mvMJ6orpUv00"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608143280,
+  "size": 55281732,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/NWFA1rAcUGNYxZcKDVfId17fNGtqym57mvMJ6orpUv00.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/NWFA1rAcUGNYxZcKDVfId17fNGtqym57mvMJ6orpUv00/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAABQAwCdASoQAAkAAQAcJYgCdEYgZYB0pBEQeRKZlxNgy+SWAAD++8Kif6WjYKIFLJFFjnbT5gmAPmV0N2Hxwzr8JXPtgA88voafg02XzKdE/Ja40jaCzFtj8S1+Fly9j6/QqEKg7J4tMoQB4iWKvp9E/O8MmiY6u/cG0gKt5oIVPzxc/AXO1UpOwEmBpRs1xAAAAA=="
+}

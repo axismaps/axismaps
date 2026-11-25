@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/smithsonian.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "lXJwQyPoRQsXo966RuMzWQ00jF00jHmR6fu3ef00gtKwvw",
+      "assetId": "8uccScwFeDSREuOZWub8n5GAacJCZFKkxLwMZbsdWSE",
+      "playbackId": "QW00S6snBxgCnS62G7xqcn9ZJQfDOFEqvsGrL7RhSaUc"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608140319,
+  "size": 27240828,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/QW00S6snBxgCnS62G7xqcn9ZJQfDOFEqvsGrL7RhSaUc.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/QW00S6snBxgCnS62G7xqcn9ZJQfDOFEqvsGrL7RhSaUc/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAACwAQCdASoQAAkAAQAcJaQAAuguSRYAAP7+qnNw1KRillsTnIQcP3hj0B7PW88n1BnI4LKFamdvHEk4AAA="
+}

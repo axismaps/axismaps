@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/jobs.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "y4yv53qPz1eSB7thOev1yXXiZC00dNPLIj6iBls1tZgQ",
+      "assetId": "hF9bowSdiWzTw562AHgwsDZ39k3NuT3NLCFNTIkQ1os",
+      "playbackId": "VucsX8hXddbRa015wpOfGB4kmWLjHW9JkhECkWj5xuiI"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608117794,
+  "size": 14938242,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/VucsX8hXddbRa015wpOfGB4kmWLjHW9JkhECkWj5xuiI.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/VucsX8hXddbRa015wpOfGB4kmWLjHW9JkhECkWj5xuiI/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAABQAgCdASoQAAkAAQAcJZwC7AYrxk0UeCZ7CYAA/v9VEei1UbX6Lfd/BTG9ntkTRWuNDRytpor24bQJqMeCOcNtu9W29Wu9mR8oxliuvCTD8qbRgZCQjrBgAAA="
+}

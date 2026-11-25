@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/vilnius.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "ieiNKY5vUrW3ETLDSAj017IejU02JL6Q7mO02tH02oJAJfM",
+      "assetId": "cDpt00heKauFWQTpZ2PQApOBoZfM6FH9faH02qO02pZfTE",
+      "playbackId": "niOlT2qRuN9sKi39mv600FYFKcLx9Qh8kWcLGbK8qcwA"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608129144,
+  "size": 10155849,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/niOlT2qRuN9sKi39mv600FYFKcLx9Qh8kWcLGbK8qcwA.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/niOlT2qRuN9sKi39mv600FYFKcLx9Qh8kWcLGbK8qcwA/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADQAQCdASoQAAkAAQAcJaQC7AEO+M4s8AD++JQ6fFVYuzRtWynNcU6dqC5ecX5VL/PL/Pf1yl5CKTfXdKMxLcRVl0H6y+iTdwijfZXtq/VKlGAsZYIAAA=="
+}

@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/levant.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "KV1nMIV028YdYYwRaKyQB4D3Bjb3JAnDoXnqUZvZ6ejg",
+      "assetId": "00NcE5nG7i6EuGdntl2pdpehayIy9NOeHDrs9WSuyvrQ",
+      "playbackId": "Q4ow3Paat93f9Z5PCQ01PerqlVR02IA3cARLRtAONS201g"
+    }
+  },
+  "createdAt": 1795608095575,
+  "updatedAt": 1795608139794,
+  "size": 31040056,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/Q4ow3Paat93f9Z5PCQ01PerqlVR02IA3cARLRtAONS201g.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/Q4ow3Paat93f9Z5PCQ01PerqlVR02IA3cARLRtAONS201g/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQAgCdASoQAAkAAQAcJZQCdAEf3aM74S7AAP7+mE7F68+uFyqRxBIJ37d4ispgbKQ13XRbfkU8rEvHJHrNNAKksLxOaPNW6HibrDy9BFjY7vG+cGabrC8tzxos9etMQQvkQ4uwIAAAAA=="
+}

@@ -1,1 +1,24 @@
-{"status":"ready","originalFilePath":"videos/montana-healthy-communities.mp4","provider":"mux","providerMetadata":{"mux":{"uploadId":"H4PclBHbiMA9f01902Zv9vFsTeLNDArZxq5piO4YY6z2A","assetId":"6e00Xwhz63J005VG01Vv5ny01yxTofra901pyP02sITG97fbs","playbackId":"YICfvmQGbHx1W8YoQHq5ZSL1ybLrRpUFJnJBWadTxJk"}},"createdAt":1795604917063,"updatedAt":1795604965423,"size":88576326,"sources":[{"src":"https://stream.mux.com/YICfvmQGbHx1W8YoQHq5ZSL1ybLrRpUFJnJBWadTxJk.m3u8","type":"application/x-mpegURL"}],"poster":"https://image.mux.com/YICfvmQGbHx1W8YoQHq5ZSL1ybLrRpUFJnJBWadTxJk/thumbnail.webp","blurDataURL":"data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAACwAgCdASoQAAkAAQAcJZgCdDBACUuFuhc9TG6QtoAA/v6YTj/Aeer7NH+9cf53BqQFt9qgTbbkqOBoKg3pOv3DoQ8QWmEKpTnmmJzSC6HNfRHCOf3vq+AGUMf6W3yU47cSGKQiJaIP/T8kQRu0tL+HvX/9ELivx0En9izh+X/xZZ/853v5/W/aagAAAA=="}
+{
+  "status": "ready",
+  "originalFilePath": "videos/montana-healthy-communities.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "H4PclBHbiMA9f01902Zv9vFsTeLNDArZxq5piO4YY6z2A",
+      "assetId": "6e00Xwhz63J005VG01Vv5ny01yxTofra901pyP02sITG97fbs",
+      "playbackId": "YICfvmQGbHx1W8YoQHq5ZSL1ybLrRpUFJnJBWadTxJk",
+      "thumbnailTime": 3
+    }
+  },
+  "createdAt": 1795604917063,
+  "updatedAt": 1795604965423,
+  "size": 88576326,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/YICfvmQGbHx1W8YoQHq5ZSL1ybLrRpUFJnJBWadTxJk.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/YICfvmQGbHx1W8YoQHq5ZSL1ybLrRpUFJnJBWadTxJk/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAACwAgCdASoQAAkAAQAcJZgCdDBACUuFuhc9TG6QtoAA/v6YTj/Aeer7NH+9cf53BqQFt9qgTbbkqOBoKg3pOv3DoQ8QWmEKpTnmmJzSC6HNfRHCOf3vq+AGUMf6W3yU47cSGKQiJaIP/T8kQRu0tL+HvX/9ELivx0En9izh+X/xZZ/853v5/W/aagAAAA=="
+}
