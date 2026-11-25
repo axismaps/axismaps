@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 import { isReadyMuxAsset } from '../lib/video-asset';
+import { readMDXFile } from '../lib/mdx';
+import type { ProjectMetadata } from './utils';
 
 // Checks the committed video sidecars themselves rather than the code that
 // reads them. A sidecar committed before its upload finished, or named for a
@@ -66,14 +68,12 @@ describe('projects with a Mux film', () => {
 
   // ProjectVideo names the film in Mux Data with the project title, so a
   // project without one would file its film's views under "[No Value]".
+  // The title is read with the site's own parser, which doesn't require one,
+  // so this sees exactly what the page hands ProjectVideo.
   it.each(slugs)('%s has a title to name its film in Mux Data', (slug) => {
-    const post = fs.readFileSync(path.join(postsDir, `${slug}.mdx`), 'utf-8');
-    const frontmatter = post.split(/^---\s*$/m)[1] ?? '';
-    const title = frontmatter
-      .match(/^title:\s*(.*)$/m)?.[1]
-      .trim()
-      .replace(/^(["'])(.*)\1$/, '$2')
-      .trim();
-    expect(title).toBeTruthy();
+    const { metadata } = readMDXFile<ProjectMetadata>(
+      path.join(postsDir, `${slug}.mdx`),
+    );
+    expect(metadata.title?.trim()).toBeTruthy();
   });
 });

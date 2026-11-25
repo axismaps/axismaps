@@ -58,19 +58,29 @@ describe('ProjectVideo', () => {
     // mux-video keeps the metadata of the film it last loaded, so a second
     // film has to arrive in a new player for Mux Data to file it correctly.
     it('gives a different film a fresh player', async () => {
+      const ref = createRef<ProjectVideoHandle>();
       const { rerender } = render(
-        <ProjectVideo video={{ source: 'mux', asset }} title="Demo" />,
+        <ProjectVideo ref={ref} video={{ source: 'mux', asset }} title="Demo" />,
       );
       const first = await screen.findByTestId('mux-video');
       const other = {
         ...asset,
         providerMetadata: { mux: { assetId: 'asset-2', playbackId: 'play-2' } },
       };
-      rerender(<ProjectVideo video={{ source: 'mux', asset: other }} title="Other" />);
-      const second = await screen.findByTestId('mux-video');
+      rerender(
+        <ProjectVideo ref={ref} video={{ source: 'mux', asset: other }} title="Other" />,
+      );
+      const second = (await screen.findByTestId('mux-video')) as HTMLVideoElement;
       expect(second).not.toBe(first);
       expect(second).toHaveAttribute('data-playback-id', 'play-2');
       expect(second).toHaveAttribute('metadata-video-title', 'Other');
+
+      // The pause handle follows the player to the new element, so a
+      // carousel still stops the film it is showing.
+      const pause = vi.fn();
+      second.pause = pause;
+      ref.current?.pause();
+      expect(pause).toHaveBeenCalledTimes(1);
     });
 
     it('starts muted only when asked', async () => {
